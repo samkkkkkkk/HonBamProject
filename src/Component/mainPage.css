@@ -1,0 +1,176 @@
+.box {
+    height: 100%;
+    width: 100%;
+}
+
+.box .main-contain {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.box .overlap-wrapper {
+    background-color: #27262b;
+    height: 100%;
+}
+
+.box .overlap {
+    background-image: url(../assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 1024px;
+    position: relative;
+    width: 100%;
+}
+
+.box .main-intro {
+    height: 161px;
+    left: 136px;
+    position: absolute;
+    top: 293px;
+    width: 489px;
+}
+
+.box .main-explain {
+    height: 161px;
+    position: relative;
+    width: 491px;
+}
+
+.box .HONBAM {
+    color: #ffffff;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 30px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 489px;
+}
+
+.box .text-wrapper {
+    color: #ffffff;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.box .span {
+    font-size: 20px;
+}
+
+.box .side-bar {
+    height: 95px;
+    left: 40px;
+    position: absolute;
+    top: 20px;
+    width: 1319px;
+}
+
+.box .logo {
+    height: 46px;
+    left: 21px;
+    position: absolute;
+    top: 23px;
+    width: 152px;
+}
+
+.box .div {
+    color: #ffffff;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 30px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 150px;
+}
+
+.box .sidebar-content {
+    height: 29px;
+    left: 241px;
+    position: absolute;
+    top: 38px;
+    width: 1026px;
+}
+
+.box .div-wrapper {
+    height: 29px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 101px;
+}
+
+.box .text-wrapper-2 {
+    color: #ffffff;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 99px;
+}
+
+.box .overlap-group {
+    height: 29px;
+    left: 118px;
+    position: absolute;
+    top: 0;
+    width: 270px;
+}
+
+.box .HOTPLACE {
+    height: 29px;
+    left: 169px;
+    position: absolute;
+    top: 0;
+    width: 101px;
+}
+
+.box .CHAT {
+    height: 29px;
+    left: 86px;
+    position: absolute;
+    top: 0;
+    width: 101px;
+}
+
+.box .login {
+    height: 20px;
+    left: 900px;
+    position: absolute;
+    top: 2px;
+    width: 48px;
+}
+
+.box .text-wrapper-3 {
+    color: #ffffff;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 15px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 46px;
+}
+
+.box .join {
+    height: 20px;
+    left: 980px;
+    position: absolute;
+    top: 2px;
+    width: 48px;
+}

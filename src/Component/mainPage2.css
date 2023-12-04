@@ -1,0 +1,222 @@
+.box {
+    height: 1024px;
+    width: 100%;
+}
+
+.box .main-contian-box {
+    height: 1024px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.box .main-contain {
+    background-color: #27262b;
+    height: 1024px;
+    position: relative;
+    opacity: 0.5;
+}
+
+.box .main-contain-image {
+    height: 1024px;
+    left: 86px;
+    position: absolute;
+    top: 237px;
+    width: 100%;
+}
+
+.box .hot-place-img {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 317px;
+}
+
+.box .div {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 951px;
+    position: absolute;
+    top: 323px;
+    width: 317px;
+}
+
+.box .hot-place-img-2 {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 317px;
+    position: absolute;
+    top: 0;
+    width: 317px;
+}
+
+.box .hot-place-img-3 {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 951px;
+    position: absolute;
+    top: 0;
+    width: 317px;
+}
+
+.box .hot-place-img-4 {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 0;
+    position: absolute;
+    top: 323px;
+    width: 317px;
+}
+
+.box .hot-place-img-5 {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 634px;
+    position: absolute;
+    top: 323px;
+    width: 317px;
+}
+
+.box .hot-place-img-6 {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 634px;
+    position: absolute;
+    top: 0;
+    width: 317px;
+}
+
+.box .hot-place-img-7 {
+    background-image: url(../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 323px;
+    left: 317px;
+    position: absolute;
+    top: 323px;
+    width: 317px;
+}
+
+.box .main-hot-title {
+    height: 70px;
+    left: 573px;
+    position: absolute;
+    top: 32px;
+    width: 438px;
+}
+
+.box .text-wrapper {
+    color: #ffffff;
+    font-family: "Inter-Black", Helvetica;
+    font-size: 40px;
+    font-weight: 900;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 436px;
+}
+
+.box .main-hot-intro {
+    height: 40px;
+    left: 590px;
+    position: absolute;
+    top: 113px;
+    width: 335px;
+}
+
+.box .p {
+    color: #ffffff;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 18px;
+    font-weight: 500;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 333px;
+}
+
+.box .main-place {
+    height: 50px;
+    left: 623px;
+    position: absolute;
+    top: 899px;
+    width: 178px;
+}
+
+.box .text-wrapper-2 {
+    color: #ffffff;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 18px;
+    font-weight: 500;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 176px;
+}
+
+.box .main-detail {
+    height: 22px;
+    left: 651px;
+    position: absolute;
+    top: 967px;
+    width: 182px;
+}
+
+.box .overlap-group {
+    height: 22px;
+    position: relative;
+    width: 180px;
+}
+
+.box .main-detail-btn {
+    height: 9px;
+    left: 90px;
+    position: absolute;
+    top: 5px;
+    width: 9px;
+}
+
+.box .vector {
+    height: 9px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 9px;
+}
+
+.box .text-wrapper-3 {
+    color: #ffffff;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 15px;
+    font-weight: 500;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    transition: all 0.2s ease;
+    width: 180px;
+}
