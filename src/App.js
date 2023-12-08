@@ -1,12 +1,9 @@
 import './App.css';
-import MainPage from './Component/MainPage';
-
+import Mui from './Component/Mui';
 function App() {
   return (
     <>
-      <div>
-        <MainPage />
-      </div>
+      <Mui />
     </>
   );
 }
