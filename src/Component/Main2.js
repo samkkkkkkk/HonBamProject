@@ -6,10 +6,6 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useStyles } from './scss/MainMui';
@@ -18,6 +14,8 @@ import main1 from '../assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg';
 import main2 from '../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg';
 import './Main.scss';
 import { ArrowForwardIos, SwipeRight } from '@mui/icons-material';
+import ImageGallery from './swiper';
+import slides from '../mock.json';
 
 // Import Swiper React components
 
@@ -42,8 +40,8 @@ const Main2 = () => {
           fixed='true'
           className={classes.mainBack}
         >
-          <Box className={classes.mainIntro}>
-            <p className='main-intro'>
+          <Box className={classes.mainIntroMui}>
+            <div className='main-intro'>
               <span className='main-honbam'>
                 HONBAM
                 <br />
@@ -53,7 +51,7 @@ const Main2 = () => {
                 지금 어떤 안주를 먹고 있는지 어떤 술을 마시고 있는지,
                 <br />
               </span>
-            </p>
+            </div>
           </Box>
         </Box>
         {/* 메인 첫페이지 끝 */}
@@ -124,7 +122,7 @@ const Main2 = () => {
             />
           </Box>
           <div className='main-hotplace'>
-            <p>
+            <p className='main-hot-intro'>
               혼자서도 즐길 수 있는 <br />
               맛집 보러가기
               <ArrowForwardIos
@@ -139,7 +137,7 @@ const Main2 = () => {
         {/* 칵테일 레시피 페이지 시작 */}
         <Box
           fixed='true'
-          className={classes.mainrecipe}
+          className={classes.mainrecipeMui}
         >
           <div className='main-recipe'>
             <p className='main-recipe-title'>나만의 칵테일 만들기</p>
@@ -148,110 +146,34 @@ const Main2 = () => {
               나만의 칵테일을 만들어 보세요.
             </p>
           </div>
-          <div className='main-recipe-intro main-recipe-detail'>
-            <p>
+          <div className='main-recipe-detail'>
+            <p className='main-recipe-route'>
               혼밤에서는 수백가지의 레시피를 제공하고 있습니다.
               <br />
               <br />
               나만의 칵테일을 만들고 공유해 보세요.
+              <br />
+              자세히보기
+              <ArrowForwardIos fontSize='samll' />
             </p>
-            <br />
-            자세히보기
-            <ArrowForwardIos
-              className={classes.mainArrow}
-              fontSize='samll'
-            />
           </div>
         </Box>
         {/* 칵테일 레시피 끝 */}
 
         {/* 인증샷 페이지 시작 */}
 
-        {/* <Box
-          fixed='true'
-          sx={{
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: '#27262b',
-            position: 'relative',
-          }}
-        >
+        <div className='main-shot'>
           <div className='main3-title'>
             <p>오늘의 인증샷</p>
           </div>
-          <ImageList
-            sx={{ width: 500, height: 450 }}
-            cols={4}
-          >
-            <ImageListItem>
-              <img
-                alt='인증샷이미지'
-                src={require('../assets/ambitious-studio-rick-barrett-QjUY7auDzUQ-unsplash.jpg')}
-              />
-              <ImageListItemBar
-                title='안녕'
-                subtitle='안녕'
-                position='right'
-              />
-            </ImageListItem>
-            <ImageListItem>
-              <img
-                alt='인증샷이미지'
-                src={require('../assets/ambitious-studio-rick-barrett-QjUY7auDzUQ-unsplash.jpg')}
-              />
-              <ImageListItemBar
-                title='안녕'
-                subtitle='안녕'
-                position='right'
-              />
-            </ImageListItem>
-            <ImageListItem>
-              <img
-                alt='인증샷이미지'
-                src={require('../assets/ambitious-studio-rick-barrett-QjUY7auDzUQ-unsplash.jpg')}
-              />
-              <ImageListItemBar
-                title='안녕'
-                subtitle='안녕'
-                position='right'
-              />
-            </ImageListItem>
-          </ImageList>
-          <Box
-            className='App'
-            padding={2}
-          >
-            <Typography
-              variant={'h4'}
-              align={'center'}
-              fontWeight={700}
-            >
-              Swiper + Material-UI example
-            </Typography>
-
-            <Box marginTop={4}>
-              <SwipeRight
-                navigation={true}
-                className='mySwiper'
-              >
-                {['Slide 1', 'Slide 2', 'Slide 3'].map((item, i) => (
-                  <Swiper key={i}>
-                    <Typography
-                      variant={'h6'}
-                      align={'center'}
-                    >
-                      {item}
-                    </Typography>
-                  </Swiper>
-                ))}
-              </SwipeRight>
-            </Box>
-          </Box>
-        </Box> */}
-        {/* 인증샷 페이지 */}
-
-        {/* 입장제한 안내 시작 */}
+          <div className='main-shot-swip'>
+            <ImageGallery slides={slides} />
+          </div>
+        </div>
       </Grid>
+      {/* 인증샷 페이지 끝*/}
+
+      {/* 입장제한 안내 시작 */}
       <Dialog open={open}>
         <DialogTitle>입장 제한</DialogTitle>
         <DialogContentText>19세 이상만 입장 가능합니다!</DialogContentText>
@@ -274,7 +196,6 @@ const Main2 = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {/* 맛집찾기 페이지 시작 */}
     </>
   );
 };

@@ -3,14 +3,31 @@
   margin: 0;
   box-sizing: border-box;
 }
-
-.main-intro {
-  width: 60%;
-  .main-honbam {
-    color: #ffffff;
-    font-family: 'Inter-Bold', Helvetica;
-    font-size: 30px;
-    font-weight: 700;
+.container {
+  width: 100vw;
+  height: 100vh;
+  .main-back {
+    background-image: url(../assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg);
+    background-repeat: 'no-repeat';
+    background-size: 'cover';
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    .main-intro-mui {
+      position: 'relative';
+      left: '15%';
+      top: '25%';
+      width: '60%';
+    }
+    .main-intro {
+      width: 60%;
+      .main-honbam {
+        color: #ffffff;
+        font-family: 'Inter-Bold', Helvetica;
+        font-size: 30px;
+        font-weight: 700;
+      }
+    }
   }
 
   .honbam-intro {

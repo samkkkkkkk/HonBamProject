@@ -1,58 +1,40 @@
-import React from 'react';
-import { makeStyles } from '@mui/styles';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  EffectCoverflow,
+} from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
-import { Paper, Typography } from '@mui/material';
-import 'swiper/swiper.min.css';
+import 'swiper/css';
 
-const useStyles = makeStyles((theme) => ({
-  swiperContainer: {
-    width: '100%',
-    overflow: 'hidden',
-  },
-  swiperSlide: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
-}));
-
-const ImageGallery = () => {
-  const classes = useStyles();
-  const images = [
-    'https://example.com/image1.jpg',
-    'https://example.com/image2.jpg',
-    'https://example.com/image3.jpg',
-  ];
-
+const ImageGallery = ({ slides }) => {
   return (
     <Swiper
-      className={classes.swiperContainer}
+      modules={[Navigation, Pagination, Scrollbar, A11y, EffectCoverflow]}
       spaceBetween={10}
-      slidesPerView={1}
+      slidesPerView={5}
       navigation
       pagination={{ clickable: true }}
+      scrollbar={{ draggable: true }}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+      effect={'coverflow'}
+      coverflowEffect={{
+        rotate: 10,
+        stretch: 5,
+        depth: 100,
+        modifier: 2,
+        slideShadows: true,
+      }}
     >
-      {images.map((image, index) => (
-        <SwiperSlide
-          key={index}
-          className={classes.swiperSlide}
-        >
-          <Paper
-            elevation={3}
-            sx={{ p: 2, textAlign: 'center' }}
-          >
-            <img
-              src={image}
-              alt={`Image ${index}`}
-              className={classes.image}
-            />
-            <Typography variant='caption'>{`Image ${index + 1}`}</Typography>
-          </Paper>
+      {slides.map((slide) => (
+        <SwiperSlide key={slide.image}>
+          <img
+            src={slide.image}
+            alt={slide.title}
+          />
         </SwiperSlide>
       ))}
     </Swiper>

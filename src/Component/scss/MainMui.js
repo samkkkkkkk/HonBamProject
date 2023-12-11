@@ -13,12 +13,13 @@ export const useStyles = makeStyles({
     height: '100vh',
     width: '100vw',
   },
-  mainIntro: {
+  mainIntroMui: {
     position: 'relative',
     left: '15%',
     top: '25%',
+    width: '60%',
   },
-  mainrecipe: {
+  mainrecipeMui: {
     backgroundImage: `url(${recipe})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -31,16 +32,9 @@ export const useStyles = makeStyles({
     height: '100vh',
     backgroundColor: '#27262b',
   },
-  typo: {
+
+  mainToday: {
     position: 'relative',
-    left: '30%',
-    color: '#ffffff',
-    fontFamily: 'Inter-Medium',
-    fontSize: '20px',
-    fontWeight: '500',
-  },
-  mainArrow: {
-    position: 'relative',
-    // left: '70%',
+    top: '50%',
   },
 });
