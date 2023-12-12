@@ -100,19 +100,22 @@
   background-color: #27262b;
   width: 100vw;
   height: 100vh;
-
+  position: relative;
   .main3-title {
     color: #ffffff;
     font-family: 'Inter-Black', Helvetica;
     font-size: 50px;
     position: relative;
     top: 15%;
-    left: 50%;
-    width: 60vw;
+    left: 40%;
+    width: 40%;
   }
+}
 
-  .main-shot-swip {
-    position: relative;
-    top: 50%;
-  }
+.main-shot-swip {
+  position: relative;
+  top: 40%;
+}
+.main-title-intro {
+  width: 50%;
 }

@@ -163,9 +163,9 @@ const Main2 = () => {
           <div className='main3-title'>
             <p>오늘의 인증샷</p>
           </div>
-          <div className='main-shot-swip'>
-            <ImageGallery slides={slides} />
-          </div>
+        </div>
+        <div className='main-shot-swip'>
+          <ImageGallery slides={slides} />
         </div>
       </div>
       {/* 인증샷 페이지 끝*/}

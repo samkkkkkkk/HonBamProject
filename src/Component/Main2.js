@@ -164,7 +164,7 @@ const Main2 = () => {
 
         <div className='main-shot'>
           <div className='main3-title'>
-            <p>오늘의 인증샷</p>
+            <p className='main-title-intro'>오늘의 인증샷</p>
           </div>
           <div className='main-shot-swip'>
             <ImageGallery slides={slides} />
@@ -174,7 +174,7 @@ const Main2 = () => {
       {/* 인증샷 페이지 끝*/}
 
       {/* 입장제한 안내 시작 */}
-      <Dialog open={open}>
+      {/* <Dialog open={open}>
         <DialogTitle>입장 제한</DialogTitle>
         <DialogContentText>19세 이상만 입장 가능합니다!</DialogContentText>
         <DialogActions>
@@ -195,7 +195,7 @@ const Main2 = () => {
             나가기
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };
