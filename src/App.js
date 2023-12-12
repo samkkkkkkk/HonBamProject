@@ -1,14 +1,20 @@
 import './App.css';
-// import Main from './Component/Main';
+import SearchPage from './Component/SearchPage/SearchPage';
+import Main from './Component/Main';
 import Main2 from './Component/Main2';
-// import Navbar from './Component/Navbar/Navbar';
+import Navbar from './Component/Navbar/Navbar';
 
 function App() {
   return (
     <>
-      <div>{/* <Navbar /> */}</div>
       <div>{/* <Main /> */}</div>
       <div>
+        <Navbar />
+        <div>
+    <div>
+          <SearchPage />
+        </div>
+    <div>
         <Main2 />
       </div>
     </>
