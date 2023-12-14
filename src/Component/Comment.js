@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Comment.css';
 import { Link } from 'react-router-dom';
 
@@ -42,7 +42,7 @@ const Comment = () => {
               <div className='text-wrapper-6'>bmabam1234</div>
             </div>
             <div className='div-wrapper'>
-              <p className='text-wrapper-7'>많은 댓글 부탁드려요</p>
+              <p className='text-wrapper-25'>많은 댓글 부탁드려요</p>
             </div>
             <div className='intro-2'>
               <div className='text-wrapper-8'>1일</div>
@@ -80,6 +80,7 @@ const Comment = () => {
               type='text'
               placeholder='댓글 추가...'
             ></input>
+
             <div className='vector-4' />
           </div>
           <div className='back'>

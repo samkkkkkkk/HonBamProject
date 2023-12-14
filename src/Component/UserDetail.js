@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './UserDetail.css';
 import { Link } from 'react-router-dom';
 
 const UserDetail = () => {
+  const [isFollowed, setFollowed] = useState(false);
+  const [followerCount, setFollowerCount] = useState(0);
+
+  const toggleFollow = () => {
+    setFollowed(!isFollowed);
+    setFollowerCount((prevCount) =>
+      isFollowed ? prevCount - 1 : prevCount + 1
+    );
+  };
+
   return (
     <div className='user-detail'>
       <div className='div'>
@@ -49,17 +59,23 @@ const UserDetail = () => {
             <div className='intro'>
               <div className='text-wrapper-6'>Hello</div>
             </div>
-            <div className='following'>
-              <div className='text-wrapper-7'>팔로잉</div>
+            <div className='follow-button'>
+              <button
+                onClick={toggleFollow}
+                className={isFollowed ? 'followed' : ''}
+              >
+                {isFollowed ? '팔로우 해제' : '팔로우'}
+              </button>
+              <p className='count'>{followerCount + 131}</p>
             </div>
-            <div className='following-count'>
-              <div className='text-wrapper-8'>30</div>
-            </div>
+            <div className='following-count'></div>
             <div className='follower'>
               <div className='text-wrapper-7'>팔로워</div>
             </div>
+            <div className='text-wrapper-23'>팔로잉</div>
+            <div className='text-wrapper-24'>152</div>
             <div className='follower-count'>
-              <div className='text-wrapper-8'>132</div>
+              <div className='text-wrapper-8'></div>
             </div>
             <div className='board-text'>
               <div className='text-wrapper-7'>게시물</div>

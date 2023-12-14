@@ -100,7 +100,7 @@
 }
 
 .board .profile {
-  background-color: #d9d9d9;
+  background-image: url('../assets/womanProfile.png');
   border-radius: 22px/23.5px;
   height: 47px;
   left: 0;
@@ -201,16 +201,28 @@
   cursor: pointer;
 }
 
-.board .like {
-  background-image: url(../assets/like.png);
-  height: 38px;
-  left: -4px;
-  position: absolute;
-  top: 4px;
-  width: 48px;
+.like > button {
+  background-color: rgba(19, 19, 97, 0);
+  border: none;
+  outline: none;
+  margin-top: -6px;
 }
-.board .like:hover {
+.like > button:hover {
   cursor: pointer;
+}
+p {
+  font-size: 30px;
+  margin-top: -5px;
+  left: 10px;
+  color: #ffffff;
+}
+.board .heart {
+  font-size: 40px;
+  transition: color 0.3s;
+}
+
+.board .liked {
+  color: red;
 }
 
 .board .board-top {
@@ -267,7 +279,7 @@
 }
 
 .board .profile-2 {
-  background-color: #d9d9d9;
+  background-image: url(../assets/womanProfile.png);
   border-radius: 22px/23.5px;
   height: 47px;
   left: 0;

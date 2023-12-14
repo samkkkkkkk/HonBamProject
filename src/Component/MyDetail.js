@@ -38,7 +38,7 @@ const MyDetail = () => {
               <div className='img' />
               <div className='image-2' />
               <div className='messagebtn' />
-              <div className='followimg' />
+              <div className='followimg2' />
             </div>
           </div>
           <div className='user-top'>

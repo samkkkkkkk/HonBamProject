@@ -249,7 +249,6 @@
   top: 175px;
   width: 273px;
 }
-
 .comment .text-wrapper-7 {
   color: #000000;
   font-family: 'Inter-Bold', Helvetica;
@@ -259,7 +258,19 @@
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 0;
+  width: 271px;
+}
+
+.comment .text-wrapper-25 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 20px;
   width: 271px;
 }
 
