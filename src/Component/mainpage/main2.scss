@@ -3,8 +3,24 @@
   margin: 0;
   box-sizing: border-box;
 }
+.main-container {
+  width: 100%;
+  height: 100vh;
+}
+.main-back {
+  background-image: url(../../assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
 
 .main-intro {
+  width: 60%;
+  position: relative;
+  left: 15%;
+  top: 25%;
   width: 60%;
   .main-honbam {
     color: #ffffff;
@@ -20,7 +36,12 @@
     font-weight: 700;
   }
 }
-
+.main2-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #15161a;
+  position: relative;
+}
 .main2-title {
   color: #ffffff;
   font-family: 'Inter-Black', Helvetica;
@@ -29,12 +50,31 @@
   top: 10%;
   left: 10%;
   width: 60%;
+}
+.main2-intro {
+  color: #ffffff;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 20px;
+}
 
-  .main2-intro {
-    color: #ffffff;
-    font-family: 'Inter-Medium', Helvetica;
-    font-size: 20px;
-  }
+.main2-box {
+  position: relative;
+  top: 40%;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  margin-bottom: 10%;
+  justify-content: center;
+}
+
+.main-second-img {
+  position: relative;
+  top: 40%;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  margin-bottom: 10%;
+  justify-content: center;
 }
 
 .main-hotplace {
@@ -55,12 +95,12 @@
   height: 60%;
 }
 .main-recipe-main {
-  height: '100vh';
-  width: '100vw';
-  background-image: url(../assets/ambitious-studio-rick-barrett-QjUY7auDzUQ-unsplash.jpg);
-  background-repeat: 'no-repeat';
-  background-size: 'cover';
-  background-position: 'center';
+  height: 100vh;
+  width: 100%;
+  background-image: url(../../assets/ambitious-studio-rick-barrett-QjUY7auDzUQ-unsplash.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
   .main-recipe {
     position: relative;
@@ -85,20 +125,19 @@
   left: 70%;
   top: 42%;
   width: 30%;
-
-  .main-recipe-route {
-    height: 50%;
-    width: 60%;
-    color: #ffffff;
-    font-family: 'Inter-Medium', Helvetica;
-    font-size: 20px;
-    font-weight: 500;
-  }
+}
+.main-recipe-route {
+  height: 50%;
+  width: 60%;
+  color: #ffffff;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .main-shot {
-  background-color: #27262b;
-  width: 100vw;
+  background-color: #15161a;
+  width: 100%;
   height: 100vh;
   position: relative;
   .main3-title {

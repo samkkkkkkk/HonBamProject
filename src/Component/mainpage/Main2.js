@@ -1,21 +1,14 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContentText,
-  DialogTitle,
-  Grid,
-} from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React, { useState } from 'react';
-import { useStyles } from './scss/MainMui';
+import { useStyles } from '../scss/MainMui';
 
 import main1 from '../assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg';
 import main2 from '../assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg';
 import './Main.scss';
 import { ArrowForwardIos, SwipeRight } from '@mui/icons-material';
 import ImageGallery from './swiper';
-import slides from '../mock.json';
+import slides from '../../mock.json';
+import MainDialog from './MainDialog';
 
 // Import Swiper React components
 
@@ -196,6 +189,7 @@ const Main2 = () => {
           </Button>
         </DialogActions>
       </Dialog> */}
+      <MainDialog />
     </>
   );
 };

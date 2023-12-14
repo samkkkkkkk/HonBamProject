@@ -3,31 +3,14 @@
   margin: 0;
   box-sizing: border-box;
 }
-.container {
-  width: 100vw;
-  height: 100vh;
-  .main-back {
-    background-image: url(../assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg);
-    background-repeat: 'no-repeat';
-    background-size: 'cover';
-    background-position: center;
-    height: 100%;
-    width: 100%;
-    .main-intro-mui {
-      position: 'relative';
-      left: '15%';
-      top: '25%';
-      width: '60%';
-    }
-    .main-intro {
-      width: 60%;
-      .main-honbam {
-        color: #ffffff;
-        font-family: 'Inter-Bold', Helvetica;
-        font-size: 30px;
-        font-weight: 700;
-      }
-    }
+
+.main-intro {
+  width: 60%;
+  .main-honbam {
+    color: #ffffff;
+    font-family: 'Inter-Bold', Helvetica;
+    font-size: 30px;
+    font-weight: 700;
   }
 
   .honbam-intro {
@@ -54,6 +37,23 @@
   }
 }
 
+.main2-box {
+  width: 100vw;
+  height: 100vh;
+  background-color: #27262b;
+  position: relative;
+}
+
+.main-second-img {
+  position: relative;
+  top: 40%;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  margin-bottom: 10%;
+  justify-content: center;
+}
+
 .main-hotplace {
   color: #ffffff;
   font-family: 'Inter-Medium', Helvetica;
@@ -78,23 +78,22 @@
   background-repeat: 'no-repeat';
   background-size: 'cover';
   background-position: 'center';
-
-  .main-recipe {
-    position: relative;
-    top: 15%;
-    left: 10%;
-    color: #ffffff;
-    font-family: 'Inter-Black', Helvetica;
-    font-size: 40px;
-    font-weight: 900;
-    width: 60%;
-    .main-recipe-intro {
-      color: #ffffff;
-      font-family: 'Inter-Medium', Helvetica;
-      font-size: 20px;
-      font-weight: 500;
-    }
-  }
+}
+.main-recipe {
+  position: relative;
+  top: 15%;
+  left: 10%;
+  color: #ffffff;
+  font-family: 'Inter-Black', Helvetica;
+  font-size: 40px;
+  font-weight: 900;
+  width: 60%;
+}
+.main-recipe-intro {
+  color: #ffffff;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .main-recipe-detail {
@@ -117,19 +116,22 @@
   background-color: #27262b;
   width: 100vw;
   height: 100vh;
-
+  position: relative;
   .main3-title {
     color: #ffffff;
     font-family: 'Inter-Black', Helvetica;
     font-size: 50px;
     position: relative;
     top: 15%;
-    left: 50%;
-    width: 60vw;
+    left: 40%;
+    width: 40%;
   }
+}
 
-  .main-shot-swip {
-    position: relative;
-    top: 50%;
-  }
+.main-shot-swip {
+  position: relative;
+  top: 40%;
+}
+.main-title-intro {
+  width: 50%;
 }

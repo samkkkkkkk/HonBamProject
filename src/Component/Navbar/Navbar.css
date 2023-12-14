@@ -18,7 +18,7 @@ a {
 }
 
 .app__navbar {
-  width: 100vw;
+  /* width: 100vw; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -65,6 +65,7 @@ a {
   padding: 20px 25px;
   list-style-type: none;
   margin: 10px;
+  padding: 10px;
 }
 
 .app__navbar-login li:hover {
