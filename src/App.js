@@ -1,16 +1,69 @@
 import './App.css';
-import Navbar from './Component/Navbar/Navbar';
+
+// import SnsBoard from './Component/SnsBoard';
+// import MyDetail from './Component/MyDetail';
+// import UserDetail from './Component/UserDetail';
+// import UserDetail2 from './Component/UserDetail2';
+// import UserDetail3 from './Component/UserDetail3';
+// import UserDetail4 from './Component/UserDetail4';
+// import Setting from './Component/Setting';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import ProfileEdit from './Component/ProfileEdit';
+// import Comment from './Component/Comment';
+
 import SearchPage from './Component/SearchPage/SearchPage';
+import Main from './Component/mainpage/Main';
+import Navbar from './Component/Navbar/Navbar';
+// import Main2 from './Component/mainpage/Main';
 
 function App() {
   return (
     <>
+      {/* <Router>
+        <Routes>
+          <Route
+            path='/'
+            element={<SnsBoard />}
+          />
+          <Route
+            path='/UserDetail'
+            element={<UserDetail />}
+          />
+          <Route
+            path='/Setting'
+            element={<Setting />}
+          />
+          <Route
+            path='/Comment'
+            element={<Comment />}
+          />
+          <Route
+            path='/ProfileEdit'
+            element={<ProfileEdit />}
+          />
+          <Route
+            path='/MyDetail'
+            element={<MyDetail />}
+          />
+        </Routes>
+      </Router> */}
+
       <div>
         <Navbar />
-        <div>
-          <SearchPage />
-        </div>
       </div>
+      <div>{/* <Main2 /> */}</div>
+      <Router>
+        <Routes>
+          <Route
+            path='/'
+            element={<Main />}
+          ></Route>
+          <Route
+            path='/search'
+            element={<SearchPage />}
+          ></Route>
+        </Routes>
+      </Router>
     </>
   );
 }

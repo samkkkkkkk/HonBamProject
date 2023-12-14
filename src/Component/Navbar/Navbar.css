@@ -19,6 +19,7 @@ a {
 }
 
 .app__navbar {
+  /* width: 100vw; */
   display: flex;
   justify-content: space-between;
   /* 가로축-중심축

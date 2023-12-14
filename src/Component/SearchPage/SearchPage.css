@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 
-* {
+/* * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   /* 테두리를 기준으로 크기를 정함 */
   font-family: 'Noto Sans KR', sans-serif;
+} */
+
+body {
+  background-color: #15161a;
 }
 
 .search_page {

@@ -43,7 +43,10 @@ const Navbar = () => {
           className='app__navbar-toogleBtn'
           onClick={handleToggleClick}
         >
-          <FontAwesomeIcon icon={faBars} style={{ color: '#ffffff' }} />
+          <FontAwesomeIcon
+            icon={faBars}
+            style={{ color: '#ffffff' }}
+          />
         </a>
       </li>
     </nav>
