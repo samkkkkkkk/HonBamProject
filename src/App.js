@@ -1,5 +1,4 @@
 import './App.css';
-import MainPage from './Component/MainPage';
 import SnsBoard from './Component/SnsBoard';
 import MyDetail from './Component/MyDetail';
 import UserDetail from './Component/UserDetail';
