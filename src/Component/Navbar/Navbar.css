@@ -23,13 +23,17 @@ a {
   display: flex;
   justify-content: space-between;
   /* 가로축-중심축
-      요소들 사이에 동일한 간격 */
+  요소들 사이에 동일한 간격 */
   align-items: center;
   /* 세로축-교차축
-      컨테이너의 세로 축의 중앙으로 정렬 */
+  컨테이너의 세로 축의 중앙으로 정렬 */
   background: #15161a;
   padding: 1rem 2rem;
   /* rem은 HTML의 요소의 크기에 상대적인 크기 단위 */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .app__navbar-logo {

@@ -51,19 +51,10 @@ function App() {
       <div>
         <Navbar />
       </div>
-      <div>{/* <Main2 /> */}</div>
-      <Router>
-        <Routes>
-          <Route
-            path='/'
-            element={<Main />}
-          ></Route>
-          <Route
-            path='/search'
-            element={<SearchPage />}
-          ></Route>
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path='/' element={<Main />}></Route>
+        <Route path='/search' element={<SearchPage />}></Route>
+      </Routes>
     </>
   );
 }

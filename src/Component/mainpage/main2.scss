@@ -12,7 +12,7 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 
@@ -22,6 +22,7 @@
   left: 15%;
   top: 25%;
   width: 60%;
+
   .main-honbam {
     color: #ffffff;
     font-family: 'Inter-Bold', Helvetica;
@@ -36,12 +37,14 @@
     font-weight: 700;
   }
 }
+
 .main2-container {
   width: 100%;
   height: 100vh;
   background-color: #15161a;
   position: relative;
 }
+
 .main2-title {
   color: #ffffff;
   font-family: 'Inter-Black', Helvetica;
@@ -51,6 +54,7 @@
   left: 10%;
   width: 60%;
 }
+
 .main2-intro {
   color: #ffffff;
   font-family: 'Inter-Medium', Helvetica;
@@ -83,17 +87,24 @@
   font-size: 20px;
   position: relative;
   top: 40%;
-  left: 45%;
-  width: 50%;
+  justify-content: center;
+  display: flex;
 
   .main-hot-intro {
     width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
   }
 }
+
 .main-hot-img {
   width: 20%;
   height: 60%;
 }
+
 .main-recipe-main {
   height: 100vh;
   width: 100%;
@@ -126,6 +137,7 @@
   top: 42%;
   width: 30%;
 }
+
 .main-recipe-route {
   height: 50%;
   width: 60%;
@@ -155,6 +167,19 @@
   position: relative;
   top: 40%;
 }
+
 .main-title-intro {
   width: 50%;
+}
+
+.search {
+  position: relative;
+  left: 10px;
+  top: 3px;
+}
+
+.recipe {
+  position: relative;
+  top: 2px;
+  left: 5px;
 }
