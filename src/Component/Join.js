@@ -378,7 +378,11 @@ export const Join = () => {
                 </div>
                 <div className='div-wrapper'>
                   <div className='text-wrapper-2'>
-                    <button type='submit' onClick={joinButtonClickHandler}>
+                    <button
+                      type='submit'
+                      onClick={joinButtonClickHandler}
+                      className='joinsubmit'
+                    >
                       JOIN
                     </button>
                   </div>
