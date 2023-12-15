@@ -439,12 +439,27 @@
   width: 100px;
 }
 
-.user-detail .profileImg {
-  background-image: url(../assets/bambam.png);
+.boardtext1 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 25px;
+  font-weight: 1000;
+  left: 230px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  top: 410px;
+  width: 300px;
+}
+
+.thumbnail-box1 {
   height: 153px;
-  left: 0;
+  left: 10px;
   object-fit: cover;
   position: absolute;
-  top: 49px;
+  top: 50px;
   width: 165px;
+}
+.thumbnail-box1:hover {
+  cursor: pointer;
 }

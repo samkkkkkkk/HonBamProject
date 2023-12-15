@@ -201,6 +201,35 @@
   cursor: pointer;
 }
 
+.comment-add .intro-15 {
+  background-color: rgba(0, 0, 255, 0);
+  border: none;
+  outline: none;
+  color: #ffffff;
+  width: 300px;
+  top: 20px;
+}
+.write {
+  background-color: rgba(0, 0, 255, 0);
+  outline: none;
+  color: #ffffff;
+  margin-top: 0px;
+}
+.comment .intro-15 {
+  color: #807878;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 150px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 650px;
+  white-space: nowrap;
+  width: 350px;
+  outline: none;
+  border: none;
+}
 .like > button {
   background-color: rgba(19, 19, 97, 0);
   border: none;
@@ -242,6 +271,18 @@ p {
   position: absolute;
   top: 53px;
   width: 634px;
+}
+.board .commentList {
+  background-color: rgba(0, 0, 255, 0);
+  outline: none;
+  color: #ffffff;
+  margin-top: 0px;
+}
+
+.board .closed {
+  background-color: rgba(0, 0, 255, 0);
+  outline: none;
+  color: #ffffff;
 }
 
 .board .more .moreBtn {
@@ -327,6 +368,7 @@ p {
   border: none;
   outline: none;
 }
+
 .board .myDetail:hover {
   cursor: pointer;
 }
@@ -484,4 +526,12 @@ p {
   position: absolute;
   top: 0;
   width: 165px;
+}
+
+.boardwrite {
+  background-color: rgba(0, 0, 255, 0);
+  outline: none;
+  font-weight: bold;
+  margin-top: 350px;
+  margin-left: 150px;
 }

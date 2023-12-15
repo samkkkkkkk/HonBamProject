@@ -67,7 +67,7 @@ const Setting = () => {
                       type='button'
                       className='profileEdit'
                     >
-                      게시글 수정
+                      프로필 수정
                     </button>
                   </Link>
                 </div>

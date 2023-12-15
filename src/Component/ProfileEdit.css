@@ -153,6 +153,26 @@
   top: 23px;
   width: 167px;
 }
+.join-page .inputTextEmail {
+  outline: none;
+  border: none;
+  width: 250px;
+  padding-left: 0px;
+  padding-top: 5px;
+  font-size: 15px;
+}
+
+.thumbnail-box {
+  height: 153px;
+  left: 170px;
+  object-fit: cover;
+  position: absolute;
+  top: 80px;
+  width: 165px;
+}
+.thumbnail-box:hover {
+  cursor: pointer;
+}
 
 .ProfileEdit .text-wrapper-5 {
   color: #ffffff;
@@ -224,7 +244,7 @@
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 0;
+  top: 15px;
   white-space: nowrap;
   width: 115px;
 }
@@ -330,15 +350,6 @@
   width: 37px;
 }
 
-.ProfileEdit .image {
-  background-image: url(../assets/bambam.png);
-  height: 153px;
-  left: 192px;
-  object-fit: cover;
-  position: absolute;
-  top: 76px;
-  width: 165px;
-}
 .ProfileEdit .image:hover {
   cursor: pointer;
 }

@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import './ProfileEdit.css';
 import { Link } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 const ProfileEdit = () => {
+  const $fileTag = useRef();
+
+  // 이미지파일 상태변수(없으면 안넣어야함)
+  const [imgFile, setImgFile] = useState(null);
+
+  // 이미지
+  const showThumbnailHandler = (e) => {
+    // 첨부된 파일의 정보
+    const file = $fileTag.current.files[0]; // e.target.files[0]도 가능
+
+    // 첨부한 파일 이름을 얻은 후 확장자만 추출.(소문자로 일괄 변경)
+    const fileExt = file.name.slice(file.name.indexOf('.') + 1).toLowerCase();
+
+    if (
+      fileExt !== 'jpg' &&
+      fileExt !== 'png' &&
+      fileExt !== 'jpeg' &&
+      fileExt !== 'gif'
+    ) {
+      alert('이미지 파일(jpg,png,jpeg,gif)만 등록이 가능합니다!');
+      // 이미지가 아닌 파일을 넣어서 막았더라도 , 로그에는 남아있어서 그거까지 지워야함
+      // 그렇지 않으면 잘못된 파일을 input 태그가 여전히 가지고 있게 됨. -> 서버 요청시 에러 유발!
+      $fileTag.current.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  };
   return (
     <div className='ProfileEdit'>
       <div className='div'>
@@ -74,6 +108,32 @@ const ProfileEdit = () => {
             <div className='text-wrapper-8'>소개</div>
             <div className='modifyBtn' />
           </div>
+          <Grid
+            item
+            xs={12}
+          >
+            <div
+              className='thumbnail-box'
+              onClick={() => $fileTag.current.click()}
+            >
+              <img
+                src={imgFile || require('../assets/image1.png')}
+                alt='profile'
+              />
+            </div>
+            <label
+              className='signup-img-label'
+              htmlFor='profile-img'
+            ></label>
+            <input
+              id='profile-img'
+              type='file'
+              style={{ display: 'none' }}
+              accept='image/*'
+              ref={$fileTag}
+              onChange={showThumbnailHandler}
+            />
+          </Grid>
 
           <div className='image' />
           <div className='id'>

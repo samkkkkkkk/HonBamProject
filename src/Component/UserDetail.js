@@ -45,7 +45,6 @@ const UserDetail = () => {
           <div className='user-board-bottom'>
             <div className='user-bottom'>
               <div className='boardtext'>최근 업로드한 게시글</div>
-
               <div className='image' />
               <div className='img' />
               <div className='image-2' />
