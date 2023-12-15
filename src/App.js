@@ -1,5 +1,10 @@
 import './App.css';
 
+import { Modify } from './Component/Modify';
+import { Login } from './Component/Login';
+import { MyPage } from './Component/MyPage';
+import { Join } from './Component/Join';
+import { AuthContextProvider } from './util/AuthContext';
 // import SnsBoard from './Component/SnsBoard';
 // import MyDetail from './Component/MyDetail';
 // import UserDetail from './Component/UserDetail';
@@ -19,6 +24,20 @@ import Navbar from './Component/Navbar/Navbar';
 function App() {
   return (
     <>
+      <AuthContextProvider>
+        <div>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<MainPage />} />
+              <Route path='/Modify' element={<Modify />} />
+              <Route path='/MyPage' element={<MyPage />} />
+              <Route path='/Login' element={<Login />} />
+              <Route path='/Join' element={<Join />} />
+            </Routes>
+          </Router>
+        </div>
+      </AuthContextProvider>
       {/* <Router>
         <Routes>
           <Route
