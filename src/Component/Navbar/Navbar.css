@@ -4,16 +4,17 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  /* 테두리를 기준으로 크기를 정함 */
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
   background-color: #ffffff;
   font-family: 'Noto Sans KR', sans-serif;
 }
 
 a {
   text-decoration: none;
+  /* a태그의 밑줄 제거 */
   color: #ffffff;
 }
 
@@ -21,14 +22,25 @@ a {
   /* width: 100vw; */
   display: flex;
   justify-content: space-between;
+  /* 가로축-중심축
+  요소들 사이에 동일한 간격 */
   align-items: center;
+  /* 세로축-교차축
+  컨테이너의 세로 축의 중앙으로 정렬 */
   background: #15161a;
   padding: 1rem 2rem;
+  /* rem은 HTML의 요소의 크기에 상대적인 크기 단위 */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .app__navbar-logo {
   display: flex;
   justify-content: flex-start;
+  /* 가로축-중심축
+      요소들을 컨테이너의 왼쪽으로 정렬 */
   align-items: center;
   color: #ffffff;
   font-size: 30px;
@@ -37,11 +49,13 @@ a {
 .app__navbar-links {
   flex: 1;
   display: flex;
-  justify-content: baseline;
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   padding-left: 180px;
   font-size: 15px;
   list-style: none;
+  /* li 기호가 제거 */
 }
 
 .app__navbar-links li {
@@ -57,13 +71,18 @@ a {
 .app__navbar-login {
   display: flex;
   justify-content: center;
+  /* 가로축 - 중심축
+    요소들을 컨테이너의 중앙으로 정렬 */
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   padding-left: 0;
 }
 
 .app__navbar-login li {
   padding: 20px 25px;
   list-style-type: none;
+  /* 기호 제거 */
   margin: 10px;
   padding: 10px;
 }
@@ -75,6 +94,7 @@ a {
 
 .menu {
   list-style-type: none;
+  /* 기호 제거 */
 }
 
 .app__navbar-toogleBtn {
@@ -86,7 +106,10 @@ a {
 @media screen and (max-width: 1180px) {
   .app__navbar {
     flex-direction: column;
+    /* 위에서 아래로 */
     align-items: center;
+    /* 세로축-교차축
+        컨테이너의 세로 축의 중앙으로 정렬 */
     padding: 8px 24px;
   }
 
@@ -94,6 +117,8 @@ a {
     display: none;
     flex-direction: column;
     align-items: center;
+    /* 세로축-교차축
+        컨테이너의 세로 축의 중앙으로 정렬 */
     width: 100%;
     padding-left: 0;
     padding-top: 20px;
@@ -112,6 +137,8 @@ a {
   .app__navbar-login {
     display: none;
     justify-content: center;
+    /* 가로축 - 중심축
+        요소들을 컨테이너의 중앙으로 정렬 */
     width: 100%;
   }
 
