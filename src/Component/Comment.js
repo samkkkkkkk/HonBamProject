@@ -3,6 +3,28 @@ import './Comment.css';
 import { Link } from 'react-router-dom';
 
 const Comment = () => {
+  const [comments, setComments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const commentsPerPage = 4;
+
+  const maxComments = 4;
+
+  const addComment = (text) => {
+    setComments([...comments, text]);
+  };
+
+  // 현재 페이지의 댓글을 계산하는 함수
+  const getCurrentComments = () => {
+    const indexOfLastComment = currentPage * commentsPerPage;
+    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    return comments.slice(indexOfFirstComment, indexOfLastComment);
+  };
+
+  // 페이지 변경 함수
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <div className='comment'>
       <div className='div'>
@@ -33,53 +55,60 @@ const Comment = () => {
         </div>
         <div className='overlap-group-wrapper'>
           <div className='overlap-group'>
-            <div className='rectangle' />
-            <div className='vector' />
-            <div className='img' />
-            <div className='vector-2' />
+            <div className='rectangle'></div>
 
-            <div className='intro'>
-              <div className='text-wrapper-6'>bmabam1234</div>
-            </div>
-            <div className='div-wrapper'>
-              <p className='text-wrapper-25'>많은 댓글 부탁드려요</p>
-            </div>
-            <div className='intro-2'>
-              <div className='text-wrapper-8'>1일</div>
-            </div>
             <div className='id'>
-              <div className='text-wrapper-9'>댓글</div>
+              <div className='text-wrapper-9'>
+                <h2>댓글</h2>
+              </div>
+              <div>
+                <ul className='ulStyle'>
+                  {/* 현재 페이지의 댓글만 매핑하여 표시 */}
+                  {getCurrentComments().map((comment, index) => (
+                    <li
+                      className='liStyle'
+                      key={index}
+                    >
+                      <div className='avatar'></div>
+                      <span className='litext'>{comment}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            <div className='image' />
-            <div className='intro-3'>
-              <div className='text-wrapper-10'>abc1234</div>
+            {/* 페이지네이션 버튼 추가 */}
+            <div className='pagination'>
+              {Array.from(
+                { length: Math.ceil(comments.length / commentsPerPage) },
+                (_, index) => (
+                  <div className='pageCount'>
+                    <button
+                      key={index + 1}
+                      onClick={() => handlePageChange(index + 1)}
+                      className={currentPage === index + 1 ? 'activePage' : ''}
+                    >
+                      {index + 1}
+                    </button>
+                  </div>
+                )
+              )}
             </div>
-            <div className='intro-4'>
-              <div className='text-wrapper-7'>게시글 잘보고 가요</div>
-            </div>
-            <div className='intro-5'>
-              <div className='text-wrapper-8'>3일</div>
-            </div>
-            <div className='nature-person-girl' />
-            <div className='commentTxt' />
-            <div className='vector-3' />
-            <div className='intro-6'>
-              <div className='text-wrapper-10'>abc1234</div>
-            </div>
-            <div className='intro-7'>
-              <div className='text-wrapper-7'>즐거운 혼술되세요</div>
-            </div>
-            <div className='intro-8'>
-              <div className='text-wrapper-8'>5일</div>
-            </div>
-            <div className='person' />
-            <div className='comment1' />
+
             <input
-              className='intro-9'
+              className='addComment'
               type='text'
               placeholder='댓글 추가...'
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  addComment(e.target.value);
+                  e.target.value = '';
+                }
+              }}
             ></input>
+
+            <div className='comment1' />
+            <div className='image' />
 
             <div className='vector-4' />
           </div>

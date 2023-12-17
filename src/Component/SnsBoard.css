@@ -73,6 +73,19 @@
   white-space: nowrap;
   width: 89px;
 }
+.board .text-wrapper-30 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 165px;
+}
 
 .board .comment-add {
   height: 28px;
@@ -113,7 +126,7 @@
   height: 28px;
   left: 1px;
   position: absolute;
-  top: 127px;
+  top: -25px;
   width: 244px;
 }
 
@@ -515,17 +528,20 @@ p {
 }
 
 .board .text-wrapper-12 {
-  color: #ffffff;
-  font-family: 'Inter-Bold', Helvetica;
-  font-size: 30px;
-  font-weight: 700;
-  height: 46px;
-  left: 0;
+  color: #b6b2b2;
+  background-color: #3c34ac00;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 25px;
+  font-weight: 500;
+  left: 60px;
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 0;
-  width: 165px;
+  top: 167px;
+  width: 315px;
+}
+.board .text-wrapper-12:hover {
+  cursor: pointer;
 }
 
 .boardwrite {

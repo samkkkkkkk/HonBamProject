@@ -312,7 +312,7 @@
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: -20px;
+  top: -70px;
   white-space: nowrap;
   width: 57px;
 }
@@ -335,10 +335,10 @@
 .comment .image {
   background-image: url(../assets/bambam1.png);
   height: 95px;
-  left: 41px;
+  left: 40px;
   object-fit: cover;
   position: absolute;
-  top: 154px;
+  top: 635px;
   width: 95px;
 }
 
@@ -378,21 +378,68 @@
   white-space: nowrap;
   width: 85px;
 }
-.comment .intro-9 {
+
+.pagination .activePage {
+  margin-top: 730px;
+  background-color: #aca9a9;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+}
+.pageCount {
+  display: inline-block;
+  position: relative;
+  margin-left: 5px;
+  left: 150px;
+}
+
+.comment .addComment {
   color: #807878;
   font-family: 'Inter-Bold', Helvetica;
   font-size: 18px;
   font-weight: 700;
-  left: 150px;
+  left: 160px;
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 650px;
+  top: 655px;
   white-space: nowrap;
-  width: 350px;
+  width: 300px;
+  height: 50px;
   outline: none;
-  border: none;
+
+  text-align: center;
+  border-radius: 30px;
+  border-color: #929191;
 }
+.comment .ulStyle {
+  width: 400px;
+  margin-left: -250px;
+  font-weight: bold;
+  margin-top: 40px;
+}
+.comment .liStyle {
+  margin-top: 50px;
+  margin-left: 60px;
+  list-style-type: none;
+}
+.comment-container {
+  align-items: center;
+}
+.avatar {
+  background-image: url(../assets/bambam2.png);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: -30px;
+}
+
+.liStyle .litext {
+  margin-top: -100px;
+  margin-left: -20px;
+}
+
 .comment .text-wrapper-11:hover {
   cursor: pointer;
 }
