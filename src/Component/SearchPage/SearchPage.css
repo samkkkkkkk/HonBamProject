@@ -4,25 +4,38 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  /* 테두리를 기준으로 크기를 정함 */
   font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+  background-color: #15161a;
 }
 
 .search_page {
   background-color: #15161a;
   padding: 1rem 2rem;
+  /* rem은 HTML의 요소의 크기에 상대적인 크기 단위 */
 }
 
 .logo {
   display: flex;
   justify-content: center;
+  /* 가로축 - 중심축
+    요소들을 컨테이너의 중앙으로 정렬 */
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   font-size: 30px;
   color: #ffffff;
+  margin-top: 100px;
 }
 
 .local_search {
   display: flex;
   justify-content: center;
+  /* 가로축 - 중심축
+    요소들을 컨테이너의 중앙으로 정렬 */
   list-style-type: none;
   color: #ffffff;
   padding-right: 20px;
@@ -32,9 +45,14 @@
   padding: 3%;
   background-position: center;
   background-size: cover;
+  /* 지정한 요소를 다 덮도록 배경이미지를 확대/축소 */
   display: flex;
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   justify-content: center;
+  /* 가로축 - 중심축
+      요소들을 컨테이너의 중앙으로 정렬 */
 }
 
 .search_bar {
@@ -43,13 +61,18 @@
   background: rgb(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   border-radius: 60px;
   padding: 5px 20px;
   backdrop-filter: blur(4px) saturate(180%);
+  /* 요소 뒤에 흐릿하게 흐림 효과, 다양한 색상 필터링 효과
+      blur 흐림 효과(숫자가 커질수록 더 흐릿해짐), saturate 채도 효과 */
 }
 
 .search_bar input {
   background: transparent;
+  /* 배경을 투명하게 해당 요소의 내용만 표시*/
   flex: 1;
   border: 0;
   outline: none;
@@ -77,7 +100,11 @@
 .template_Container {
   display: flex;
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   justify-content: center;
+  /* 가로축 - 중심축
+      요소들을 컨테이너의 중앙으로 정렬 */
   margin: 0 auto;
   flex-wrap: wrap;
   color: #ffffff;
@@ -90,10 +117,16 @@
     rgba(98.81, 94.28, 94.28, 0.97) 0.02%,
     rgba(98.81, 94.28, 94.28, 0) 100%
   );
+  /* 선형 그라데이션 생성 */
   display: flex;
   flex-direction: column;
+  /* 위에서 아래로 */
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   justify-content: center;
+  /* 가로축 - 중심축
+      요소들을 컨테이너의 중앙으로 정렬 */
   margin: 30px;
   padding: 0px 20px;
 }
@@ -122,13 +155,22 @@
   margin: 30px;
   padding: 10px;
   position: fixed;
+  /* 브라우저의 전체 화면을 기준으로 고정 배치 */
   top: 50%;
   right: 0;
   transform: translateY(-50%);
+  /* transform 속성은 요소를 수직으로 이동시키는 효과
+      -50%는 부모 요소의 높이의 50%만큼 위로 이동시킴
+      주로 상위 요소의 중앙 정렬에 사용 */
   background: rgb(255, 255, 255, 0.2);
   flex-direction: column;
+  /* 위에서 아래로 */
   max-height: 200px;
+  /* 최대 세로 크기 */
   overflow-y: auto;
+  /* 세로(수직) 방향의 오버플로우에 대한 처리를 지정(스크롤바)
+      auto 컨테이너의 내용이 컨테이너 자체보다 큰 경우에만 스크롤바를 표시
+      내용이 컨테이너에 맞는 경우 스크롤바는 표시되지 않음. */
   border: 1px solid #5d5656;
 
   &::-webkit-scrollbar {
@@ -154,6 +196,8 @@
   font-weight: bold;
   display: flex;
   justify-content: center;
+  /* 가로축 - 중심축
+      요소들을 컨테이너의 중앙으로 정렬 */
 }
 
 .bye {
@@ -163,7 +207,11 @@
 .bye-container {
   display: flex;
   justify-content: center;
+  /* 가로축 - 중심축
+      요소들을 컨테이너의 중앙으로 정렬 */
   align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
   margin: 5px;
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
@@ -13,28 +14,28 @@ const Navbar = () => {
   return (
     <nav className={`app__navbar ${showLinks ? 'active' : ''}`}>
       <div className='app__navbar-logo'>
-        <a href='#home'>HONBAM</a>
+        <Link to='/'>HONBAM</Link>
       </div>
       <ul className={`app__navbar-links ${showLinks ? 'active' : ''}`}>
         <li>
-          <a href='#hotplace'>맛집</a>
+          <Link to='/search'>맛집</Link>
         </li>
         <li>
-          <a href='#recipe'>레시피</a>
+          <Link to='/recipe'>레시피</Link>
         </li>
         <li>
-          <a href='#chat'>대화하기</a>
+          <Link to='/chat'>대화하기</Link>
         </li>
         <li>
-          <a href='#board'>게시판</a>
+          <Link to='/board'>게시판</Link>
         </li>
       </ul>
       <ul className={`app__navbar-login ${showLinks ? 'active' : ''}`}>
         <li>
-          <a href='#login'>로그인</a>
+          <Link to='/login'>로그인</Link>
         </li>
         <li>
-          <a href='#join'>회원가입</a>
+          <Link to='/join'>회원가입</Link>
         </li>
       </ul>
       <li className='menu'>
@@ -43,10 +44,7 @@ const Navbar = () => {
           className='app__navbar-toogleBtn'
           onClick={handleToggleClick}
         >
-          <FontAwesomeIcon
-            icon={faBars}
-            style={{ color: '#ffffff' }}
-          />
+          <FontAwesomeIcon icon={faBars} style={{ color: '#ffffff' }} />
         </a>
       </li>
     </nav>
