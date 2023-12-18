@@ -1,4 +1,5 @@
 import './App.css';
+
 import SnsBoard from './Component/SnsBoard';
 import MyDetail from './Component/MyDetail';
 import UserDetail from './Component/UserDetail';
@@ -10,10 +11,18 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProfileEdit from './Component/ProfileEdit';
 import Comment from './Component/Comment';
 
+import SearchPage from './Component/SearchPage/SearchPage';
+import Main from './Component/Main';
+import Main2 from './Component/Main2';
+import Navbar from './Component/Navbar/Navbar';
+
+
 function App() {
   return (
     <>
+      <div>{/* <Main /> */}</div>
       <div>
+
         <Router>
           <Routes>
             <Route
@@ -42,6 +51,15 @@ function App() {
             />
           </Routes>
         </Router>
+
+        <Navbar />
+        <div>
+    <div>
+          <SearchPage />
+        </div>
+    <div>
+        <Main2 />
+
       </div>
     </>
   );
