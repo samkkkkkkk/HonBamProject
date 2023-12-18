@@ -43,15 +43,12 @@ const UserDetail = () => {
         </div>
         <div className='div-2'>
           <div className='user-board-bottom'>
-            <div className='user-bottom'>
-              <div className='boardtext'>최근 업로드한 게시글</div>
-              <div className='image' />
-              <div className='img' />
-              <div className='image-2' />
-              <div className='messagebtn' />
-              <div className='followimg' />
-            </div>
+            <div className='boardtext'>최근 업로드한 게시글</div>
+            <div className='image' />
+            <div className='img' />
+            <div className='image-2' />
           </div>
+          <div className='messageBtn' />
           <div className='user-top'>
             <div className='set-icon' />
             <div className='email'>abc1234@gmail.com</div>

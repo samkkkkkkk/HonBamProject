@@ -236,33 +236,6 @@
   width: 208px;
 }
 
-.user-detail .messagebtn {
-  background-image: url(../assets/profileShareBtn.png);
-  height: 48px;
-  left: 377px;
-  object-fit: cover;
-  position: absolute;
-  top: 20px;
-  width: 230px;
-  margin-top: 20px;
-}
-.user-detail .messagebtn:hover {
-  cursor: pointer;
-}
-
-.user-detail .followimg2 {
-  background-image: url(../assets/profileEditBtn.png);
-  height: 48px;
-  left: 43px;
-  object-fit: cover;
-  position: absolute;
-  top: 0px;
-  width: 230px;
-}
-.user-detail .followimg2:hover {
-  cursor: pointer;
-}
-
 .user-detail .user-top {
   height: 280px;
   left: 131px;
