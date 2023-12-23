@@ -1,0 +1,497 @@
+.user-detail {
+  background-color: #27262b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.user-detail .div {
+  background-color: #27262b;
+  height: 1024px;
+  position: relative;
+  width: 1440px;
+}
+.user-detail .followed {
+  background-color: rgb(28, 150, 231);
+}
+.user-detail .side-bar {
+  height: 95px;
+  left: 60px;
+  position: absolute;
+  top: 25px;
+  width: 1319px;
+}
+
+.user-detail .sidebar-content {
+  height: 22px;
+  left: 267px;
+  position: absolute;
+  top: 41px;
+  width: 1036px;
+}
+
+.user-detail .logout {
+  height: 15px;
+  left: 981px;
+  position: absolute;
+  top: 2px;
+  width: 57px;
+}
+
+.user-detail .text-wrapper {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 55px;
+}
+
+.user-detail .my-page {
+  height: 20px;
+  left: 886px;
+  position: absolute;
+  top: 2px;
+  width: 62px;
+}
+
+.user-detail .my-page-text {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 60px;
+}
+
+.follow-button > button {
+  margin-top: 294px;
+  margin-left: 74px;
+  background-color: rgba(214, 214, 214, 0.603);
+  color: rgb(0, 0, 0);
+  border-radius: 10%;
+  width: 232px;
+  height: 50px;
+  font-size: 25px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+}
+.follow-button > button:hover {
+  cursor: pointer;
+}
+.count {
+  margin-top: -273px;
+  margin-left: 435px;
+  font-weight: 700;
+}
+
+.user-detail .BOARD {
+  height: 17px;
+  left: 395px;
+  position: absolute;
+  top: 0;
+  width: 57px;
+}
+
+.user-detail .CHAT {
+  height: 17px;
+  left: 280px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.user-detail .text-wrapper-2 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 45px;
+}
+
+.user-detail .RECIPE {
+  height: 17px;
+  left: 154px;
+  position: absolute;
+  top: 0;
+  width: 58px;
+}
+
+.user-detail .text-wrapper-3 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 56px;
+}
+
+.user-detail .HOTPLACE {
+  height: 17px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 86px;
+}
+
+.user-detail .text-wrapper-4 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 84px;
+}
+
+.user-detail .logo {
+  height: 46px;
+  left: 21px;
+  position: absolute;
+  top: 23px;
+  width: 167px;
+}
+
+.user-detail .text-wrapper-5 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 165px;
+}
+
+.user-detail .div-2 {
+  background-image: url(../../assets/snsbackground.png);
+  background-size: 100% 100%;
+  height: 830px;
+  left: 224px;
+  position: absolute;
+  top: 170px;
+  width: 966px;
+}
+
+.user-detail .user-board-bottom {
+  height: 307px;
+  left: 163px;
+  position: absolute;
+  top: 326px;
+  width: 636px;
+}
+
+.user-detail .user-bottom {
+  height: 307px;
+  position: relative;
+}
+
+.user-detail .image {
+  background-image: url(../../assets/image3.png);
+  height: 174px;
+  left: 426px;
+  object-fit: cover;
+  position: absolute;
+  top: 133px;
+  width: 206px;
+  margin-top: 50px;
+}
+
+.user-detail .img {
+  background-image: url(../../assets/image2.jpg);
+  height: 174px;
+  left: 214px;
+  object-fit: cover;
+  position: absolute;
+  top: 133px;
+  width: 212px;
+  margin-top: 50px;
+}
+
+.user-detail .image-2 {
+  background-image: url(../../assets/image1.png);
+  height: 174px;
+  left: 6px;
+  object-fit: cover;
+  position: absolute;
+  top: 133px;
+  width: 208px;
+  margin-top: 50px;
+}
+
+.user-detail .messageBtn {
+  background-image: url(../../assets/ChatBtn.png);
+  height: 48px;
+  left: 550px;
+  object-fit: cover;
+  position: relative;
+  top: 328px;
+  width: 230px;
+  border-radius: 10%;
+  z-index: 1;
+}
+.user-detail .messageBtn:hover {
+  cursor: pointer;
+}
+
+.user-detail .user-top {
+  height: 280px;
+  left: 131px;
+  position: absolute;
+  top: 32px;
+  width: 778px;
+}
+
+.user-detail .set-icon {
+  background-image: url(../../assets/more.png);
+  height: 43px;
+  left: 735px;
+  position: absolute;
+  top: 89px;
+  width: 43px;
+}
+
+.user-detail .email {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  height: 33px;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  padding: 0;
+  padding-left: 0;
+  position: absolute;
+  top: 247px;
+  width: 282px;
+}
+
+.user-detail .backBt {
+  background-image: url(../../assets/back.png);
+  background-color: #1e1f6600;
+  height: 79px;
+  left: 800px;
+  position: absolute;
+  top: 30px;
+  width: 79px;
+  outline: none;
+  border: none;
+}
+.user-detail .backBt:hover {
+  cursor: pointer;
+}
+
+.user-detail .intro {
+  height: 35px;
+  left: 16px;
+  position: absolute;
+  top: 211px;
+  width: 160px;
+}
+
+.user-detail .text-wrapper-6 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 158px;
+}
+
+.user-detail .followimg {
+  height: 33px;
+  left: 577px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.user-detail .text-wrapper-7 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 87px;
+}
+.user-detail .text-wrapper-23 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 580px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 131px;
+  white-space: nowrap;
+  width: 87px;
+}
+.user-detail .text-wrapper-24 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 600px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 79px;
+  white-space: nowrap;
+  width: 87px;
+}
+
+.user-detail .following-count {
+  height: 33px;
+  left: 605px;
+  position: absolute;
+  top: 78px;
+  width: 46px;
+}
+
+.user-detail .text-wrapper-8 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 44px;
+}
+
+.user-detail .follower {
+  height: 33px;
+  left: 414px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.user-detail .follower-count {
+  height: 33px;
+  left: 436px;
+  position: absolute;
+  top: 78px;
+  width: 46px;
+}
+
+.user-detail .board-text {
+  height: 33px;
+  left: 241px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.user-detail .board-count {
+  height: 33px;
+  left: 263px;
+  position: absolute;
+  top: 78px;
+  width: 46px;
+}
+
+.user-detail .overlap-group {
+  height: 43px;
+  left: 22px;
+  position: absolute;
+  top: 0;
+  width: 153px;
+}
+
+.user-detail .id-icon {
+  background-image: url(../../assets/idIcon.png);
+  height: 33px;
+  left: 121px;
+  position: absolute;
+  top: 0;
+  width: 32px;
+}
+
+.user-detail .id {
+  height: 43px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 134px;
+}
+
+.user-detail .text-wrapper-9 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 28px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 132px;
+}
+
+.user-detail .nature-person-girl {
+  background-image: url(../../assets/woman.png);
+  height: 153px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 49px;
+  width: 165px;
+}
+.boardtext {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 25px;
+  font-weight: 1000;
+  left: 200px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  top: 120px;
+  width: 300px;
+}

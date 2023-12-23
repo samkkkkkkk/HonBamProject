@@ -1,0 +1,522 @@
+.setting {
+  background-color: #27262b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.setting .div {
+  background-color: #27262b;
+  height: 1024px;
+  position: relative;
+  width: 1440px;
+}
+
+.setting .side-bar {
+  height: 95px;
+  left: 60px;
+  position: absolute;
+  top: 25px;
+  width: 1319px;
+}
+
+.setting .sidebar-content {
+  height: 22px;
+  left: 267px;
+  position: absolute;
+  top: 41px;
+  width: 1036px;
+}
+
+.setting .logout {
+  height: 15px;
+  left: 981px;
+  position: absolute;
+  top: 2px;
+  width: 57px;
+}
+
+.setting .text-wrapper {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 55px;
+}
+
+.setting .my-page {
+  height: 20px;
+  left: 886px;
+  position: absolute;
+  top: 2px;
+  width: 62px;
+}
+
+.setting .my-page-text {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 60px;
+}
+
+.setting .BOARD {
+  height: 17px;
+  left: 395px;
+  position: absolute;
+  top: 0;
+  width: 57px;
+}
+
+.setting .CHAT {
+  height: 17px;
+  left: 280px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.setting .text-wrapper-2 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 45px;
+}
+
+.setting .RECIPE {
+  height: 17px;
+  left: 154px;
+  position: absolute;
+  top: 0;
+  width: 58px;
+}
+
+.setting .text-wrapper-3 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 56px;
+}
+
+.setting .HOTPLACE {
+  height: 17px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 86px;
+}
+
+.setting .text-wrapper-4 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 84px;
+}
+
+.setting .logo {
+  height: 46px;
+  left: 21px;
+  position: absolute;
+  top: 23px;
+  width: 167px;
+}
+
+.setting .text-wrapper-5 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 165px;
+}
+
+.setting .board-setting {
+  height: 856px;
+  left: 183px;
+  position: absolute;
+  top: 168px;
+  width: 966px;
+}
+
+.setting .overlap {
+  height: 856px;
+  position: relative;
+}
+
+.setting .background {
+  background-image: url(../../assets/snsbackground.png);
+  height: 825px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 966px;
+}
+
+.setting .setting-modal {
+  background-image: url(../../assets/modal.png);
+  border-radius: 20px;
+  height: 451px;
+  left: 225px;
+  position: absolute;
+  top: 405px;
+  width: 490px;
+}
+
+.setting .overlap-group {
+  background-size: 100% 100%;
+  height: 451px;
+  position: relative;
+  width: 491px;
+}
+
+.setting .remove .backMain {
+  color: #838282;
+  background-color: #ebe7e700;
+  background-image: url(../../assets/remove.png);
+  height: 89px;
+  left: 191px;
+  position: absolute;
+  top: 0;
+  width: 114px;
+  border: none;
+  outline: none;
+}
+.setting .remove .backMain:hover {
+  cursor: pointer;
+}
+
+.setting .text-wrapper-6 .backBtn {
+  color: #000000;
+  background-color: #ffffff00;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 218px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 335px;
+  white-space: nowrap;
+  width: 131px;
+  border: none;
+  outline: none;
+}
+.setting .text-wrapper-6 .backBtn:hover {
+  cursor: pointer;
+}
+
+.setting .hide-image {
+  background-image: url(../../assets/back.png);
+  height: 79px;
+  left: 76px;
+  position: absolute;
+  top: 320px;
+  width: 79px;
+}
+
+.setting .vector {
+  background-image: url(../../assets/Vector.png);
+  height: 1px;
+  left: 62px;
+  object-fit: cover;
+  position: absolute;
+  top: 298px;
+  width: 368px;
+}
+
+.setting .text-wrapper-7 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 218px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 232px;
+  white-space: nowrap;
+  width: 131px;
+}
+
+.setting .person-remove {
+  background-image: url(../../assets/delete.png);
+  height: 60px;
+  left: 84px;
+  position: absolute;
+  top: 220px;
+  width: 74px;
+}
+
+.setting .img {
+  background-image: url(../../assets/Vector.png);
+  height: 1px;
+  left: 64px;
+  object-fit: cover;
+  position: absolute;
+  top: 198px;
+  width: 368px;
+}
+
+.setting .text-wrapper-8 .profileEdit {
+  color: #000000;
+  background-color: #ffffff00;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 210px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 135px;
+  white-space: nowrap;
+  width: 150px;
+  border: none;
+  outline: none;
+}
+.setting .text-wrapper-8 .profileEdit:hover {
+  cursor: pointer;
+}
+
+.setting .vector-2 {
+  background-image: url(../../assets/contactEdit.png);
+  height: 55px;
+  left: 85px;
+  position: absolute;
+  top: 124px;
+  width: 65px;
+}
+
+.setting .my-board-bottom {
+  height: 47px;
+  left: 163px;
+  position: absolute;
+  top: 330px;
+  width: 603px;
+}
+
+.setting .profile-share-btn {
+  background-image: url(../../assets/profileShareBtn.png);
+  height: 47px;
+  left: 374px;
+  position: absolute;
+  top: 0;
+  width: 229px;
+}
+
+.setting .profile-edit-btn {
+  background-image: url(../../assets/profileEditBtn.png);
+  height: 47px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 229px;
+}
+
+.setting .my-board-top {
+  height: 280px;
+  left: 131px;
+  position: absolute;
+  top: 32px;
+  width: 778px;
+}
+
+.setting .set-icon {
+  background-image: url(../../assets/more.png);
+  height: 43px;
+  left: 735px;
+  position: absolute;
+  top: 89px;
+  width: 43px;
+}
+
+.setting .email {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  height: 33px;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  padding: 0;
+  padding-left: 0;
+  position: absolute;
+  top: 247px;
+  width: 336px;
+}
+
+.setting .intro {
+  height: 35px;
+  left: 16px;
+  position: absolute;
+  top: 211px;
+  width: 160px;
+}
+
+.setting .text-wrapper-9 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 158px;
+}
+
+.setting .following {
+  height: 33px;
+  left: 577px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.setting .text-wrapper-10 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 87px;
+}
+
+.setting .follower {
+  height: 33px;
+  left: 414px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.setting .board-text {
+  height: 33px;
+  left: 241px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.setting .image {
+  background-image: url(../../assets/bambam.png);
+  height: 153px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 49px;
+  width: 165px;
+}
+
+.setting .overlap-2 {
+  height: 43px;
+  left: 15px;
+  position: absolute;
+  top: 0;
+  width: 160px;
+}
+
+.setting .id {
+  height: 43px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 134px;
+}
+
+.setting .text-wrapper-11 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 28px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 132px;
+}
+
+.setting .board-count {
+  height: 33px;
+  left: 383px;
+  position: absolute;
+  top: 109px;
+  width: 67px;
+}
+
+.setting .text-wrapper-12 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 5px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 65px;
+}
+
+.setting .div-wrapper {
+  height: 33px;
+  left: 556px;
+  position: absolute;
+  top: 109px;
+  width: 67px;
+}
+
+.setting .board-count-2 {
+  height: 33px;
+  left: 719px;
+  position: absolute;
+  top: 109px;
+  width: 67px;
+}

@@ -1,0 +1,416 @@
+/* .board {
+  background-color: #27262b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.board .div {
+  background-color: #27262b;
+  height: 1024px;
+  position: relative;
+  width: 1440px;
+  margin-top: -60px;
+}
+
+.board .board-wrap {
+  background-image: url(../../assets/snsbackground.png);
+  background-size: 100% 100%;
+  height: 834px;
+  left: 222px;
+  position: absolute;
+  top: 153px;
+  width: 966px;
+}
+
+.board .boardbottom {
+  height: 242px;
+  left: 183px;
+  position: absolute;
+  top: 567px;
+  width: 625px;
+}
+
+.board .date {
+  height: 23px;
+  left: 1px;
+  position: absolute;
+  top: 219px;
+  width: 91px;
+}
+
+.board .text-wrapper {
+  color: #b0adad;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 21px;
+  font-weight: 500;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 89px;
+}
+
+.board .comment-add {
+  height: 28px;
+  left: 60px;
+  position: absolute;
+  top: 172px;
+  width: 132px;
+}
+
+.board .text-wrapper-2 {
+  color: #b0adad;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 25px;
+  font-weight: 500;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 130px;
+}
+
+.board .profile {
+  background-image: url(../../assets/womanProfile.png);
+  background-color: #d9d9d9;
+  border-radius: 22px/23.5px;
+  height: 44px;
+  left: 0;
+  position: absolute;
+  top: 164px;
+  width: 44px;
+}
+
+.board .comment-text {
+  height: 28px;
+  left: 1px;
+  position: absolute;
+  top: 127px;
+  width: 244px;
+}
+
+.board .text-wrapper-3 {
+  color: #b0adad;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 26px;
+  font-weight: 500;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 242px;
+}
+
+.board .id-text {
+  height: 37px;
+  left: 1px;
+  position: absolute;
+  top: 90px;
+  width: 317px;
+}
+
+.board .text-wrapper-4 {
+  color: #ffffff;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 25px;
+  font-weight: 500;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 315px;
+}
+
+.board .like-text {
+  height: 30px;
+  left: 1px;
+  position: absolute;
+  top: 50px;
+  width: 199px;
+}
+
+.board .text-wrapper-5 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 197px;
+}
+
+.board .save {
+  background-image: url(../../assets/save.png);
+  height: 51px;
+  left: 552px;
+  position: absolute;
+  top: 0;
+  width: 73px;
+}
+
+.board .comment {
+  background-image: url(../../assets/comment.png);
+  height: 44px;
+  left: 60px;
+  position: absolute;
+  top: 3px;
+  width: 38px;
+}
+
+.board .like {
+  background-image: url(../../assets/like.png);
+  height: 38px;
+  left: -4px;
+  position: absolute;
+  top: 4px;
+  width: 48px;
+}
+
+.board .board-top {
+  height: 468px;
+  left: 174px;
+  position: absolute;
+  top: 88px;
+  width: 654px;
+}
+
+.board-top .sns-board-img3 {
+  background-image: url(../../assets/image3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 415px;
+  left: 0;
+  position: absolute;
+  top: 53px;
+  width: 634px;
+}
+
+.board .more {
+  background-image: url(../../assets/more.png);
+  height: 43px;
+  left: 611px;
+  position: absolute;
+  top: 3px;
+  width: 43px;
+}
+
+.board .name {
+  height: 43px;
+  left: 59px;
+  position: absolute;
+  top: 4px;
+  width: 134px;
+}
+
+.board .text-wrapper-6 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 132px;
+}
+
+.board .profile-2 {
+  background-image: url(../../assets/womanProfile.png);
+  border-radius: 22px/23.5px;
+  height: 44px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.board .board-title {
+  height: 33px;
+  left: 442px;
+  position: absolute;
+  top: 26px;
+  width: 117px;
+}
+
+.board .text-wrapper-7 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 115px;
+}
+
+.board .side-bar {
+  height: 95px;
+  left: 60px;
+  position: absolute;
+  top: 25px;
+  width: 1319px;
+}
+
+.board .sidebar-content {
+  height: 22px;
+  left: 267px;
+  position: absolute;
+  top: 41px;
+  width: 1036px;
+}
+
+.board .logout {
+  height: 15px;
+  left: 981px;
+  position: absolute;
+  top: 2px;
+  width: 57px;
+}
+
+.board .text-wrapper-8 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 55px;
+}
+
+.board .my-page {
+  height: 20px;
+  left: 886px;
+  position: absolute;
+  top: 2px;
+  width: 62px;
+}
+
+.board .my-page-text {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 60px;
+}
+
+.board .BOARD {
+  height: 17px;
+  left: 395px;
+  position: absolute;
+  top: 0;
+  width: 57px;
+}
+
+.board .CHAT {
+  height: 17px;
+  left: 280px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.board .text-wrapper-9 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 45px;
+}
+
+.board .RECIPE {
+  height: 17px;
+  left: 154px;
+  position: absolute;
+  top: 0;
+  width: 58px;
+}
+
+.board .text-wrapper-10 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 56px;
+}
+
+.board .HOTPLACE {
+  height: 17px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 86px;
+}
+
+.board .text-wrapper-11 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 84px;
+}
+
+.board .logo {
+  height: 46px;
+  left: 21px;
+  position: absolute;
+  top: 23px;
+  width: 167px;
+}
+
+.board .text-wrapper-12 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 165px;
+} */

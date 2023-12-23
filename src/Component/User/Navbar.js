@@ -163,16 +163,16 @@ export const Navbar = () => {
       </div>
       <ul className={`app__navbar-links ${showLinks ? 'active' : ''}`}>
         <li>
-          <a href='/search'>맛집</a>
+          <a href='#hotplace'>맛집</a>
         </li>
         <li>
-          <a href='/recipe'>레시피</a>
+          <a href='#recipe'>레시피</a>
         </li>
         <li>
-          <a href='/chat'>대화하기</a>
+          <a href='#chat'>대화하기</a>
         </li>
         <li>
-          <a href='/board'>게시판</a>
+          <a href='#board'>게시판</a>
         </li>
       </ul>
       <ul className={`app__navbar-login ${showLinks ? 'active' : ''}`}>
@@ -184,7 +184,7 @@ export const Navbar = () => {
           <div className='loginImage'>
             {isLoggedIn && (
               <img
-                src={profileUrl || require('../../assets/2-1.png')}
+                src={profileUrl || require('../assets/2-1.png')}
                 alt='프사프사'
                 style={{
                   marginLeft: 20,

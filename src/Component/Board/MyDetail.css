@@ -1,0 +1,479 @@
+.user-detail {
+  background-color: #27262b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.user-detail .div {
+  background-color: #27262b;
+  height: 1024px;
+  position: relative;
+  width: 1440px;
+}
+
+.user-detail .side-bar {
+  height: 95px;
+  left: 60px;
+  position: absolute;
+  top: 25px;
+  width: 1319px;
+}
+.user-detail .addboard {
+  background-image: url(../../assets/addboard.png);
+  background-color: #1e1f6600;
+  height: 110px;
+  left: 250px;
+  position: absolute;
+  top: -5px;
+  width: 130px;
+  outline: none;
+  border: none;
+}
+.user-detail .addboard:hover {
+  cursor: pointer;
+}
+.user-detail .sidebar-content {
+  height: 22px;
+  left: 267px;
+  position: absolute;
+  top: 41px;
+  width: 1036px;
+}
+
+.user-detail .logout {
+  height: 15px;
+  left: 981px;
+  position: absolute;
+  top: 2px;
+  width: 57px;
+}
+
+.user-detail .text-wrapper {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 55px;
+}
+
+.user-detail .my-page {
+  height: 20px;
+  left: 886px;
+  position: absolute;
+  top: 2px;
+  width: 62px;
+}
+
+.user-detail .my-page-text {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 60px;
+}
+
+.user-detail .BOARD {
+  height: 17px;
+  left: 395px;
+  position: absolute;
+  top: 0;
+  width: 57px;
+}
+
+.user-detail .CHAT {
+  height: 17px;
+  left: 280px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.user-detail .text-wrapper-2 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 45px;
+}
+
+.user-detail .RECIPE {
+  height: 17px;
+  left: 154px;
+  position: absolute;
+  top: 0;
+  width: 58px;
+}
+
+.user-detail .text-wrapper-3 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 56px;
+}
+
+.user-detail .HOTPLACE {
+  height: 17px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 86px;
+}
+
+.user-detail .text-wrapper-4 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 84px;
+}
+
+.user-detail .logo {
+  height: 46px;
+  left: 21px;
+  position: absolute;
+  top: 23px;
+  width: 167px;
+}
+
+.user-detail .text-wrapper-5 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 165px;
+}
+
+.user-detail .div-2 {
+  background-image: url(../../assets/snsbackground.png);
+  background-size: 100% 100%;
+  height: 830px;
+  left: 237px;
+  position: absolute;
+  top: 170px;
+  width: 966px;
+}
+
+.user-detail .user-board-bottom {
+  height: 307px;
+  left: 163px;
+  position: absolute;
+  top: 326px;
+  width: 636px;
+}
+
+.user-detail .user-bottom {
+  height: 307px;
+  position: relative;
+}
+
+.user-detail .image {
+  background-image: url(../../assets/image1.png);
+  height: 174px;
+  left: 430px;
+  object-fit: cover;
+  position: absolute;
+  top: 133px;
+  width: 206px;
+}
+
+.user-detail .backBtn {
+  background-image: url(../../assets/back.png);
+  background-color: #1e1f6600;
+  height: 79px;
+  left: 650px;
+  position: absolute;
+  top: 0px;
+  width: 79px;
+  outline: none;
+  border: none;
+}
+.user-detail .backBtn:hover {
+  cursor: pointer;
+}
+
+.user-detail .img {
+  background-image: url(../../assets/image2.jpg);
+  height: 174px;
+  left: 214px;
+  object-fit: cover;
+  position: absolute;
+  top: 133px;
+  width: 212px;
+}
+
+.user-detail .image-2 {
+  background-image: url(../../assets/image3.png);
+  height: 174px;
+  left: 6px;
+  object-fit: cover;
+  position: absolute;
+  top: 133px;
+  width: 208px;
+}
+
+.user-detail .user-top {
+  height: 280px;
+  left: 131px;
+  position: absolute;
+  top: 32px;
+  width: 778px;
+}
+
+.user-detail .set-icon {
+  background-image: url(../../assets/more.png);
+  height: 43px;
+  left: 735px;
+  position: absolute;
+  top: 89px;
+  width: 43px;
+}
+
+.user-detail .email {
+  background: none;
+  border: none;
+  color: #c5c0c0;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  height: 33px;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  padding: 0;
+  padding-left: 0;
+  position: absolute;
+  top: 247px;
+  width: 300px;
+}
+
+.user-detail .intro {
+  height: 35px;
+  left: 16px;
+  position: absolute;
+  top: 211px;
+  width: 160px;
+}
+
+.user-detail .text-wrapper-6 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 158px;
+}
+
+.user-detail .following {
+  height: 33px;
+  left: 577px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.user-detail .text-wrapper-7 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 87px;
+}
+
+.user-detail .following-count {
+  height: 33px;
+  left: 595px;
+  position: absolute;
+  top: 78px;
+  width: 46px;
+}
+
+.user-detail .text-wrapper-20 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  margin-left: 10px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 44px;
+}
+.user-detail .text-wrapper-19 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  margin-left: 10px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  margin-left: -5px;
+  white-space: nowrap;
+  width: 44px;
+}
+.user-detail .text-wrapper-18 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  margin-left: 10px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  margin-left: -9px;
+  white-space: nowrap;
+  width: 44px;
+}
+
+.user-detail .follower {
+  height: 33px;
+  left: 414px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.user-detail .follower-count {
+  height: 33px;
+  left: 436px;
+  position: absolute;
+  top: 78px;
+  width: 46px;
+}
+
+.user-detail .board-text {
+  height: 33px;
+  left: 241px;
+  position: absolute;
+  top: 131px;
+  width: 89px;
+}
+
+.user-detail .board-count {
+  height: 33px;
+  left: 263px;
+  position: absolute;
+  top: 78px;
+  width: 46px;
+}
+
+.user-detail .overlap-group {
+  height: 43px;
+  left: 22px;
+  position: absolute;
+  top: 0;
+  width: 153px;
+}
+
+.user-detail .id-icon .set {
+  background-image: url(../../assets/idIcon.png);
+  background-color: #3a3a5f;
+  height: 33px;
+  left: 8px;
+  position: absolute;
+  top: 0;
+  width: 32px;
+  border: none;
+  outline: none;
+}
+.user-detail .id-icon .set:hover {
+  cursor: pointer;
+}
+
+.user-detail .id {
+  height: 43px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 134px;
+}
+
+.user-detail .text-wrapper-9 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 28px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 100px;
+}
+
+.boardtext1 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 25px;
+  font-weight: 1000;
+  left: 230px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  top: 410px;
+  width: 300px;
+}
+
+.thumbnail-box1 {
+  height: 153px;
+  left: 10px;
+  object-fit: cover;
+  position: absolute;
+  top: 50px;
+  width: 165px;
+}
+.thumbnail-box1:hover {
+  cursor: pointer;
+}

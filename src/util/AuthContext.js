@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react';
 const AuthContext = React.createContext({
   isLoggedIn: false, // 로그인 했는지의 여부 추적
   userName: '',
+  address: '',
+  phoneNumber: '',
+  password: '',
   onLogout: () => {},
   onLogin: (email, password) => {},
 });
@@ -30,7 +33,7 @@ export const AuthContextProvider = (props) => {
   };
 
   // 로그인 핸들러
-  const loginHandler = (token, userName, role) => {
+  const loginHandler = (token, userName, role, userPay) => {
     localStorage.setItem('isLoggedIn', '1');
     //json에 담긴 인증정보를 클라이언트에 보관
     // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관됨.
@@ -39,6 +42,7 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem('ACCESS_TOKEN', token);
     localStorage.setItem('LOGIN_USERNAME', userName);
     localStorage.setItem('USER_ROLE', role);
+    localStorage.setItem('USER_PAY', userPay);
     setIsLoggedIn(true);
     setUserName(userName);
   };

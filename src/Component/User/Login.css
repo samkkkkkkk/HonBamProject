@@ -1,0 +1,415 @@
+.box2 {
+  background-color: #27262b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  zoom: 0.8;
+}
+
+.box2 .group {
+  height: 1024px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 2400px;
+}
+
+.box2 .LoginButton {
+  background-color: #27262b;
+  color: white;
+  position: relative;
+  width: 368px;
+  height: 50px;
+  right: 159px;
+  bottom: 13px;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.LoginButton:hover {
+  background: gray;
+  color: white;
+}
+
+.box2 .JoinButton {
+  background-color: #27262b;
+  color: white;
+  position: relative;
+  width: 368px;
+  height: 50px;
+  right: 159px;
+  bottom: 13px;
+}
+
+.box2 .JoinButton {
+  background-color: #27262b;
+  color: white;
+  position: relative;
+  width: 368px;
+  height: 50px;
+  right: 159px;
+  bottom: 13px;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.JoinButton:hover {
+  background: gray;
+  color: white;
+}
+
+.box2 .LOGIN {
+  background-color: #27262b;
+  height: 1024px;
+  position: relative;
+}
+
+.box2 .inputText {
+  outline: none;
+  border: none;
+  width: 250px;
+  padding-left: 0px;
+  padding-top: 5px;
+  font-size: 15px;
+}
+
+.box2 .overlap-group {
+  background-image: url(../../assets/qui-nguyen-s6atlh5rf0u-unsplash-1.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 1100px;
+  left: 0;
+  position: absolute;
+  top: 115px;
+  width: 2400px;
+}
+
+.box2 .div-sign-container {
+  background-color: #ffffffcc;
+  border-radius: 10px;
+  height: 550px;
+  left: 900px;
+  position: relative;
+  top: 205px;
+  width: 600px;
+}
+
+.box2 .frame {
+  background-image: url(../../assets/frame-1.gif);
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 5px;
+  height: 50px;
+  left: 115px;
+  position: absolute;
+  top: 460px;
+  width: 369px;
+}
+
+.box2 .div {
+  background-image: url(../../assets/frame.gif);
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 5px;
+  height: 50px;
+  left: 115px;
+  position: absolute;
+  top: 400px;
+  width: 369px;
+}
+
+.box2 .input {
+  -webkit-backdrop-filter: blur(4px) brightness(100%);
+  backdrop-filter: blur(4px) brightness(100%);
+  background-color: #27262be6;
+  border-radius: 5px;
+  box2-shadow: 0px 4px 4px #00000040;
+  height: 49px;
+  left: 116px;
+  position: absolute;
+  top: 340px;
+  width: 368px;
+}
+
+.box2 .text-wrapper {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  height: 23px;
+  left: 160px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 12px;
+  width: 49px;
+}
+
+.box2 .div-wrapper {
+  -webkit-backdrop-filter: blur(4px) brightness(100%);
+  backdrop-filter: blur(4px) brightness(100%);
+  background-color: #27262be6;
+  border-radius: 5px;
+  box2-shadow: 0px 4px 4px #00000040;
+  height: 49px;
+  left: 116px;
+  position: absolute;
+  top: 270px;
+  width: 368px;
+}
+
+.box2 .text-wrapper-2 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  height: 20px;
+  left: 159px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 13px;
+  width: 51px;
+}
+
+.box2 .div-placeholder-wrapper {
+  background-color: white;
+  border-radius: 5px;
+  height: 50px;
+  left: 116px;
+  position: absolute;
+  top: 120px;
+  width: 368px;
+}
+
+.box2 .div-placeholder {
+  height: 20px;
+  left: 12px;
+  position: relative;
+  top: 15px;
+  width: 344px;
+}
+
+.box2 .text-wrapper-3 {
+  color: #767676;
+  font-family: 'Noto Sans KR-DemiLight', Helvetica;
+  font-size: 14px;
+  font-weight: 300;
+  height: 20px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+  width: 165px;
+}
+
+.box2 .input-2 {
+  background-color: white;
+  border-radius: 5px;
+  height: 50px;
+  left: 116px;
+  position: absolute;
+  top: 190px;
+  width: 368px;
+}
+
+.box2 .text-wrapper-4 {
+  color: #767676;
+  font-family: 'Noto Sans KR-DemiLight', Helvetica;
+  font-size: 14px;
+  font-weight: 300;
+  height: 20px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+  width: 139px;
+}
+
+.box2 .heading {
+  color: #27262b;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 36px;
+  font-weight: 700;
+  height: 51px;
+  left: 115px;
+  letter-spacing: 0;
+  line-height: 54px;
+  position: absolute;
+  text-align: center;
+  top: 39px;
+  white-space: nowrap;
+  width: 114px;
+}
+
+.box2 .side-bar {
+  height: 92px;
+  left: 50px;
+  position: absolute;
+  top: 2px;
+  width: 2134px;
+}
+
+.box2 .sidebar-content {
+  height: 22px;
+  left: 267px;
+  position: absolute;
+  top: 46px;
+  width: 1015px;
+}
+
+.box2 .join {
+  height: 15px;
+  left: 981px;
+  position: absolute;
+  top: 2px;
+  width: 36px;
+}
+
+.box2 .text-wrapper-5 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 800px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 34px;
+}
+
+.box2 .login {
+  height: 20px;
+  left: 901px;
+  position: absolute;
+  top: 2px;
+  width: 48px;
+}
+
+.box2 .text-wrapper-6 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 800px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 46px;
+}
+
+.box2 .BOARD {
+  height: 17px;
+  left: 395px;
+  position: absolute;
+  top: 0;
+  width: 57px;
+}
+
+.box2 .text-wrapper-7 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 55px;
+}
+
+.box2 .CHAT {
+  height: 17px;
+  left: 280px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.box2 .text-wrapper-8 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 45px;
+}
+
+.box2 .RECIPE {
+  height: 17px;
+  left: 154px;
+  position: absolute;
+  top: 0;
+  width: 58px;
+}
+
+.box2 .text-wrapper-9 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 56px;
+}
+
+.box2 .HOTPLACE {
+  height: 17px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 86px;
+}
+
+.box2 .text-wrapper-10 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 84px;
+}
+
+.box2 .logo {
+  height: 46px;
+  left: 21px;
+  position: absolute;
+  top: 23px;
+  width: 152px;
+}
+
+.box2 .text-wrapper-11 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 15px;
+  width: 150px;
+}

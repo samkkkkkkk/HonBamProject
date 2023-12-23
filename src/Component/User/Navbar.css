@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: blue;
+}
+
+.loginHello {
+  font-size: large;
+  color: white;
+}
+
+.loginImage {
+  padding-right: 30px;
+  color: white;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #ffffff;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.app__navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #15161a;
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.app__navbar-logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.app__navbar-links {
+  flex: 1;
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  padding-left: 180px;
+  font-size: 15px;
+  list-style: none;
+}
+
+.app__navbar-links li {
+  margin: 0 1rem;
+  cursor: pointer;
+  padding-right: 30px;
+}
+
+.app__navbar-links a:hover {
+  color: rgb(103, 99, 99);
+}
+
+.app__navbar-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+}
+
+.app__navbar-login li {
+  padding: 20px 25px;
+  list-style-type: none;
+  margin: 10px;
+}
+
+.app__navbar-login li:hover {
+  background-color: rgb(103, 99, 99);
+  border-radius: 4px;
+}
+
+.menu {
+  list-style-type: none;
+}
+
+.app__navbar-toogleBtn {
+  display: none;
+  padding-left: 5px;
+  font-size: 30px;
+}
+
+@media screen and (max-width: 1180px) {
+  .app__navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 24px;
+  }
+
+  .app__navbar-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-left: 0;
+    padding-top: 20px;
+  }
+
+  .app__navbar-links.active {
+    display: flex;
+  }
+
+  .app__navbar-links li {
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+  }
+
+  .app__navbar-login {
+    display: none;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .app__navbar-login.active {
+    display: flex;
+  }
+
+  .app__navbar-toogleBtn {
+    display: block;
+  }
+}

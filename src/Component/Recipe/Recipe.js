@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Recipe.css';
 import data from '../Recipe/CocktailData.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,12 +7,29 @@ import {
   faMartiniGlassCitrus,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
+import { API_BASE_URL, HONBAM } from '../../config/host-config';
 
 const Recipe = () => {
+  const recipeDetailURL = `${API_BASE_URL}${HONBAM}/recipe`;
+  const requestHeader = {
+    'content-type': 'application/json',
+  };
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [filter, setFilter] = useState('all'); // 'all', 'top10', 'recommend'
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const recipeList = async () => {
+      const res = await fetch(recipeDetailURL, {
+        method: 'GET',
+        headers: requestHeader,
+      });
+
+      const json = res.json();
+      
+    };
+  }, []);
 
   const recipes = data;
 
@@ -115,13 +132,18 @@ const Recipe = () => {
           )}
         </div>
       </div>
-
       {/* 카테고리 버튼 영역 */}
       <div className='category'>
-        <button className='category__button' onClick={() => setFilter('all')}>
+        <button
+          className='category__button'
+          onClick={() => setFilter('all')}
+        >
           전체보기
         </button>
-        <button className='category__button' onClick={() => setFilter('top10')}>
+        <button
+          className='category__button'
+          onClick={() => setFilter('top10')}
+        >
           Top 10
         </button>
         <button
@@ -135,7 +157,10 @@ const Recipe = () => {
       {/* 레시피 카드 영역 */}
       <div className='kategoria'>
         {filterRecipes().map((recipe) => (
-          <div key={recipe.cid} className='recipe_card'>
+          <div
+            key={recipe.cid}
+            className='recipe_card'
+          >
             {/* 레시피 이미지 */}
             <img
               src={recipe.imageURL}
@@ -146,7 +171,10 @@ const Recipe = () => {
             {/* 레시피 세부 정보 */}
             <div className='recipe_details'>
               {/* 레시피 이름 */}
-              <h2 className='name' onClick={() => openModal(recipe)}>
+              <h2
+                className='name'
+                onClick={() => openModal(recipe)}
+              >
                 {recipe.cname}
               </h2>
             </div>
@@ -159,11 +187,17 @@ const Recipe = () => {
         <div className='modal'>
           <div className='modal_content'>
             {/* 모달 닫기 버튼 */}
-            <span className='close' onClick={closeModal}>
+            <span
+              className='close'
+              onClick={closeModal}
+            >
               &times;
             </span>
             {/* 레시피 이미지 */}
-            <img src={selectedRecipe.imageURL} className='modal_image' />
+            <img
+              src={selectedRecipe.imageURL}
+              className='modal_image'
+            />
             {/* 레시피 세부 정보 */}
             <div className='modal_details'>
               <h2>{selectedRecipe.cname}</h2>

@@ -1,0 +1,532 @@
+.comment {
+  background-color: #27262b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.comment .div {
+  background-color: #27262b;
+  height: 1024px;
+  position: relative;
+  width: 1440px;
+}
+
+.comment .side-bar {
+  height: 95px;
+  left: 60px;
+  position: absolute;
+  top: 25px;
+  width: 1319px;
+}
+
+.comment .sidebar-content {
+  height: 22px;
+  left: 267px;
+  position: absolute;
+  top: 41px;
+  width: 1036px;
+}
+
+.comment .logout {
+  height: 15px;
+  left: 981px;
+  position: absolute;
+  top: 2px;
+  width: 57px;
+}
+
+.comment .text-wrapper {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 55px;
+}
+
+.comment .my-page {
+  height: 20px;
+  left: 886px;
+  position: absolute;
+  top: 2px;
+  width: 62px;
+}
+
+.comment .my-page-text {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 60px;
+}
+
+.comment .BOARD {
+  height: 17px;
+  left: 395px;
+  position: absolute;
+  top: 0;
+  width: 57px;
+}
+
+.comment .CHAT {
+  height: 17px;
+  left: 280px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.comment .text-wrapper-2 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 45px;
+}
+
+.comment .RECIPE {
+  height: 17px;
+  left: 154px;
+  position: absolute;
+  top: 0;
+  width: 58px;
+}
+
+.comment .text-wrapper-3 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 56px;
+}
+
+.comment .HOTPLACE {
+  height: 17px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 86px;
+}
+
+.comment .text-wrapper-4 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 84px;
+}
+
+.comment .logo {
+  height: 46px;
+  left: 21px;
+  position: absolute;
+  top: 23px;
+  width: 167px;
+}
+
+.comment .text-wrapper-5 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 165px;
+}
+
+.comment .overlap-group-wrapper {
+  height: 770px;
+  left: 420px;
+  position: absolute;
+  top: 162px;
+  width: 559px;
+}
+
+.comment .overlap-group {
+  height: 770px;
+  position: relative;
+}
+
+.comment .rectangle {
+  background-image: url(../../assets/whiteBack.png);
+  height: 757px;
+  left: 0;
+  position: absolute;
+  top: 13px;
+  width: 559px;
+}
+
+.comment .vector {
+  background-image: url(../../assets/Vector1.png);
+  height: 1px;
+  left: 31px;
+  object-fit: cover;
+  position: absolute;
+  top: 124px;
+  width: 498px;
+}
+
+.comment .img {
+  background-image: url(../../assets/Vector1.png);
+  height: 1px;
+  left: 31px;
+  object-fit: cover;
+  position: absolute;
+  top: 280px;
+  width: 498px;
+}
+
+.comment .vector-2 {
+  background-image: url(../../assets/Vector1.png);
+  height: 1px;
+  left: 31px;
+  object-fit: cover;
+  position: absolute;
+  top: 445px;
+  width: 498px;
+}
+
+.comment .intro {
+  height: 21px;
+  left: 147px;
+  position: absolute;
+  top: 161px;
+  width: 124px;
+}
+
+.comment .text-wrapper-6 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 122px;
+}
+
+.comment .div-wrapper {
+  height: 83px;
+  left: 148px;
+  position: absolute;
+  top: 175px;
+  width: 273px;
+}
+.comment .text-wrapper-7 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  width: 271px;
+}
+
+.comment .text-wrapper-25 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 20px;
+  width: 271px;
+}
+
+.comment .intro-2 {
+  height: 24px;
+  left: 274px;
+  position: absolute;
+  top: 158px;
+  width: 31px;
+}
+
+.comment .text-wrapper-8 {
+  color: #929191;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 29px;
+}
+
+.comment .id {
+  height: 32px;
+  left: 253px;
+  position: absolute;
+  top: 73px;
+  width: 59px;
+}
+
+.comment .text-wrapper-30 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 28px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -40px;
+  white-space: nowrap;
+  width: 57px;
+}
+
+.comment .remove .backMain {
+  background-image: url(../../assets/remove1.png);
+  height: 50px;
+  left: 223px;
+  position: absolute;
+  top: 12px;
+  width: 114px;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+}
+.comment .remove .backMain:hover {
+  cursor: pointer;
+}
+
+.comment .image {
+  background-image: url(../../assets/bambam1.png);
+  height: 95px;
+  left: 40px;
+  object-fit: cover;
+  position: absolute;
+  top: 635px;
+  width: 95px;
+}
+
+.comment .intro-3 {
+  height: 21px;
+  left: 147px;
+  position: absolute;
+  top: 330px;
+  width: 87px;
+}
+
+.comment .backBtn1 {
+  background-image: url(../../assets/back.png);
+  background-color: #ffffff;
+  height: 79px;
+  left: 45px;
+  position: absolute;
+  top: 35px;
+  width: 79px;
+  outline: none;
+  border: none;
+}
+.comment .backBtn1:hover {
+  cursor: pointer;
+}
+
+.comment .text-wrapper-10 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 85px;
+}
+
+.pagination .activePage {
+  margin-top: 730px;
+  background-color: #aca9a9;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+}
+.pageCount {
+  display: inline-block;
+  position: relative;
+  margin-left: 5px;
+  left: 150px;
+}
+
+.comment .addComment {
+  color: #807878;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 160px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 655px;
+  white-space: nowrap;
+  width: 300px;
+  height: 50px;
+  outline: none;
+
+  text-align: center;
+  border-radius: 30px;
+  border-color: #929191;
+}
+.comment .ulStyle {
+  width: 400px;
+  margin-left: -250px;
+  font-weight: bold;
+  margin-top: 40px;
+}
+.comment .liStyle {
+  margin-top: 50px;
+  margin-left: 60px;
+  list-style-type: none;
+}
+.comment-container {
+  align-items: center;
+}
+.avatar {
+  background-image: url(../../assets/bambam2.png);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: -30px;
+}
+
+.liStyle .litext {
+  margin-top: -100px;
+  margin-left: -20px;
+}
+
+.comment .text-wrapper-11:hover {
+  cursor: pointer;
+}
+
+.comment .intro-4 {
+  height: 83px;
+  left: 148px;
+  position: absolute;
+  top: 360px;
+  width: 273px;
+}
+
+.comment .intro-5 {
+  height: 24px;
+  left: 233px;
+  position: absolute;
+  top: 327px;
+  width: 31px;
+}
+
+.comment .nature-person-girl {
+  background-image: url(../../assets/woman1.png);
+  height: 95px;
+  left: 41px;
+  object-fit: cover;
+  position: absolute;
+  top: 318px;
+  width: 95px;
+}
+.comment .commentTxt {
+  background-image: url(../../assets/bambam2.png);
+  height: 58px;
+  left: 60px;
+  object-fit: cover;
+  position: absolute;
+  top: 635px;
+  width: 61px;
+}
+
+.comment .vector-3 {
+  background-image: url(../../assets/Vector1.png);
+  height: 1px;
+  left: 33px;
+  object-fit: cover;
+  position: absolute;
+  top: 596px;
+  width: 498px;
+}
+.comment .vector-4 {
+  height: 1px;
+  left: 33px;
+  object-fit: cover;
+  position: absolute;
+  top: 700px;
+  width: 498px;
+}
+
+.comment .intro-6 {
+  height: 21px;
+  left: 149px;
+  position: absolute;
+  top: 484px;
+  width: 87px;
+}
+
+.comment .intro-7 {
+  height: 83px;
+  left: 150px;
+  position: absolute;
+  top: 514px;
+  width: 273px;
+}
+
+.comment .intro-8 {
+  height: 24px;
+  left: 235px;
+  position: absolute;
+  top: 480px;
+  width: 31px;
+}
+
+.comment .person {
+  background-image: url(../../assets/person1.png);
+  height: 74px;
+  left: 50px;
+  object-fit: cover;
+  position: absolute;
+  top: 484px;
+  width: 77px;
+}

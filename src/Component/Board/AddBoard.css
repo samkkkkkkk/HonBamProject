@@ -1,0 +1,397 @@
+.AddBoard {
+  background-color: #27262b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.AddBoard .div {
+  background-color: #27262b;
+  height: 1024px;
+  position: relative;
+  width: 1440px;
+}
+
+.AddBoard .side-bar {
+  height: 95px;
+  left: 60px;
+  position: absolute;
+  top: 25px;
+  width: 1319px;
+}
+
+.AddBoard .sidebar-content {
+  height: 22px;
+  left: 267px;
+  position: absolute;
+  top: 41px;
+  width: 1036px;
+}
+
+.AddBoard .logout {
+  height: 15px;
+  left: 981px;
+  position: absolute;
+  top: 2px;
+  width: 57px;
+}
+
+.AddBoard .text-wrapper {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 55px;
+}
+
+.AddBoard .my-page {
+  height: 20px;
+  left: 886px;
+  position: absolute;
+  top: 2px;
+  width: 62px;
+}
+
+.AddBoard .my-page-text {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 60px;
+}
+
+.AddBoard .BOARD {
+  height: 17px;
+  left: 395px;
+  position: absolute;
+  top: 0;
+  width: 57px;
+}
+
+.AddBoard .CHAT {
+  height: 17px;
+  left: 280px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+.AddBoard .text-wrapper-2 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 45px;
+}
+
+.AddBoard .RECIPE {
+  height: 17px;
+  left: 154px;
+  position: absolute;
+  top: 0;
+  width: 58px;
+}
+
+.AddBoard .text-wrapper-3 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 56px;
+}
+
+.AddBoard .HOTPLACE {
+  height: 17px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 86px;
+}
+
+.AddBoard .text-wrapper-4 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 84px;
+}
+
+.AddBoard .logo {
+  height: 46px;
+  left: 21px;
+  position: absolute;
+  top: 23px;
+  width: 167px;
+}
+.join-page .inputTextEmail {
+  outline: none;
+  border: none;
+  width: 250px;
+  padding-left: 0px;
+  padding-top: 5px;
+  font-size: 15px;
+}
+
+.thumbnail-box {
+  height: 153px;
+  left: 192px;
+  object-fit: cover;
+  position: absolute;
+  top: 110px;
+  width: 165px;
+}
+.thumbnail-box:hover {
+  cursor: pointer;
+}
+
+.AddBoard .text-wrapper-5 {
+  color: #ffffff;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  height: 46px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 165px;
+}
+
+.AddBoard .overlap-group {
+  background-image: url(../../assets/whiteBack.png);
+  background-size: 100% 100%;
+  height: 757px;
+  left: 420px;
+  position: absolute;
+  top: 175px;
+  width: 559px;
+}
+
+.AddBoard .vector {
+  background-image: url(../../assets/Vector.png);
+  height: 1px;
+  left: 30px;
+  object-fit: cover;
+  position: absolute;
+  top: 480px;
+  width: 498px;
+}
+.AddBoard .vector2 {
+  background-image: url(../../assets/Vector.png);
+  height: 1px;
+  left: 30px;
+  object-fit: cover;
+  position: absolute;
+  top: 590px;
+  width: 498px;
+}
+
+.AddBoard .img {
+  background-image: url(../../assets/Vector.png);
+  height: 1px;
+  left: 30px;
+  object-fit: cover;
+  position: absolute;
+  top: 370px;
+  width: 498px;
+}
+
+.AddBoard .email {
+  height: 30px;
+  left: 219px;
+  position: absolute;
+  top: 238px;
+  width: 117px;
+}
+
+.AddBoard .text-wrapper-6 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 15px;
+  white-space: nowrap;
+  width: 115px;
+}
+
+.AddBoard .intro {
+  height: 26px;
+  left: 32px;
+  position: absolute;
+  top: 331px;
+  width: 74px;
+}
+
+.AddBoard .text-wrapper-7 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 200px;
+}
+
+.AddBoard .div-wrapper {
+  height: 24px;
+  left: 35px;
+  position: absolute;
+  top: 307px;
+  width: 37px;
+}
+
+.AddBoard .text-wrapper-8 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 50px;
+}
+
+.AddBoard .intro-2 {
+  height: 26px;
+  left: 32px;
+  position: absolute;
+  top: 442px;
+  width: 272px;
+}
+
+.AddBoard .text-wrapper-9 {
+  color: #665f5f;
+  font-family: 'Inter-Bold', Helvetica;
+  outline: none;
+  border: none;
+  font-size: 20px;
+}
+
+.AddBoard .intro-3 {
+  height: 26px;
+  left: 30px;
+  position: absolute;
+  top: 551px;
+  width: 272px;
+}
+
+.AddBoard .intro-4 {
+  height: 24px;
+  left: 35px;
+  position: absolute;
+  top: 418px;
+  width: 37px;
+}
+
+.AddBoard .vector-2 {
+  height: 1px;
+  left: 30px;
+  object-fit: cover;
+  position: absolute;
+  top: 588px;
+  width: 498px;
+}
+
+.AddBoard .intro-5 {
+  height: 24px;
+  left: 35px;
+  position: absolute;
+  top: 526px;
+  width: 37px;
+}
+
+.AddBoard .image:hover {
+  cursor: pointer;
+}
+
+.AddBoard .id {
+  height: 30px;
+  left: 67px;
+  position: absolute;
+  top: 39px;
+  width: 145px;
+}
+
+.AddBoard .text-wrapper-10 {
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  left: -20px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 143px;
+}
+.AddBoard .backBtn {
+  background-image: url(../../assets/back.png);
+  background-color: #ffffff;
+  height: 79px;
+  left: 370px;
+  position: absolute;
+  top: -10px;
+  width: 79px;
+  outline: none;
+  border: none;
+}
+.AddBoard .backBtn:hover {
+  cursor: pointer;
+}
+
+.shareBtn {
+  background-image: url(../../assets/shareBtn.png);
+  height: 75px;
+  left: 160px;
+  object-fit: cover;
+  position: absolute;
+  top: 300px;
+  width: 164px;
+  outline: none;
+  border: none;
+}
+.shareBtn:hover {
+  cursor: pointer;
+}
