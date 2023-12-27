@@ -28,6 +28,7 @@ import SearchPage from './Component/SearchPage/SearchPage';
 import Main from './Component/mainpage/Main';
 import { Navbar } from './Component/Navbar/Navbar';
 import Recipe from './Component/Recipe/Recipe';
+import AddBoard from './Component/Board/AddBoard';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -39,31 +40,30 @@ function App() {
         <div>
           <Navbar />
         </div>
-        <div>
-          <Routes>
-            <Route
-              path='/Modify'
-              element={<Modify />}
-            />
-            <Route
-              path='/MyPage'
-              element={<MyPage />}
-            />
-            <Route
-              path='/Login'
-              element={<Login />}
-            />
-            <Route
-              path='/Join'
-              element={<Join />}
-            />
-          </Routes>
-        </div>
-
         <Routes>
+          <Route
+            path='/Modify'
+            element={<Modify />}
+          />
+          <Route
+            path='/MyPage'
+            element={<MyPage />}
+          />
+          <Route
+            path='/Login'
+            element={<Login />}
+          />
+          <Route
+            path='/Join'
+            element={<Join />}
+          />
           <Route
             path='/board'
             element={<SnsBoard />}
+          />
+          <Route
+            path='/addboard'
+            element={<AddBoard />}
           />
           <Route
             path='/UserDetail'
@@ -82,8 +82,12 @@ function App() {
             element={<ProfileEdit />}
           />
           <Route
-            path='/MyDetail'
+            path='/mydetail'
             element={<MyDetail />}
+          />
+          <Route
+            path='/addboard'
+            element={<AddBoard />}
           />
           <Route
             path='/oauth/redirected/HonBam'
@@ -93,8 +97,7 @@ function App() {
             path='/oauth/redirected/Naver'
             element={<NaverLoginHandler />}
           />
-        </Routes>
-        <Routes>
+
           <Route
             path='/'
             element={<Main />}

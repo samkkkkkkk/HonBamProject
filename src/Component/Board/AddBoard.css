@@ -163,15 +163,21 @@
 }
 
 .thumbnail-box {
-  height: 153px;
+  height: 100%;
   left: 192px;
   object-fit: cover;
   position: absolute;
   top: 110px;
-  width: 165px;
+  width: 100%;
 }
 .thumbnail-box:hover {
   cursor: pointer;
+}
+
+.thumnail-img-box {
+  border: 1px solid black;
+  height: 100%;
+  width: 100%;
 }
 
 .AddBoard .text-wrapper-5 {
