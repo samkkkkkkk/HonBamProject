@@ -103,9 +103,7 @@ export const MyPage = () => {
             </div>
             <div className='div'>
               <div className='input3'>
-                <div className='text-wrapper'>
-                  <Link to='/addboard'>WRITE PAGE</Link>
-                </div>
+                <div className='text-wrapper'>WRITE PAGE</div>
               </div>
             </div>
           </div>

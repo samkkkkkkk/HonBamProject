@@ -14,3 +14,5 @@ if (clientHostName === 'localhost') {
 export const API_BASE_URL = backEndHostName;
 export const TODO = '/api/todos';
 export const USER = '/api/auth';
+export const RECIPE = '/api/recipe';
+export const POST = '/api/posts';

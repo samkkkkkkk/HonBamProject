@@ -278,14 +278,19 @@
 }
 
 .board .sns-board-img {
-  background-image: url(../../assets/snsboardimg.png);
-  background-position: 50% 50%;
-  background-size: cover;
+  /* background-image: url(../../assets/snsboardimg.png); */
+  /* background-position: 50% 50%;
+  background-size: cover; */
   height: 415px;
   left: 0;
   position: absolute;
   top: 53px;
   width: 634px;
+}
+.board .sns-post-img {
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
 }
 .board .commentList {
   background-color: rgba(0, 0, 255, 0);

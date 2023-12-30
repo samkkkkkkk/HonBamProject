@@ -27,7 +27,6 @@ const AddBoard = () => {
     const postFormData = new FormData();
     postFormData.append('content', contentBlob);
     postFormData.append('postImg', $fileTag.current.files[0]);
-    console.log(FormData.postImg);
     const res = await fetch(API_BASE_POST + '/addboard', {
       method: 'POST',
       headers: {
@@ -35,12 +34,12 @@ const AddBoard = () => {
       },
       body: postFormData,
     });
-    console.log(token);
-    console.log(content);
+    // console.log();
+    // console.log(token);
+    // console.log(content);
     // console.log(postImg);
     if (res.status === 200) {
       const json = res.json();
-      console.log('json', json);
     }
   };
 

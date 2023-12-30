@@ -86,6 +86,7 @@ export const Navbar = () => {
       const profileBlob = await res.blob();
       // 해당 이미지를 imgUrl로 변경
       const imgUrl = window.URL.createObjectURL(profileBlob);
+      // console.log('profileImg', imgUrl);
       setProfileUrl(imgUrl);
     } else if (
       res.status === 200 &&
@@ -93,7 +94,7 @@ export const Navbar = () => {
     ) {
       const imgUrl2 = await res.text();
       // 해당 이미지를 imgUrl로 변경
-
+      // console.log('profileImg', imgUrl2);
       setProfileUrl(imgUrl2);
     } else {
       const err = await res.text();

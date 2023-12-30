@@ -94,7 +94,8 @@ export const Modify = () => {
     } else if (!nameRegex.test(inputValue)) {
       msg = '2~5글자 사이의 한글로 작성하세요!';
     } else if (inputValue == userName) {
-      msg = '원래 사용하던 이름입니다!';
+      msg = '원래 사용하던 이름입니다!(재사용 가능)';
+      flag = true;
     } else {
       msg = '사용 가능한 이름입니다.';
       flag = true;
@@ -124,7 +125,8 @@ export const Modify = () => {
     } else if (!nameRegex.test(inputValue)) {
       msg = '1~10글자 사이의 한글로 작성하세요!';
     } else if (inputValue == address) {
-      msg = '원래 사용하던 주소입니다!';
+      msg = '원래 사용하던 주소입니다!(재사용 가능)';
+      flag = true;
     } else {
       msg = '사용 가능한 주소입니다.';
       flag = true;
@@ -153,6 +155,9 @@ export const Modify = () => {
       msg = '번호는 필수입니다(01X-XXXX-XXXX 형식).';
     } else if (!nameRegex.test(inputValue)) {
       msg = '하이픈 필수 입력하셔야합니다';
+    } else if (inputValue == phoneNumber) {
+      msg = '원래 사용하던 번호입니다!(재사용 가능)';
+      flag = true;
     } else {
       msg = '사용 가능한 번호입니다.';
       flag = true;
@@ -183,7 +188,8 @@ export const Modify = () => {
       .then((json) => {
         // console.log(json);
         if (json) {
-          msg = '이메일이 중복되었습니다.';
+          msg = '사용하시던 이메일입니다(재사용 가능).';
+          flag = true;
         } else {
           msg = '사용 가능한 이메일 입니다.';
           flag = true;
@@ -243,6 +249,9 @@ export const Modify = () => {
       msg = '비밀번호는 필수입니다.';
     } else if (!pwRegex.test(inputValue)) {
       msg = '8글자 이상의 영문, 숫자, 특수문자를 포함해 주세요.';
+    } else if (inputValue == 'aaaa1111!') {
+      msg = '원래 사용하던 번호입니다!(재사용 가능)';
+      flag = true;
     } else {
       msg = '사용 가능한 비밀번호 입니다.';
       flag = true;
@@ -318,8 +327,7 @@ export const Modify = () => {
 
     if (res.status === 200) {
       alert('회원가입에 성공했습니다!');
-      //로그인 페이지로 리다이렉트
-      redirection('/login');
+      logoutHandler();
     } else {
       alert('서버와의 통신이 원활하지 않습니다.');
     }
@@ -368,6 +376,19 @@ export const Modify = () => {
     };
   };
 
+  const logoutHandler = async () => {
+    const res = await fetch(`${API_BASE_URL}${USER}/logout`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
+      },
+    });
+
+    // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
+    onLogout();
+    redirection('/login');
+  };
+
   return (
     <div className='join-page'>
       <div className='div'>
@@ -394,7 +415,7 @@ export const Modify = () => {
                       onClick={joinButtonClickHandler}
                       className='joinsubmit'
                     >
-                      JOIN
+                      MODIFY
                     </button>
                   </div>
                 </div>
@@ -551,8 +572,21 @@ export const Modify = () => {
 
                 <div className='input-7'>
                   <div className='text-wrapper-6'>
-                    이메일 변경은 불가능 합니다.
-                    <div className='emailOverlap'></div>
+                    <input
+                      className='inputText'
+                      type='text'
+                      placeholder='ENTER YOUR EMAIL'
+                      onChange={emailHandler}
+                    ></input>
+                    <div className='emailOverlap'>
+                      <span
+                        style={
+                          correct.email ? { color: 'green' } : { color: 'red' }
+                        }
+                      >
+                        {message.email}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className='join-header'>MODIFY</div>

@@ -2,12 +2,30 @@ import React, { useContext, useState, useEffect } from 'react';
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { API_BASE_URL, USER } from '../../util/host-config';
-import AuthContext from '../../util/AuthContext';
-import { isLogin, getLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL, USER } from '../util/host-config';
+
+import AuthContext from '../util/AuthContext';
+import { isLogin, getLoginUserInfo } from '../util/login-util';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
+  const currentDate = new Date();
+  const oneYearLater = new Date();
+  oneYearLater.setFullYear(currentDate.getFullYear() + 1);
+  const timeDifference = oneYearLater.getTime() - currentDate.getTime();
+  const secondsDifference = Math.floor(timeDifference / 1000);
+  const minutesDifference = Math.floor(secondsDifference / 60);
+  const hoursDifference = Math.floor(minutesDifference / 60);
+  const daysDifference = Math.floor(hoursDifference / 24) - 2;
+  const message = `프리미엄회원권을 결제하셨습니다! 이용 날짜: ${currentDate.toLocaleDateString()} ~ ${oneYearLater.toLocaleDateString()}`;
+  const message2 = `프리미엄 회원권 남은일수 : ${daysDifference}일 ${Math.floor(
+    hoursDifference / 367
+  )}시간 ${Math.floor(minutesDifference / 8900)}분 남으셨습니다`;
+
+  const timecheck = () => {
+    alert(message2);
+  };
+
   const onClickPayment = () => {
     const { IMP } = window;
     IMP.init('imp10345536');
@@ -29,8 +47,9 @@ export const Navbar = () => {
   const callback = (response) => {
     const { success, error_msg } = response;
     if (success) {
-      alert('결제 성공');
+      alert(message);
       promote();
+      logoutHandler();
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
@@ -113,22 +132,27 @@ export const Navbar = () => {
     console.log('Navbar -> PAY: ' + userPay);
     if (userPay === 'NORMAL') {
       return (
-        <span
-          className='promote badge bg-warning'
-          onClick={onClickPayment}
-        >
-          일반 회원
-        </span>
+        <button className='btn userpaynormal' onClick={onClickPayment}>
+          <span>일반 회원</span>
+        </button>
       );
     } else if (userPay === 'PREMIUM') {
+      return <div className='userpaypremium' onClick={timecheck}></div>;
+    }
+  };
+
+  const PremiumView = () => {
+    const userPay = localStorage.getItem('USER_PAY');
+    console.log('Navbar -> PAY: ' + userPay);
+    if (!isLoggedIn || userPay === 'NORMAL') {
       return (
-        <span
-          className='promote badge bg-danger'
-          color='white'
-        >
-          프리미엄
-        </span>
+        <div className='app__navbar-logo'>
+          {' '}
+          <Link to='/'>HONBAM</Link>{' '}
+        </div>
       );
+    } else if (userPay === 'PREMIUM') {
+      return <div className='HonBamGIF'></div>;
     }
   };
 
@@ -156,11 +180,51 @@ export const Navbar = () => {
     fetchPromote();
   };
 
+  const deleteUser = async () => {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      try {
+        const res = await fetch(`${API_BASE_URL}${USER}/delete`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!res.ok) {
+          const message = `An error has occurred: ${res.status}`;
+          throw new Error(message);
+        }
+
+        const result = await res.text();
+        console.log(result);
+        logoutHandler();
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+  };
+
+  // deleteUser().catch((error) => {
+  //   console.error(error.message);
+  // });
+
+  // function logout() {
+  //   // 로컬 스토리지에서 토큰 삭제
+  //   localStorage.removeItem('ACCESS_TOKEN');
+  //   // 세션 종료
+  //   // 사용자를 로그인 페이지로 리다이렉트
+  //   window.location.href = '/login';
+  // }
+
+  // deleteUser().catch((error) => {
+  //   console.error(error.message);
+  // });
+
   return (
     <nav className={`app__navbar ${showLinks ? 'active' : ''}`}>
-      <div className='app__navbar-logo'>
-        <Link to='/'>HONBAM</Link>
-      </div>
+      {PremiumView()}
+      {/* <div className='HonBamGIF'></div> */}
       <ul className={`app__navbar-links ${showLinks ? 'active' : ''}`}>
         <li>
           <a href='#hotplace'>맛집</a>
@@ -173,6 +237,15 @@ export const Navbar = () => {
         </li>
         <li>
           <a href='#board'>게시판</a>
+        </li>
+        <li>
+          {isLoggedIn ? (
+            <a className='delete' onClick={deleteUser}>
+              회원탈퇴
+            </a>
+          ) : (
+            <></>
+          )}
         </li>
       </ul>
       <ul className={`app__navbar-login ${showLinks ? 'active' : ''}`}>
@@ -203,10 +276,7 @@ export const Navbar = () => {
           <a href='#login'>
             {' '}
             {isLoggedIn ? (
-              <a
-                className='logout-btn'
-                onClick={logoutHandler}
-              >
+              <a className='logout-btn' onClick={logoutHandler}>
                 로그아웃
               </a>
             ) : (
@@ -232,10 +302,7 @@ export const Navbar = () => {
           className='app__navbar-toogleBtn'
           onClick={handleToggleClick}
         >
-          <FontAwesomeIcon
-            icon={faBars}
-            style={{ color: '#ffffff' }}
-          />
+          <FontAwesomeIcon icon={faBars} style={{ color: '#ffffff' }} />
         </a>
       </li>
     </nav>

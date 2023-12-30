@@ -86,6 +86,7 @@ body {
   align-items: center;
   flex-wrap: nowrap;
   width: 700px;
+  height: 750px;
 }
 
 .close {
@@ -139,4 +140,88 @@ body {
 
 .name {
   padding-bottom: 50px;
+}
+
+.clear_button {
+  cursor: pointer;
+}
+
+.container__recipe {
+  padding: 3%;
+  background-position: center;
+  background-size: cover;
+  /* 지정한 요소를 다 덮도록 배경이미지를 확대/축소 */
+  display: flex;
+  align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
+  justify-content: center;
+  /* 가로축 - 중심축
+      요소들을 컨테이너의 중앙으로 정렬 */
+}
+
+.local_search__recipe {
+  display: flex;
+  justify-content: center;
+  /* 가로축 - 중심축
+    요소들을 컨테이너의 중앙으로 정렬 */
+  list-style-type: none;
+  color: #ffffff;
+  padding-right: 20px;
+}
+
+.search_bar__recipe {
+  width: 100%;
+  max-width: 300px;
+  background: rgb(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  /* 세로축-교차축
+      컨테이너의 세로 축의 중앙으로 정렬 */
+  border-radius: 60px;
+  padding: 5px 20px;
+  backdrop-filter: blur(4px) saturate(180%);
+  /* 요소 뒤에 흐릿하게 흐림 효과, 다양한 색상 필터링 효과
+      blur 흐림 효과(숫자가 커질수록 더 흐릿해짐), saturate 채도 효과 */
+}
+
+.search_bar__recipe input {
+  background: transparent;
+  /* 배경을 투명하게 해당 요소의 내용만 표시*/
+  flex: 1;
+  border: 0;
+  outline: none;
+  font-size: 15px;
+  color: #cac7ff;
+}
+
+::placeholder {
+  color: #cac7ff;
+}
+
+.button__recipe {
+  border-radius: 50%;
+  background-color: #58629b;
+  padding: 7px;
+  color: #ffffff;
+  width: 17px;
+}
+
+.clear_button__recipe {
+  border-radius: 50%;
+  background-color: #58629b;
+  padding: 7px;
+  color: #ffffff;
+  cursor: pointer;
+  width: 17px;
+}
+
+.category__button.selected {
+  background-color: #58629b;
+  color: #ffffff;
+}
+
+.rank {
+  position: relative;
+  top: 30px;
 }

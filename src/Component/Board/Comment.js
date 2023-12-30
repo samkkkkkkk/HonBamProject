@@ -1,15 +1,59 @@
 import React, { useState } from 'react';
 import './Comment.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { API_BASE_URL } from '../../util/host-config';
+import { POST } from '../../config/host-config';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const Comment = () => {
+  const token = getLoginUserInfo().token;
+  const API_BASE_COMMENT = API_BASE_URL + POST + '/comment';
+  const postId = useParams();
+  console.log('postId', postId);
+  const requestHeader = {
+    'content-type': 'application/json',
+    Authorization: 'Bearer ' + token,
+  };
   const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const commentsPerPage = 4;
+  // const [postId, setPostId] = useState('');
+  // setPostId(props.postId);
+
+  // const getPostid = async () => {
+  //   const res = await fetch(API_BASE_COMMENT, {
+  //     method: 'GET',
+  //   });
+  //   if (res.status === 200) {
+  //     const json = await res.text();
+  //     setPostId(json);
+  //   }
+  // };
+  // getPostid();
+
+  // console.log(postId);
+
+  const commentRegist = async () => {
+    const res = await fetch(`${API_BASE_COMMENT} + '/' + ${postId}`, {
+      method: 'POST',
+      headers: requestHeader,
+      body: JSON.stringify({ comment: comment, postId: postId }),
+    });
+  };
+
+  const commentChangeHander = (e) => {
+    setComment(e.target.value);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    commentRegist();
+    setComment('');
+  };
 
   const maxComments = 4;
 
-  const addComment = (text) => {
+  const addComments = (text) => {
     setComments([...comments, text]);
   };
 
@@ -29,26 +73,7 @@ const Comment = () => {
     <div className='comment'>
       <div className='div'>
         <div className='side-bar'>
-          <div className='sidebar-content'>
-            <div className='logout'>
-              <div className='text-wrapper'>Logout</div>
-            </div>
-            <div className='my-page'>
-              <div className='my-page-text'>Mypage</div>
-            </div>
-            <div className='BOARD'>
-              <div className='text-wrapper'>BOARD</div>
-            </div>
-            <div className='CHAT'>
-              <div className='text-wrapper-2'>CHAT</div>
-            </div>
-            <div className='RECIPE'>
-              <div className='text-wrapper-3'>RECIPE</div>
-            </div>
-            <div className='HOTPLACE'>
-              <div className='text-wrapper-4'>HOTPLACE</div>
-            </div>
-          </div>
+          <div className='sidebar-content'></div>
           <div className='logo'>
             <div className='text-wrapper-5'>HONBAM</div>
           </div>
@@ -94,19 +119,23 @@ const Comment = () => {
                 )
               )}
             </div>
-
-            <input
-              className='addComment'
-              type='text'
-              placeholder='댓글 추가...'
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  addComment(e.target.value);
-                  e.target.value = '';
-                }
-              }}
-            ></input>
-
+            <form onSubmit={submitHandler}>
+              <div>
+                <input
+                  className='addComment'
+                  type='text'
+                  placeholder='댓글 추가...'
+                  // onKeyDown={(e) => {
+                  //   if (e.key === 'Enter') {
+                  //     addComments(e.target.value);
+                  //     e.target.value = '';
+                  //   }
+                  // }}
+                  onChange={commentChangeHander}
+                  value={comment}
+                ></input>
+              </div>
+            </form>
             <div className='comment1' />
             <div className='image' />
 

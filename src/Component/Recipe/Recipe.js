@@ -1,38 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import './Recipe.css';
-import data from '../Recipe/CocktailData.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMagnifyingGlass,
   faMartiniGlassCitrus,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import { API_BASE_URL, HONBAM } from '../../config/host-config';
+import { API_BASE_URL, RECIPE } from '../../util/host-config';
 
 const Recipe = () => {
-  const recipeDetailURL = `${API_BASE_URL}${HONBAM}/recipe`;
-  const requestHeader = {
-    'content-type': 'application/json',
-  };
+  const [recipes, setRecipes] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [filter, setFilter] = useState('all'); // 'all', 'top10', 'recommend'
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const recipeList = async () => {
-      const res = await fetch(recipeDetailURL, {
-        method: 'GET',
-        headers: requestHeader,
-      });
+    const fetchRecipeList = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}${RECIPE}`, {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+          },
+        });
 
-      const json = res.json();
-      
+        const serverData = await res.json();
+
+        setRecipes(serverData); // 레시피 데이터를 상태에 업데이트
+      } catch (error) {
+        console.error('ERROR: ', error);
+        setRecipes([]);
+      }
     };
+
+    fetchRecipeList();
   }, []);
 
-  const recipes = data;
-
+  // 레시피 모달을 열고 닫는 함수들
   const openModal = (recipe) => {
     setSelectedRecipe(recipe);
     setModalOpen(true);
@@ -41,6 +46,13 @@ const Recipe = () => {
   const closeModal = () => {
     setSelectedRecipe(null);
     setModalOpen(false);
+  };
+
+  // 모달 외부를 클릭했을 때 모달을 닫는 함수
+  const closeModalOutside = (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
   };
 
   // 검색어 초기화 함수
@@ -57,38 +69,47 @@ const Recipe = () => {
   const searchFilter = (recipe) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     return (
-      (recipe.cname &&
-        recipe.cname.toLowerCase().includes(lowerCaseSearchTerm)) ||
-      (recipe.mainingredient &&
-        recipe.mainingredient.toLowerCase().includes(lowerCaseSearchTerm)) ||
-      (recipe.submaterials &&
-        recipe.submaterials.toLowerCase().includes(lowerCaseSearchTerm)) ||
-      (recipe.provenance &&
-        recipe.provenance.toLowerCase().includes(lowerCaseSearchTerm))
+      recipe.cocktailName &&
+      recipe.cocktailName.toLowerCase().includes(lowerCaseSearchTerm)
     );
   };
 
   // 검색어와 필터에 따라 레시피를 필터링하는 함수
   const filterRecipes = () => {
-    const filteredRecipes = recipes.filter((recipe) => {
-      // 전체보기(all)일 경우 모든 레시피 반환
-      if (filter === 'all') {
-        return true;
-      }
-      // Top 10 레시피 반환
-      if (filter === 'top10') {
-        return recipes.slice(0, 10).includes(recipe);
-      }
-      // 추천 레시피 반환 (추가적인 조건에 따라 수정 필요)
-      if (filter === 'recommend') {
-        // 예시: 알콜 도수가 15 이상인 레시피를 추천으로 표시
-        return recipe.degree >= 15;
-      }
-      return true;
-    });
+    // 'all'일 경우 모든 레시피를 가나다 순으로 정렬
+    if (filter === 'all') {
+      const sortedRecipes = recipes.slice().sort((a, b) => {
+        const nameA = a.cocktailName.toUpperCase();
+        const nameB = b.cocktailName.toUpperCase();
+        return nameA.localeCompare(nameB);
+      });
 
-    // 검색어에 따라 레시피를 추가로 필터링
-    return filteredRecipes.filter(searchFilter);
+      // 검색어에 따라 레시피를 추가로 필터링
+      return sortedRecipes.filter(searchFilter);
+    }
+
+    // 'top10'일 경우 상위 10개의 레시피만 반환
+    if (filter === 'top10') {
+      const top10Ids = recipes
+        .slice(0, 10)
+        .map((topRecipe) => topRecipe.dataId);
+      return recipes.filter(
+        (recipe) => top10Ids.includes(recipe.dataId) && searchFilter(recipe)
+      );
+    }
+
+    // 'recommend'일 경우 알콜 도수가 30 이상인 레시피만 반환
+    if (filter === 'recommend') {
+      return recipes.filter(
+        (recipe) =>
+          recipe.recipe &&
+          recipe.recipe.includes('알콜 도수') &&
+          parseInt(recipe.recipe.split('알콜 도수')[1]) >= 30 &&
+          searchFilter(recipe)
+      );
+    }
+
+    return true;
   };
 
   return (
@@ -101,11 +122,11 @@ const Recipe = () => {
           className='cocktail__logo'
         />
       </p>
-      <div className='container'>
-        <ul className='local_search'>
+      <div className='container__recipe'>
+        <ul className='local_search__recipe'>
           <li>칵테일 검색</li>
         </ul>
-        <div className='search_bar'>
+        <div className='search_bar__recipe'>
           {/* 검색어 입력창 */}
           <input
             type='text'
@@ -118,14 +139,14 @@ const Recipe = () => {
           {/* 검색 버튼 */}
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
-            className='button'
+            className='button__recipe'
             style={{ display: isSearchTermEmpty() ? 'block' : 'none' }}
           />
           {/* 검색어 초기화 버튼 */}
           {searchTerm && (
             <FontAwesomeIcon
               icon={faTimes}
-              className='clear_button'
+              className='clear_button__recipe'
               onClick={clearSearch}
               style={{ display: 'block' }}
             />
@@ -135,19 +156,21 @@ const Recipe = () => {
       {/* 카테고리 버튼 영역 */}
       <div className='category'>
         <button
-          className='category__button'
+          className={`category__button ${filter === 'all' ? 'selected' : ''}`}
           onClick={() => setFilter('all')}
         >
           전체보기
         </button>
         <button
-          className='category__button'
+          className={`category__button ${filter === 'top10' ? 'selected' : ''}`}
           onClick={() => setFilter('top10')}
         >
           Top 10
         </button>
         <button
-          className='category__button'
+          className={`category__button ${
+            filter === 'recommend' ? 'selected' : ''
+          }`}
           onClick={() => setFilter('recommend')}
         >
           혼밤이 추천
@@ -156,15 +179,16 @@ const Recipe = () => {
 
       {/* 레시피 카드 영역 */}
       <div className='kategoria'>
-        {filterRecipes().map((recipe) => (
+        {filterRecipes().map((recipe, index) => (
           <div
-            key={recipe.cid}
+            key={recipe.dataId}
             className='recipe_card'
           >
+            {filter === 'top10' && <h2 className='rank'>{index + 1}위 </h2>}
             {/* 레시피 이미지 */}
             <img
-              src={recipe.imageURL}
-              alt={recipe.cname}
+              src={recipe.cocktailImg}
+              alt={recipe.cocktailName}
               className='recipe_image'
               onClick={() => openModal(recipe)}
             />
@@ -175,7 +199,7 @@ const Recipe = () => {
                 className='name'
                 onClick={() => openModal(recipe)}
               >
-                {recipe.cname}
+                {recipe.cocktailName}
               </h2>
             </div>
           </div>
@@ -184,8 +208,14 @@ const Recipe = () => {
 
       {/* 레시피 모달 */}
       {modalOpen && selectedRecipe && (
-        <div className='modal'>
-          <div className='modal_content'>
+        <div
+          className='modal'
+          onClick={closeModalOutside}
+        >
+          <div
+            className='modal_content'
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* 모달 닫기 버튼 */}
             <span
               className='close'
@@ -195,26 +225,34 @@ const Recipe = () => {
             </span>
             {/* 레시피 이미지 */}
             <img
-              src={selectedRecipe.imageURL}
+              src={selectedRecipe.cocktailImg}
               className='modal_image'
+              alt={selectedRecipe.cocktailName}
             />
             {/* 레시피 세부 정보 */}
             <div className='modal_details'>
-              <h2>{selectedRecipe.cname}</h2>
+              <h2>{selectedRecipe.cocktailName}</h2>
               <br />
-              <p>{`알콜 도수: ${selectedRecipe.degree}`}</p>
-              <br />
-              <p>{`제조법: ${selectedRecipe.make}`}</p>
-              <br />
-              <p>{`글라스: ${selectedRecipe.glass}`}</p>
-              <br />
-              <p>{`주재료: ${selectedRecipe.mainingredient}`}</p>
-              <br />
-              <p>{`부재료: ${selectedRecipe.submaterials}`}</p>
-              <br />
-              <p>{`유래: ${selectedRecipe.provenance}`}</p>
-              <br />
-              <p>{`만드는법: ${selectedRecipe.recipe}`}</p>
+              {selectedRecipe.recipe && (
+                <>
+                  <p
+                    className='recipe__'
+                    style={{ whiteSpace: 'pre-wrap' }}
+                  >
+                    {`${selectedRecipe.recipe.replace(/\//g, '\n\n')}`}
+                  </p>
+                </>
+              )}
+              {selectedRecipe.recipeDetail && (
+                <>
+                  <p
+                    className='recipeDetail__'
+                    style={{ whiteSpace: 'pre-wrap' }}
+                  >
+                    {`${selectedRecipe.recipeDetail.replace(/\//g, '\n\n')}`}
+                  </p>
+                </>
+              )}
               <br />
             </div>
           </div>
