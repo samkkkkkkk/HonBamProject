@@ -1,0 +1,31 @@
+.App {
+  height: 700px;
+  width: 400px;
+  background-color: #f1ebeb;
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+.defaultMessage {
+  font-size: 13px;
+  color: #e975949c;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.line {
+  top: 5px;
+  border: 1px solid #e9759460;
+  width: 80%;
+  margin-left: 36px;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+} */

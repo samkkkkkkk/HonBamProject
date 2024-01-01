@@ -12,6 +12,11 @@ import UserDetail2 from './Component/Board/UserDetail2';
 import UserDetail3 from './Component/Board/UserDetail3';
 import UserDetail4 from './Component/Board/UserDetail4';
 import Setting from './Component/Board/Setting';
+
+import { Chat } from './Component/Chat/Chat';
+import { ChatMain } from './Component/Chat/ChatMain';
+import { AiChat } from './Component/Chat/AiChat';
+import { ChatApp } from './Component/Chat/vsChat/src/ChatApp';
 import {
   BrowserRouter as Router,
   Route,
@@ -35,6 +40,7 @@ import { Navbar } from './Component/Navbar/Navbar';
 import Recipe from './Component/Recipe/Recipe';
 import AddBoard from './Component/Board/AddBoard';
 import { Pay } from './Component/User/Pay';
+import NaverSearch from './Component/Map/NaverSearch';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -133,6 +139,26 @@ function App() {
           <Route
             path='/oauth/redirected/Naver'
             element={<NaverLoginHandler />}
+          />
+          <Route
+            path='/Chat'
+            element={<Chat />}
+          ></Route>
+          <Route
+            path='/ChatMain'
+            element={<ChatMain />}
+          ></Route>
+          <Route
+            path='/AiChat'
+            element={<AiChat />}
+          ></Route>
+          <Route
+            path='/ChatApp'
+            element={<ChatApp />}
+          ></Route>
+          <Route
+            path='/naverSearch'
+            element={<NaverSearch />}
           />
 
           <Route

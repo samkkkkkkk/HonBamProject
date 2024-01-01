@@ -5,7 +5,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { API_BASE_URL, USER } from '../../util/host-config';
 import AuthContext from '../../util/AuthContext';
 import { isLogin, getLoginUserInfo } from '../../util/login-util';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, redirect, useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const onClickPayment = () => {
@@ -164,16 +164,19 @@ export const Navbar = () => {
       </div>
       <ul className={`app__navbar-links ${showLinks ? 'active' : ''}`}>
         <li>
-          <a href='/search'>맛집</a>
+          <Link to='/search'>맛집</Link>
         </li>
         <li>
-          <a href='/recipe'>레시피</a>
+          <Link to='/recipe'>레시피</Link>
         </li>
         <li>
-          <a href='/chat'>대화하기</a>
+          <Link to='/chat'>대화하기</Link>
         </li>
         <li>
-          <a href='/board'>게시판</a>
+          <Link to='/board'>게시판</Link>
+        </li>
+        <li>
+          <Link to='/naverSearch'>지도</Link>
         </li>
       </ul>
       <ul className={`app__navbar-login ${showLinks ? 'active' : ''}`}>

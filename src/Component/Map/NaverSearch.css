@@ -1,0 +1,8 @@
+div .naverMap {
+  color: rgb(12, 12, 12);
+  background-color: rgba(55, 86, 173, 0.685);
+  text-align: center;
+  outline: none;
+  border: none;
+  font-weight: 600;
+}

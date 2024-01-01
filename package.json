@@ -32,7 +32,10 @@
     "reactstrap": "^9.2.1",
     "sass": "^1.69.5",
     "swiper": "^11.0.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@mui/base": "^5.0.0-beta.16",
+    "@mui/joy": "^5.0.0-beta.7",
+    "socket.io-client": "^4.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
