@@ -16,3 +16,4 @@ export const TODO = '/api/todos';
 export const USER = '/api/auth';
 export const RECIPE = '/api/recipe';
 export const POST = '/api/posts';
+export const FREEBOARD = '/api/freeboard';

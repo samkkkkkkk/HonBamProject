@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { NAVER_MAP_ID } from '../../util/naver-config';
 import './NaverSearch.css';
 
 const NaverSearch = () => {
   useEffect(() => {
     const script = document.createElement('script');
-    script.src =
-      'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=4lscjh9slv';
+    script.src = NAVER_MAP_ID;
     script.async = true;
     document.head.appendChild(script);
 

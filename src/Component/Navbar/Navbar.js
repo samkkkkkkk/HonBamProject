@@ -6,6 +6,8 @@ import { API_BASE_URL, USER } from '../../util/host-config';
 import AuthContext from '../../util/AuthContext';
 import { isLogin, getLoginUserInfo } from '../../util/login-util';
 import { Link, Route, Routes, redirect, useNavigate } from 'react-router-dom';
+import NaverSearch from '../Map/NaverSearch';
+import { NAVER_MAP_URL } from '../../util/naver-config';
 
 export const Navbar = () => {
   const onClickPayment = () => {
@@ -158,90 +160,101 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className={`app__navbar ${showLinks ? 'active' : ''}`}>
-      <div className='app__navbar-logo'>
-        <Link to='/'>HONBAM</Link>
-      </div>
-      <ul className={`app__navbar-links ${showLinks ? 'active' : ''}`}>
-        <li>
-          <Link to='/search'>맛집</Link>
-        </li>
-        <li>
-          <Link to='/recipe'>레시피</Link>
-        </li>
-        <li>
-          <Link to='/chat'>대화하기</Link>
-        </li>
-        <li>
-          <Link to='/board'>게시판</Link>
-        </li>
-        <li>
-          <Link to='/naverSearch'>지도</Link>
-        </li>
-      </ul>
-      <ul className={`app__navbar-login ${showLinks ? 'active' : ''}`}>
-        {gradeView()}
-        {/* <div className='tosspay'>
+    <>
+      <nav className={`app__navbar ${showLinks ? 'active' : ''}`}>
+        <div className='app__navbar-logo'>
+          <Link to='/'>HONBAM</Link>
+        </div>
+        <ul className={`app__navbar-links ${showLinks ? 'active' : ''}`}>
+          <li>
+            <Link to='/search'>맛집검색</Link>
+          </li>
+          <li>
+            <Link to='/recipe'>레시피</Link>
+          </li>
+          <li>
+            <Link to='/chat'>대화하기</Link>
+          </li>
+          <li>
+            <Link to='/board'>게시판</Link>
+          </li>
+          <li>
+            <Link to={NAVER_MAP_URL}>추천맛집</Link>
+          </li>
+          <li>
+            <Link to='/freeboard'>문의</Link>
+          </li>
+        </ul>
+        <ul className={`app__navbar-login ${showLinks ? 'active' : ''}`}>
+          {gradeView()}
+          {/* <div className='tosspay'>
           {isLoggedIn ? <button onClick={onClickPayment}>결제하기</button> : ''}
         </div> */}
-        <div>
-          <div className='loginImage'>
-            {isLoggedIn && (
-              <img
-                src={profileUrl || require('../../assets/2-1.png')}
-                alt='프사프사'
-                style={{
-                  marginLeft: 20,
-                  width: 75,
-                  height: 75,
-                  borderRadius: '50%',
-                }}
-              />
-            )}
+          <div>
+            <div className='loginImage'>
+              {isLoggedIn && (
+                <img
+                  src={profileUrl || require('../../assets/2-1.png')}
+                  alt='프사프사'
+                  style={{
+                    marginLeft: 20,
+                    width: 75,
+                    height: 75,
+                    borderRadius: '50%',
+                  }}
+                />
+              )}
+            </div>
           </div>
-        </div>
-        <div className='loginHello'>
-          {isLoggedIn ? userName + '님 안녕하세요 ~' : ''}
-        </div>
-        <li>
-          <a href='#login'>
-            {' '}
+          <div className='loginHello'>
+            {isLoggedIn ? userName + '님 안녕하세요 ~' : ''}
+          </div>
+          <li>
+            <a href='#login'>
+              {' '}
+              {isLoggedIn ? (
+                <a
+                  className='logout-btn'
+                  onClick={logoutHandler}
+                >
+                  로그아웃
+                </a>
+              ) : (
+                <>
+                  <Link to='/login'>로그인</Link>
+                </>
+              )}
+            </a>
+          </li>
+          <li>
             {isLoggedIn ? (
-              <a
-                className='logout-btn'
-                onClick={logoutHandler}
-              >
-                로그아웃
-              </a>
+              <Link to='/MyPage'>마이페이지</Link>
             ) : (
               <>
-                <Link to='/login'>로그인</Link>
+                <Link to='/Join'>회원가입</Link>
               </>
             )}
+          </li>
+        </ul>
+        <li className='menu'>
+          <a
+            href='#'
+            className='app__navbar-toogleBtn'
+            onClick={handleToggleClick}
+          >
+            <FontAwesomeIcon
+              icon={faBars}
+              style={{ color: '#ffffff' }}
+            />
           </a>
         </li>
-        <li>
-          {isLoggedIn ? (
-            <Link to='/MyPage'>마이페이지</Link>
-          ) : (
-            <>
-              <Link to='/Join'>회원가입</Link>
-            </>
-          )}
-        </li>
-      </ul>
-      <li className='menu'>
-        <a
-          href='#'
-          className='app__navbar-toogleBtn'
-          onClick={handleToggleClick}
-        >
-          <FontAwesomeIcon
-            icon={faBars}
-            style={{ color: '#ffffff' }}
-          />
-        </a>
-      </li>
-    </nav>
+      </nav>
+      <Routes>
+        <Route
+          path={NAVER_MAP_URL}
+          element={<NaverSearch />}
+        />
+      </Routes>
+    </>
   );
 };

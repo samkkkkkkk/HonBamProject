@@ -11,5 +11,9 @@ React 환경에서 .env 내의 데이터를 읽어올 때는 반드시 REACT_APP
 const CLIENT_ID = process.env.REACT_APP_REST_API_KEY_NAVER;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL_NAVER;
 const test = process.env.REACT_APP_STATE_KEY_test;
+const MAP_CLIENT_ID = process.env.REACT_APP_NAVER_ID;
+const NAVER_REDIRECT_MAP_URL = process.env.REACT_APP_MAP;
 
 export const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=${test}&redirect_uri=${REDIRECT_URI}`;
+export const NAVER_MAP_ID = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${MAP_CLIENT_ID}`;
+export const NAVER_MAP_URL = NAVER_REDIRECT_MAP_URL;

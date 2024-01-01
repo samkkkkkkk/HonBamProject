@@ -41,6 +41,10 @@ import Recipe from './Component/Recipe/Recipe';
 import AddBoard from './Component/Board/AddBoard';
 import { Pay } from './Component/User/Pay';
 import NaverSearch from './Component/Map/NaverSearch';
+import InquiryCreate from './Component/Inquiry/create/InquiryCreate';
+import InquiryDetail from './Component/Inquiry/detail/InquiryDetail';
+import Inquiry from './Component/Inquiry/list/Inquiry';
+import InquiryModify from './Component/Inquiry/modify/InquiryModify';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -156,11 +160,26 @@ function App() {
             path='/ChatApp'
             element={<ChatApp />}
           ></Route>
-          <Route
+          {/* <Route
             path='/naverSearch'
             element={<NaverSearch />}
-          />
-
+          /> */}
+          <Route
+            path='/freeboard'
+            element={<Inquiry />}
+          ></Route>
+          <Route
+            path='/freeboard/:id'
+            element={<InquiryDetail />}
+          ></Route>
+          <Route
+            path='/freeboard/create'
+            element={<InquiryCreate />}
+          ></Route>
+          <Route
+            path='/freeboard/modify'
+            element={<InquiryModify />}
+          ></Route>
           <Route
             path='/'
             element={<Main />}
