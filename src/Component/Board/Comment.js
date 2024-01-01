@@ -35,7 +35,7 @@ const Comment = () => {
   // console.log(postId);
 
   const commentRegist = async () => {
-    const res = await fetch(`${API_BASE_COMMENT} + '/' + ${postId}`, {
+    const res = await fetch(API_BASE_COMMENT, {
       method: 'POST',
       headers: requestHeader,
       body: JSON.stringify({ comment: comment, postId: postId }),
