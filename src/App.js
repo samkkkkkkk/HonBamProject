@@ -40,11 +40,12 @@ import { Navbar } from './Component/Navbar/Navbar';
 import Recipe from './Component/Recipe/Recipe';
 import AddBoard from './Component/Board/AddBoard';
 import { Pay } from './Component/User/Pay';
-import NaverSearch from './Component/Map/NaverSearch';
 import InquiryCreate from './Component/Inquiry/create/InquiryCreate';
 import InquiryDetail from './Component/Inquiry/detail/InquiryDetail';
 import Inquiry from './Component/Inquiry/list/Inquiry';
 import InquiryModify from './Component/Inquiry/modify/InquiryModify';
+import { MapContainer } from './Component/SearchPlace/MapContainer';
+import { SearchPlace } from './Component/SearchPlace/SearchPlace';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -117,6 +118,14 @@ function App() {
             element={<UserDetail />}
           />
           <Route
+            path='/MapContainer'
+            element={<MapContainer />}
+          />
+          <Route
+            path='/SearchPlace'
+            element={<SearchPlace />}
+          />
+          <Route
             path='/Setting'
             element={<Setting />}
           />
@@ -177,7 +186,7 @@ function App() {
             element={<InquiryCreate />}
           ></Route>
           <Route
-            path='/freeboard/modify'
+            path='/freeboard/modify/:id'
             element={<InquiryModify />}
           ></Route>
           <Route

@@ -34,6 +34,7 @@ const InputField = ({ message, setMessage, sendMessage }) => {
           <EmojiPicker onEmojiClick={handleEmojiClick} />
         )}
         <Input
+          className='chat-input-field'
           placeholder='메시지를 입력하세요..'
           value={message}
           onChange={(event) => setMessage(event.target.value)}

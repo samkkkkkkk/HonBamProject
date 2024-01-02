@@ -8,7 +8,6 @@
 
 body {
   background-color: #15161a;
-  color: #ffffff;
 }
 
 .recipe_logo {
@@ -16,7 +15,7 @@ body {
   display: flex;
   align-content: center;
   justify-content: center;
-  margin-top: 100px;
+  padding-top: 150px;
   font-size: 30px;
 }
 
@@ -74,7 +73,7 @@ body {
 
 .modal_content {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #15161a;
@@ -85,7 +84,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  width: 700px;
+  width: 850px;
   height: 750px;
 }
 
@@ -140,6 +139,7 @@ body {
 
 .name {
   padding-bottom: 50px;
+  color: #ffffff;
 }
 
 .clear_button {
@@ -224,4 +224,5 @@ body {
 .rank {
   position: relative;
   top: 30px;
+  color: #ffffff;
 }

@@ -3,30 +3,51 @@ import './InquiryCreate.css';
 import { Button } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { API_BASE_URL, FREEBOARD } from '../../../util/host-config';
+import { getLoginUserInfo } from '../../../util/login-util';
 
 const InquiryCreate = () => {
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-  });
+  const [content, setContent] = useState();
+  const [title, setTitle] = useState();
 
+  //컨텐트
+  const contentHandler = (e) => {
+    setContent(e.target.value);
+  };
+  console.log('내용', content);
+
+  //이름
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setTitle(e.target.value);
+    console.log('이름', e.target.value);
+  };
+  console.log('제목', title);
+  const formData = {
+    title: title,
+    content: content,
+    userName: localStorage.getItem('LOGIN_USERNAME'),
   };
 
+  const token = getLoginUserInfo().token;
+
+  const requestHeader = {
+    'content-type': 'application/json',
+    Authorization: 'Bearer ' + token,
+  };
+  console.log('토큰', requestHeader);
+  console.log('폼데이터 정보', formData);
   const formCreate = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}${FREEBOARD}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        headers: requestHeader,
+        body: JSON.stringify({
+          title: title,
+          content: content,
+          userName: localStorage.getItem('LOGIN_USERNAME'),
+        }),
       });
-
+      console.log('응답데이터', response);
+      console.log(response.status);
       if (response.ok) {
         Swal.fire({
           title: '등록',
@@ -62,54 +83,56 @@ const InquiryCreate = () => {
   };
 
   return (
-    <div className='inquiry_create'>
-      <form>
-        <div>
-          <label
-            className='inquiry_create_title'
-            htmlFor='title'
-          >
-            Title
-          </label>
-          <input
-            className='inquiry_create_input_title'
-            type='text'
-            id='title'
-            name='title'
-            placeholder='제목을 입력해주세요.'
-            value={formData.title}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label
-            className='inquiry_create_content'
-            htmlFor='content'
-          >
-            Content
-          </label>
-          <textarea
-            className='inquiry_create_content_textarea_content'
-            name='content'
-            id='content'
-            placeholder='내용을 입력해주세요'
-            value={formData.content}
-            onChange={handleChange}
-          />
-        </div>
-      </form>
+    <div className='inquiry_create_backImg'>
+      <div className='inquiry_create'>
+        <form>
+          <div>
+            <label
+              className='inquiry_create_title'
+              htmlFor='title'
+            >
+              Title
+            </label>
+            <input
+              className='inquiry_create_input_title'
+              type='text'
+              id='title'
+              name='title'
+              placeholder='제목을 입력해주세요.'
+              value={formData.title}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label
+              className='inquiry_create_content'
+              htmlFor='content'
+            >
+              Content
+            </label>
+            <textarea
+              className='inquiry_create_content_textarea_content'
+              name='content'
+              id='content'
+              placeholder='내용을 입력해주세요'
+              value={formData.content}
+              onChange={contentHandler}
+            />
+          </div>
+        </form>
 
-      <div className='grid-2'>
-        <Button
-          className='inquiry_create_ok'
-          children='등록'
-          onClick={formCreate}
-        />
-        <Button
-          className='inquiry_create_cancel'
-          children='취소'
-          onClick={formCancel}
-        />
+        <div className='grid-2'>
+          <Button
+            className='inquiry_create_ok'
+            children='등록'
+            onClick={formCreate}
+          />
+          <Button
+            className='inquiry_create_cancel'
+            children='취소'
+            onClick={formCancel}
+          />
+        </div>
       </div>
     </div>
   );
