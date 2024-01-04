@@ -164,10 +164,10 @@
 
 .thumbnail-box {
   height: 153px;
-  left: 192px;
+  left: 0px;
   object-fit: cover;
   position: absolute;
-  top: 85px;
+  top: 0px;
   width: 165px;
 }
 .thumbnail-box:hover {

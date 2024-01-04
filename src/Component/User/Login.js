@@ -56,39 +56,20 @@ export const Login = () => {
       return;
     }
 
-    const {
-      token,
-
-      userName,
-      email,
-      role,
-      userPay,
-      address,
-      phoneNumber,
-      password,
-    } = await res.json(); // 서버에서 온 json 읽기
+    const { token, userName, role, userPay, address, phoneNumber, userId } =
+      await res.json(); // 서버에서 온 json 읽기
     console.log(
       'token : ',
       token,
-
-      email,
-      userName,
-      userPay,
-      address,
-      phoneNumber,
-      password
-    );
-    // Context API를 사용하여 로그인 상태를 업데이트 합니다.
-    onLogin(
-      token,
-
       userName,
       role,
       userPay,
       address,
       phoneNumber,
-      password
+      userId
     );
+    // Context API를 사용하여 로그인 상태를 업데이트 합니다.
+    onLogin(token, userName, role, userPay, address, phoneNumber, userId);
 
     // 홈으로 리다이렉트
     redirection('/');
@@ -118,39 +99,20 @@ export const Login = () => {
       return;
     }
 
-    const {
-      token,
-
-      userName,
-      email,
-      role,
-      userPay,
-      address,
-      phoneNumber,
-      password,
-    } = await res.json(); // 서버에서 온 json 읽기
+    const { token, userName, role, userPay, address, phoneNumber, userId } =
+      await res.json(); // 서버에서 온 json 읽기
     console.log(
       'token : ',
       token,
-
-      email,
-      userName,
-      userPay,
-      address,
-      phoneNumber,
-      password
-    );
-    // Context API를 사용하여 로그인 상태를 업데이트 합니다.
-    onLogin(
-      token,
-
       userName,
       role,
       userPay,
       address,
       phoneNumber,
-      password
+      userId
     );
+    // Context API를 사용하여 로그인 상태를 업데이트 합니다.
+    onLogin(token, userName, role, userPay, address, phoneNumber, userId);
 
     // 홈으로 리다이렉트
     redirection('/');

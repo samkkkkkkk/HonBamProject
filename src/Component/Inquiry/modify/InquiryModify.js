@@ -14,6 +14,7 @@ const InquiryModify = () => {
     title: '',
     content: '',
   });
+  const [WriterId, setWriterId] = useState();
 
   useEffect(() => {
     // 게시물 내용을 불러오는 API 호출
@@ -36,12 +37,14 @@ const InquiryModify = () => {
 
         if (response.ok) {
           const data = await response.json();
+          console.log({ data });
           // 불러온 데이터를 폼 데이터로 설정
           console.log('Data:', data);
           setFormData({
             title: data.title,
             content: data.content,
           });
+          setWriterId(data.userId);
         } else {
           console.error('게시물 내용을 불러오지 못했습니다.');
         }
@@ -52,7 +55,7 @@ const InquiryModify = () => {
 
     fetchPostContent();
   }, [id]);
-
+  console.log('WriterId', WriterId);
   const formSave = async () => {
     try {
       const token = getLoginUserInfo().token;
@@ -146,7 +149,7 @@ const InquiryModify = () => {
       }
     });
   };
-
+  console.log('writerId', WriterId);
   return (
     <div className='inquiry_modify_backImg'>
       <div className='inquiry_modify'>
@@ -190,11 +193,16 @@ const InquiryModify = () => {
         </form>
 
         <div className='grid-2'>
-          <Button
-            className='inquiry_modify_save_button'
-            children='저장'
-            onClick={formSave}
-          />
+          {getLoginUserInfo().userId === WriterId ? (
+            <Button
+              className='inquiry_modify_save_button'
+              children='저장'
+              onClick={formSave}
+            />
+          ) : (
+            ''
+          )}
+
           <Button
             className='inquiry_modify_cancel_button'
             children='취소'

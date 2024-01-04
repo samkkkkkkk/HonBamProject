@@ -58,8 +58,8 @@
 }
 
 .join-page .signup-img-label {
-  padding-left: 150px;
-  font-size: 25px;
+  padding-left: 80px;
+  font-size: 20px;
   font-style: bold;
 }
 
@@ -83,11 +83,11 @@
   background-image: url(../../assets/jacek-dylag-p1djasp78ss-unsplash-2.png);
   background-position: 50% 50%;
   background-size: cover;
-  height: 1185px;
-  left: -650px;
+  height: 1205px;
+  left: -750px;
   position: absolute;
 
-  width: 2741px;
+  width: 2911px;
 }
 
 .join-page .group {
@@ -102,7 +102,7 @@
   background-color: #ffffffcc;
   border-radius: 8px;
   height: 866px;
-  left: 700px;
+  left: 820px;
   top: 100px;
   position: relative;
 }

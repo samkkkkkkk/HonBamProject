@@ -405,13 +405,14 @@ export const Join = () => {
                       width={400}
                       height={190}
                     />
+                    <label
+                      className='signup-img-label'
+                      htmlFor='profile-img'
+                    >
+                      THUMBNAIL&nbsp;&nbsp;IMAGE&nbsp;&nbsp;CLICK
+                    </label>
                   </div>
-                  <label
-                    className='signup-img-label'
-                    htmlFor='profile-img'
-                  >
-                    THUMBNAIL IMAGE (CLICK)
-                  </label>
+
                   <input
                     id='profile-img'
                     type='file'

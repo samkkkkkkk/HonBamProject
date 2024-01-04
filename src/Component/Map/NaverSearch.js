@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NAVER_MAP_ID } from '../../util/naver-config';
 import './NaverSearch.css';
+import myImage from '../../assets/myImage.png';
+import honbamnb from '../../assets/honbamnb.gif';
 
 const NaverSearch = () => {
   useEffect(() => {
@@ -1833,8 +1835,19 @@ const NaverSearch = () => {
   return (
     <div
       id='map'
-      style={{ width: '100%', height: '945px' }}
-    ></div>
+      // style={{ width: '100%', height: '945px' }}
+    >
+      <img
+        id='map-myImage'
+        src={myImage}
+        style={{ position: 'absolute', top: 96, left: 0, zIndex: 10 }}
+      />
+      <img
+        id='map-honbamnb'
+        src={honbamnb}
+        style={{ position: 'absolute', bottom: 0, right: 0, zIndex: 10 }}
+      />
+    </div>
   );
 };
 

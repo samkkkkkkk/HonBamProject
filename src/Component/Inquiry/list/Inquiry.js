@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Inquiry.css';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { API_BASE_URL, FREEBOARD } from '../../../util/host-config';
 import { getLoginUserInfo } from '../../../util/login-util';
+import AuthContext from '../../../util/AuthContext';
 
 const Inquiry = () => {
   const [postList, setPostList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 5;
+  const { isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchInquiryList = async () => {
@@ -123,7 +125,11 @@ const Inquiry = () => {
               to='/freeboard/create'
               className='inquiry-create-link'
             >
-              <Button className='inquiry-create-button'>글쓰기</Button>
+              {isLoggedIn ? (
+                <Button className='inquiry-create-button'>글쓰기</Button>
+              ) : (
+                ''
+              )}
             </Link>
           </div>
           <Pagination

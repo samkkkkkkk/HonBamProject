@@ -4,6 +4,7 @@ export const getLoginUserInfo = () => {
     token: localStorage.getItem('ACCESS_TOKEN'),
     username: localStorage.getItem('LOGIN_USERNAME'),
     role: localStorage.getItem('USER_ROLE'),
+    userId: localStorage.getItem('USER_ID'),
   };
 };
 

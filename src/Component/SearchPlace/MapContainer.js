@@ -6,12 +6,15 @@ const { kakao } = window;
   src='//dapi.kakao.com/v2/maps/sdk.js?appkey=9744bd2d6deea0a62f8265bace50c30f&libraries=services'
 ></script>;
 export const MapContainer = ({ searchPlace }) => {
+  let isOpen = false;
+
   useEffect(() => {
     const container = document.getElementById('myMap');
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      center: new kakao.maps.LatLng(37.555744, 126.937569),
       level: 3,
     };
+
     const map = new kakao.maps.Map(container, options);
 
     const ps = new kakao.maps.services.Places();
@@ -36,27 +39,45 @@ export const MapContainer = ({ searchPlace }) => {
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x),
       });
+
       let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
       kakao.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(
-          '<div style="padding:5px;font-size:12px;">' +
-            place.place_name +
-            '<br>' +
-            place.address_name +
-            '</div>'
-        );
-        infowindow.open(map, marker);
+        // 마커를 클릭할 때마다 isOpen 변수의 상태를 토글
+        if (isOpen) {
+          infowindow.close(); // 이미 열려있는 경우, 정보창을 닫음
+        } else {
+          infowindow.setContent(
+            '<div style="padding:5px;font-size:12px;word-break:break-all;width:200px">' +
+              '가게 : ' +
+              place.place_name +
+              '<br>' +
+              '주소 : ' +
+              place.address_name +
+              '<br>' +
+              '전화번호 : ' +
+              place.phone +
+              '<br>' +
+              place.category_name +
+              '<br>' +
+              '홈페이지 : ' +
+              '<a href="' +
+              place.place_url +
+              '" target="_blank" style="color: blue; text-decoration: underline;">장소 상세 정보 보기</a>' +
+              '</div>'
+          );
+          infowindow.open(map, marker); // 닫혀있는 경우, 정보창을 열음
+        }
+        isOpen = !isOpen; // isOpen 상태 토글
       });
     }
   }, [searchPlace]);
-
   return (
     <div
       id='myMap'
       style={{
-        width: '1920px',
-        height: '793px',
+        width: '1990px',
+        height: '816px',
       }}
     ></div>
   );

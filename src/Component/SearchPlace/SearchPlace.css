@@ -1,3 +1,7 @@
+* {
+  zoom: 0.7;
+}
+
 .image-beer {
   background-image: url('../assets/image-beer.png');
   background-position: 50% 50%;

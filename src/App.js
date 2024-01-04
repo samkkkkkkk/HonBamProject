@@ -46,6 +46,8 @@ import Inquiry from './Component/Inquiry/list/Inquiry';
 import InquiryModify from './Component/Inquiry/modify/InquiryModify';
 import { MapContainer } from './Component/SearchPlace/MapContainer';
 import { SearchPlace } from './Component/SearchPlace/SearchPlace';
+import { NAVER_MAP_URL } from './util/naver-config';
+import NaverSearch from './Component/Map/NaverSearch';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -84,6 +86,11 @@ function App() {
         </div>
         <Routes>
           <Route
+            path='/naverSearchHotPlace'
+            element={<ProtectedRoute element={<NaverSearch />} />}
+          />
+
+          <Route
             path='/mypage'
             element={<MyPage />}
           />
@@ -92,9 +99,14 @@ function App() {
             element={<Pay />}
           />
 
-          <Route
+          {/* <Route
             path='/Modify'
             element={<ProtectedRoute element={<Modify />} />}
+          /> */}
+
+          <Route
+            path='/Modify'
+            element={<Modify />}
           />
 
           <Route
@@ -153,10 +165,14 @@ function App() {
             path='/oauth/redirected/Naver'
             element={<NaverLoginHandler />}
           />
-          <Route
+          {/* <Route
             path='/Chat'
             element={<Chat />}
-          ></Route>
+          ></Route> */}
+          <Route
+            path='/Chat'
+            element={<ProtectedRoute element={<Chat />} />}
+          />
           <Route
             path='/ChatMain'
             element={<ChatMain />}
@@ -197,10 +213,15 @@ function App() {
             path='/search'
             element={<SearchPage />}
           ></Route>
-          <Route
+          {/* <Route
             path='/recipe'
             element={<Recipe />}
-          ></Route>
+          ></Route> */}
+
+          <Route
+            path='/recipe'
+            element={<ProtectedRoute element={<Recipe />} />}
+          />
         </Routes>
       </AuthContextProvider>
     </>

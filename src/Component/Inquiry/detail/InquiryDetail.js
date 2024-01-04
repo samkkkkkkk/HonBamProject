@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './InquiryDetail.css';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import './InquiryDetail.css';
 import { API_BASE_URL, FREEBOARD } from '../../../util/host-config';
 import { getLoginUserInfo } from '../../../util/login-util';
 
@@ -9,21 +9,22 @@ const InquiryDetail = () => {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isMyPost, setIsMyPost] = useState(false);
+  const [editedComments, setEditedComments] = useState([]);
+  const [editingCommentIndex, setEditingCommentIndex] = useState(null);
 
-  // React Router를 사용하여 동적으로 게시물 ID를 가져옴
   const { id } = useParams();
 
   useEffect(() => {
-    // 게시물 상세 정보를 가져오는 API 호출 (예시)
-    const fetchPostDetail = async () => {
+    const fetchData = async () => {
       const token = getLoginUserInfo().token;
       const requestHeader = {
         'content-type': 'application/json',
         Authorization: 'Bearer ' + token,
       };
+
       try {
-        const response = await fetch(
+        const postResponse = await fetch(
           `${API_BASE_URL}${FREEBOARD}/detail/${id}`,
           {
             method: 'GET',
@@ -31,27 +32,170 @@ const InquiryDetail = () => {
           }
         );
 
-        if (response.ok) {
-          const data = await response.json();
-          setPost(data); // data는 상세 정보를 담고 있는 객체로 가정
-          setComments(data.comments); // data.comments는 댓글 정보를 담고 있는 배열로 가정
-          setIsAdmin(getLoginUserInfo().isAdmin); // isAdmin 값을 초기화
+        if (postResponse.ok) {
+          const postData = await postResponse.json();
+          setPost(postData);
+
+          const userInfo = getLoginUserInfo();
+          setIsMyPost(userInfo.userId === postData.userId);
         } else {
           console.error('게시물 상세 정보를 가져오지 못했습니다.');
+        }
+
+        const commentListResponse = await fetch(
+          `${API_BASE_URL}${FREEBOARD}/comment?id=${id}`,
+          {
+            method: 'GET',
+            headers: requestHeader,
+          }
+        );
+
+        if (commentListResponse.ok) {
+          const commentListData = await commentListResponse.json();
+          setComments(commentListData);
+          setEditedComments(new Array(commentListData.length).fill(null));
+        } else {
+          console.error('댓글 목록을 불러오지 못했습니다.');
         }
       } catch (error) {
         console.error('에러 발생:', error);
       }
     };
 
-    fetchPostDetail();
-  }, [id]); // postId가 변경될 때마다 useEffect가 실행됨
+    fetchData();
+  }, [id, newComment, editingCommentIndex]);
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    if (newComment.trim() !== '') {
-      setComments([...comments, { text: newComment, isAdmin }]);
-      setNewComment('');
+    const token = getLoginUserInfo().token;
+    const requestHeader = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}${FREEBOARD}/comment`, {
+        method: 'POST',
+        headers: requestHeader,
+        body: JSON.stringify({
+          id: id,
+          comment: newComment,
+        }),
+      });
+
+      if (response.ok) {
+        const commentListResponse = await fetch(
+          `${API_BASE_URL}${FREEBOARD}/comment?id=${id}`,
+          {
+            method: 'GET',
+            headers: requestHeader,
+          }
+        );
+
+        if (commentListResponse.ok) {
+          const commentListData = await commentListResponse.json();
+          setComments(commentListData);
+          setNewComment('');
+          setEditedComments(new Array(commentListData.length).fill(null));
+        } else {
+          console.error('댓글 목록을 불러오지 못했습니다.');
+        }
+      } else {
+        console.error('댓글 등록 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('에러 발생:', error);
+    }
+  };
+
+  const handleModifyComment = (commentIndex) => {
+    const commentItem = comments[commentIndex];
+
+    setEditingCommentIndex(commentIndex);
+
+    setEditedComments((prevEditedComments) => {
+      const updatedComments = [...prevEditedComments];
+      updatedComments[commentIndex] = commentItem?.comment || '';
+      return updatedComments;
+    });
+  };
+
+  const handleSaveEditedComment = async (commentIndex) => {
+    const token = getLoginUserInfo().token;
+    const requestHeader = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+
+    const commentId =
+      comments[commentIndex]?.commentId || comments[commentIndex]?.id;
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}${FREEBOARD}/comment?id=${commentId}`,
+        {
+          method: 'PUT',
+          headers: requestHeader,
+          body: JSON.stringify({
+            id: commentId,
+            comment: editedComments[commentIndex],
+          }),
+        }
+      );
+      if (response.ok) {
+        setEditingCommentIndex(null);
+
+        const commentListResponse = await fetch(
+          `${API_BASE_URL}${FREEBOARD}/comment?id=${id}`,
+          {
+            method: 'GET',
+            headers: requestHeader,
+          }
+        );
+
+        if (commentListResponse.ok) {
+          const commentListData = await commentListResponse.json();
+          setComments(commentListData);
+          setEditedComments(new Array(commentListData.length).fill(null));
+        } else {
+          console.error('댓글 목록을 불러오지 못했습니다.');
+        }
+      } else {
+        console.error('댓글 수정 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('에러 발생:', error);
+    }
+  };
+  const handleDeleteComment = async (commentIndex) => {
+    const token = getLoginUserInfo().token;
+    const requestHeader = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+
+    const commentId =
+      comments[commentIndex]?.commentId || comments[commentIndex]?.id;
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}${FREEBOARD}/comment/${commentId}`,
+        {
+          method: 'DELETE',
+          headers: requestHeader,
+        }
+      );
+
+      if (response.ok) {
+        const updatedComments = [...comments];
+        updatedComments.splice(commentIndex, 1);
+        setComments(updatedComments);
+        setEditedComments(new Array(updatedComments.length).fill(null));
+      } else {
+        console.error('댓글 삭제 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('에러 발생:', error);
     }
   };
 
@@ -74,16 +218,57 @@ const InquiryDetail = () => {
           <h5 className='inquiry_detail_reply'>댓글</h5>
           <ul>
             {comments &&
-              comments.map((comment, index) => (
+              comments.length > 0 &&
+              comments.map((commentItem, index) => (
                 <li
-                  className='inquiry_detail_reply_li'
                   key={index}
+                  className='inquiry_detail_reply_li'
                 >
-                  {comment.text} {comment.isAdmin && '(관리자)'}
+                  {editingCommentIndex === index ? (
+                    <>
+                      <textarea
+                        value={editedComments[index]}
+                        onChange={(e) =>
+                          setEditedComments((prevEditedComments) => {
+                            const updatedComments = [...prevEditedComments];
+                            updatedComments[index] = e.target.value;
+                            return updatedComments;
+                          })
+                        }
+                      />
+                      <Button onClick={() => handleSaveEditedComment(index)}>
+                        저장
+                      </Button>
+                    </>
+                  ) : (
+                    <div>
+                      <div className='comment-item-writer'>
+                        {commentItem.writer}
+                      </div>
+                      <div className='comment-item-comment'>
+                        {commentItem.comment}
+                      </div>
+                      <>
+                        {getLoginUserInfo().userId === commentItem.userId && (
+                          <Button onClick={() => handleModifyComment(index)}>
+                            수정
+                          </Button>
+                        )}
+                        {getLoginUserInfo().userId === commentItem.userId ||
+                        localStorage.getItem('USER_ROLE') === 'ADMIN' ? (
+                          <Button onClick={() => handleDeleteComment(index)}>
+                            삭제
+                          </Button>
+                        ) : (
+                          ''
+                        )}
+                      </>
+                    </div>
+                  )}
                 </li>
               ))}
           </ul>
-          {isAdmin && (
+          {isMyPost || localStorage.getItem('USER_ROLE') === 'ADMIN' ? (
             <form onSubmit={handleCommentSubmit}>
               <textarea
                 className='inquiry_detail_reply_textarea_content'
@@ -91,18 +276,24 @@ const InquiryDetail = () => {
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder='댓글을 입력하세요.'
               />
+
               <Button type='submit'>댓글 작성</Button>
             </form>
+          ) : (
+            ''
           )}
         </div>
-
         <div className='grid-2'>
-          <Link to={`/freeboard/modify/${id}`}>
-            <Button
-              className='inquiry_detail_modify_button'
-              children='수정'
-            />
-          </Link>
+          {isMyPost || localStorage.getItem('USER_ROLE') === 'ADMIN' ? (
+            <Link to={`/freeboard/modify/${id}`}>
+              <Button
+                className='inquiry_detail_modify_button'
+                children='수정'
+              />
+            </Link>
+          ) : (
+            ''
+          )}
           <Link to='/freeboard'>
             <Button
               className='inquiry_detail_list_button'

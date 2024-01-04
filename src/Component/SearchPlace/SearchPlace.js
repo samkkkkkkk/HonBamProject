@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MapContainer from './MapContainer';
 import myImage from '../../assets/image-beer.png';
 import myImage2 from '../../assets/signimage.png';
+import honbamnb from '../../assets/honbamnb.gif';
 
 export const SearchPlace = () => {
   const [inputText, setInputText] = useState('');
@@ -13,7 +14,7 @@ export const SearchPlace = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPlace(inputText);
+    setPlace(inputText + ' 혼술');
     setInputText('');
   };
 
@@ -39,6 +40,12 @@ export const SearchPlace = () => {
           onChange={onChange}
           value={inputText}
         />
+        <img
+          id='honbamnb'
+          src={honbamnb}
+          style={{ position: 'absolute', bottom: 0, right: 0, zIndex: 10 }}
+        />
+
         <button
           type='submit'
           style={{ position: 'absolute', top: 379, left: 190, zIndex: 10 }}

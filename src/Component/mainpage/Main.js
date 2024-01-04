@@ -8,6 +8,7 @@ import { ArrowForwardIos } from '@mui/icons-material';
 import MainDialog from './MainDialog';
 import MainShot from './MainShot';
 import { Link, useNavigate } from 'react-router-dom';
+import { NAVER_MAP_URL } from '../../util/naver-config';
 
 // Import Swiper React components
 
@@ -114,7 +115,7 @@ const Main2 = () => {
             <div className='main-hotplace'>
               <p className='main-hot-intro'>
                 혼자서도 즐길 수 있는
-                <Link to='/search'>
+                <Link to='/SearchPlace'>
                   맛집 보러가기
                   <ArrowForwardIos
                     className='search'

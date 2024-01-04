@@ -161,7 +161,11 @@ export const Navbar = () => {
         </div>
       );
     } else if (userPay === 'PREMIUM') {
-      return <div className='HonBamGIF'></div>;
+      return (
+        <Link to='/'>
+          <div className='HonBamGIF'></div>
+        </Link>
+      );
     }
   };
 
@@ -267,14 +271,19 @@ export const Navbar = () => {
           <li>
             <Link to='/chat'>대화하기</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to='/board'>게시판</Link>
-          </li>
+          </li> */}
           <li>
-            <Link to={NAVER_MAP_URL}>추천맛집</Link>
+            <Link to='/naverSearchHotPlace'>추천맛집</Link>
           </li>
+
           <li>
-            <Link to='/freeboard'>문의</Link>
+            {isLoggedIn ? (
+              <Link to='/freeboard'>문의</Link>
+            ) : (
+              <Link to='/login'>문의</Link>
+            )}
           </li>
           <li>
             {isLoggedIn ? (
@@ -288,6 +297,7 @@ export const Navbar = () => {
               <></>
             )}
           </li>
+          <li>{isLoggedIn ? <Link to='/Modify'>회원수정</Link> : <></>}</li>
         </ul>
         <ul className={`app__navbar-login ${showLinks ? 'active' : ''}`}>
           {gradeView()}
@@ -354,12 +364,6 @@ export const Navbar = () => {
           </a>
         </li>
       </nav>
-      <Routes>
-        <Route
-          path={NAVER_MAP_URL}
-          element={<NaverSearch />}
-        />
-      </Routes>
     </>
   );
 };

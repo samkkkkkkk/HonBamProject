@@ -32,7 +32,7 @@
   background-size: cover;
   border-radius: 5px;
   height: 300px;
-  left: 1005px;
+  left: 1100px;
   position: absolute;
   top: 320px;
   width: 400px;
@@ -44,7 +44,7 @@
   background-size: cover;
   border-radius: 5px;
   height: 150px;
-  left: 1025px;
+  left: 1120px;
   position: absolute;
   top: 640px;
   width: 369px;
@@ -104,14 +104,14 @@
   left: 0;
   position: absolute;
   top: 115px;
-  width: 2400px;
+  width: 2600px;
 }
 
 .box2 .div-sign-container {
   background-color: #ffffffcc;
   border-radius: 10px;
   height: 600px;
-  left: 900px;
+  left: 1000px;
   position: relative;
   top: 205px;
   width: 600px;
