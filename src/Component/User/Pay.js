@@ -3,6 +3,7 @@ import './Pay.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_BASE_URL, USER } from '../../util/host-config';
 import AuthContext from '../../util/AuthContext';
+import { PaymentCheckoutPage } from './TossPay';
 
 export const Pay = () => {
   const currentDate = new Date();
@@ -35,32 +36,7 @@ export const Pay = () => {
   };
 
   const onClickPayment = () => {
-    const { IMP } = window;
-    IMP.init('imp10345536');
-
-    const data = {
-      pg: 'html5_inicis', // PG사
-      pay_method: 'card', // 결제수단
-      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: 1, // 결제금액
-      name: '혼밤 프리미엄(1년)', // 주문명
-      buyer_name: '기태', // 구매자 이름
-      buyer_tel: '010-1234-5678', // 구매자 전화번호
-      buyer_email: 'honbam@naver.com', // 구매자 이메일
-      buyer_addr: '서울', // 구매자 주소
-      buyer_postcode: '01234', // 구매자 우편번호
-    };
-    IMP.request_pay(data, callback);
-  };
-  const callback = (response) => {
-    const { success, error_msg } = response;
-    if (success) {
-      alert(message);
-      promote();
-      logoutHandler();
-    } else {
-      alert(`결제 실패: ${error_msg}`);
-    }
+    redirection('/toss');
   };
 
   const redirection = useNavigate();
@@ -86,21 +62,21 @@ export const Pay = () => {
   };
 
   return (
-    <div className='box2'>
-      <div className='group'>
-        <div className='LOGIN'>
-          <div className='overlap-group'>
-            <div className='div-sign-container'>
-              <div className='heading'>HONBAM PREMIUM</div>
+    <>
+      <div className='box2'>
+        <div className='group'>
+          <div className='LOGIN'>
+            <div className='overlap-group'>
+              <div className='div-sign-container'>
+                <div className='heading'>HONBAM PREMIUM</div>
+              </div>
+              <div className='explain'></div>
+              <PaymentCheckoutPage />
+              {/* <div className='Welcome' onClick={onClickPayment}></div> */}
             </div>
-            <div className='explain'></div>
-            <div
-              className='Welcome'
-              onClick={onClickPayment}
-            ></div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -27,13 +27,6 @@ import ProfileEdit from './Component/Board/ProfileEdit';
 import Comment from './Component/Board/Comment';
 import KakaoLoginHandler from './Component/User/KakaoLoginHandler';
 import NaverLoginHandler from './Component/User/NaverLoginHandler';
-// import SnsBoard from './Component/SnsBoard';
-// import MyDetail from './Component/MyDetail';
-// import UserDetail from './Component/UserDetail';
-// import UserDetail2 from './Component/UserDetail2';
-// import UserDetail3 from './Component/UserDetail3';
-// import UserDetail4 from './Component/UserDetail4';
-// import Setting from './Component/Setting';
 import SearchPage from './Component/SearchPage/SearchPage';
 import Main from './Component/mainpage/Main';
 import { Navbar } from './Component/Navbar/Navbar';
@@ -48,6 +41,13 @@ import { MapContainer } from './Component/SearchPlace/MapContainer';
 import { SearchPlace } from './Component/SearchPlace/SearchPlace';
 import { NAVER_MAP_URL } from './util/naver-config';
 import NaverSearch from './Component/Map/NaverSearch';
+import { PaymentCheckoutPage } from './Component/User/TossPay';
+import SubscriptionItems from './Component/Payment/SubscriptionItem';
+import SubscriptionPage from './Component/Payment/SubscriptionPage';
+import SubscriptionCheckout from './Component/Payment/SubscriptionCheckout';
+import { CheckoutPage } from './Component/Toss/Checkout';
+import { SuccessPage } from './Component/Toss/Success';
+import { FailPage } from './Component/Toss/Fail';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -90,73 +90,35 @@ function App() {
             element={<ProtectedRoute element={<NaverSearch />} />}
           />
 
+          <Route path='/mypage' element={<MyPage />} />
+          <Route path='/Pay' element={<SubscriptionItems />} />
           <Route
-            path='/mypage'
-            element={<MyPage />}
+            path='/subscriptionCheckout'
+            element={<SubscriptionCheckout />}
           />
-          <Route
-            path='/Pay'
-            element={<Pay />}
-          />
+          <Route path='/checkout' element={<CheckoutPage />} />
+          <Route path='/success' element={<SuccessPage />} />
+          <Route path='/fail' element={<FailPage />} />
 
           {/* <Route
             path='/Modify'
             element={<ProtectedRoute element={<Modify />} />}
           /> */}
 
-          <Route
-            path='/Modify'
-            element={<Modify />}
-          />
+          <Route path='/Modify' element={<Modify />} />
 
-          <Route
-            path='/Login'
-            element={<Login />}
-          />
-          <Route
-            path='/Join'
-            element={<Join />}
-          />
-          <Route
-            path='/board'
-            element={<SnsBoard />}
-          />
-          <Route
-            path='/addboard'
-            element={<AddBoard />}
-          />
-          <Route
-            path='/UserDetail'
-            element={<UserDetail />}
-          />
-          <Route
-            path='/MapContainer'
-            element={<MapContainer />}
-          />
-          <Route
-            path='/SearchPlace'
-            element={<SearchPlace />}
-          />
-          <Route
-            path='/Setting'
-            element={<Setting />}
-          />
-          <Route
-            path='/comment/:posId'
-            element={<Comment />}
-          />
-          <Route
-            path='/ProfileEdit'
-            element={<ProfileEdit />}
-          />
-          <Route
-            path='/mydetail'
-            element={<MyDetail />}
-          />
-          <Route
-            path='/addboard'
-            element={<AddBoard />}
-          />
+          <Route path='/Login' element={<Login />} />
+          <Route path='/Join' element={<Join />} />
+          <Route path='/board' element={<SnsBoard />} />
+          <Route path='/addboard' element={<AddBoard />} />
+          <Route path='/UserDetail' element={<UserDetail />} />
+          <Route path='/MapContainer' element={<MapContainer />} />
+          <Route path='/SearchPlace' element={<SearchPlace />} />
+          <Route path='/Setting' element={<Setting />} />
+          <Route path='/comment/:posId' element={<Comment />} />
+          <Route path='/ProfileEdit' element={<ProfileEdit />} />
+          <Route path='/mydetail' element={<MyDetail />} />
+          <Route path='/addboard' element={<AddBoard />} />
           <Route
             path='/oauth/redirected/HonBam'
             element={<KakaoLoginHandler />}
@@ -169,50 +131,23 @@ function App() {
             path='/Chat'
             element={<Chat />}
           ></Route> */}
-          <Route
-            path='/Chat'
-            element={<ProtectedRoute element={<Chat />} />}
-          />
-          <Route
-            path='/ChatMain'
-            element={<ChatMain />}
-          ></Route>
-          <Route
-            path='/AiChat'
-            element={<AiChat />}
-          ></Route>
-          <Route
-            path='/ChatApp'
-            element={<ChatApp />}
-          ></Route>
+          <Route path='/Chat' element={<ProtectedRoute element={<Chat />} />} />
+          <Route path='/ChatMain' element={<ChatMain />}></Route>
+          <Route path='/AiChat' element={<AiChat />}></Route>
+          <Route path='/ChatApp' element={<ChatApp />}></Route>
           {/* <Route
             path='/naverSearch'
             element={<NaverSearch />}
           /> */}
-          <Route
-            path='/freeboard'
-            element={<Inquiry />}
-          ></Route>
-          <Route
-            path='/freeboard/:id'
-            element={<InquiryDetail />}
-          ></Route>
-          <Route
-            path='/freeboard/create'
-            element={<InquiryCreate />}
-          ></Route>
+          <Route path='/freeboard' element={<Inquiry />}></Route>
+          <Route path='/freeboard/:id' element={<InquiryDetail />}></Route>
+          <Route path='/freeboard/create' element={<InquiryCreate />}></Route>
           <Route
             path='/freeboard/modify/:id'
             element={<InquiryModify />}
           ></Route>
-          <Route
-            path='/'
-            element={<Main />}
-          ></Route>
-          <Route
-            path='/search'
-            element={<SearchPage />}
-          ></Route>
+          <Route path='/' element={<Main />}></Route>
+          <Route path='/search' element={<SearchPage />}></Route>
           {/* <Route
             path='/recipe'
             element={<Recipe />}

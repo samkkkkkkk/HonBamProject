@@ -39,15 +39,15 @@
 }
 
 .Welcome {
-  background-image: url(../../assets/KakaoTalk_20231203_144124870.png);
-  background-position: 50% 50%;
+  /* background-image: url(../../assets/KakaoTalk_20231203_144124870.png); */
+  /* background-position: 50% 50%;
   background-size: cover;
   border-radius: 5px;
   height: 150px;
   left: 1120px;
   position: absolute;
   top: 640px;
-  width: 369px;
+  width: 369px; */
 }
 
 .LoginButton:hover {

@@ -1,0 +1,35 @@
+.Checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+  color: #ece5e5;
+}
+
+.checkout-details {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-details p {
+  margin: 10px 0;
+}
+
+.checkout-details button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkout-details button:hover {
+  background-color: #0056b3;
+}

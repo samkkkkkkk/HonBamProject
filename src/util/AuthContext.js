@@ -40,13 +40,13 @@ export const AuthContextProvider = (props) => {
   // 로그인 핸들러
   const loginHandler = (
     token,
-
     userName,
     role,
     userPay,
     address,
     phoneNumber,
-    userId
+    userId,
+    email
   ) => {
     localStorage.setItem('isLoggedIn', '1');
     //json에 담긴 인증정보를 클라이언트에 보관
@@ -60,6 +60,7 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem('USER_ADDRESS', address);
     localStorage.setItem('USER_PHONE', phoneNumber);
     localStorage.setItem('USER_ID', userId);
+    localStorage.setItem('USER_EMAIL', email);
     setIsLoggedIn(true);
 
     setUserName(userName);
@@ -72,7 +73,6 @@ export const AuthContextProvider = (props) => {
     <AuthContext.Provider
       value={{
         isLoggedIn,
-
         userName,
         address,
         phoneNumber,

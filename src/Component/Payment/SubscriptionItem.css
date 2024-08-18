@@ -1,0 +1,14 @@
+.subsCripntionsBox {
+  text-align: center;
+  padding: 20px;
+  color: rgb(213, 206, 195);
+  margin-top: 5%;
+}
+
+.subscriptions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 5%;
+  gap: 30px;
+}

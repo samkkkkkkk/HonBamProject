@@ -14,7 +14,7 @@ export const SearchPlace = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPlace(inputText + ' 혼술');
+    setPlace(inputText);
     setInputText('');
   };
 
@@ -30,10 +30,7 @@ export const SearchPlace = () => {
         src={myImage2}
         style={{ position: 'absolute', top: 130, left: 10, zIndex: 10 }}
       />
-      <form
-        className='inputForm'
-        onSubmit={handleSubmit}
-      >
+      <form className='inputForm' onSubmit={handleSubmit}>
         <input
           style={{ position: 'absolute', top: 380, left: 10, zIndex: 10 }}
           placeholder='Search Place'
