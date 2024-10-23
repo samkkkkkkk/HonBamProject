@@ -398,11 +398,8 @@ export const Modify = () => {
               <form>
                 <div className='input'>
                   <div className='text-wrapper'>
-                    <Link to='/Login'>
-                      <button
-                        type='button'
-                        className='cancleButton'
-                      >
+                    <Link to='/login'>
+                      <button type='button' className='cancleButton'>
                         CANCLE
                       </button>
                     </Link>
@@ -420,10 +417,7 @@ export const Modify = () => {
                   </div>
                 </div>
 
-                <Grid
-                  item
-                  xs={12}
-                >
+                <Grid item xs={12}>
                   <div
                     className='thumbnail-box'
                     onClick={() => $fileTag.current.click()}
@@ -438,9 +432,7 @@ export const Modify = () => {
                   <label
                     className='signup-img-label'
                     htmlFor='profile-img'
-                  >
-                    THUMBNAIL IMAGE (CLICK)
-                  </label>
+                  ></label>
                   <input
                     id='profile-img'
                     type='file'

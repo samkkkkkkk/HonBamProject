@@ -5,16 +5,9 @@ import { API_BASE_URL as BASE, USER } from '../../util/host-config';
 import AuthContext from '../../util/AuthContext';
 import { KAKAO_AUTH_URL } from '../../util/kakao-config';
 import { NAVER_AUTH_URL } from '../../util/naver-config';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
 export const Login = () => {
-  const googleLoginClick = (e) => {
-    e.preventDefault();
-
-    // 서버에 로그인 요청 전송
-    fetchLogin();
-  };
-
   const handleSuccess = (response) => {
     console.log(response); // 로그인 성공 시 수행할 코드를 작성하세요.
     fetchLogin2();
@@ -161,7 +154,7 @@ export const Login = () => {
   };
 
   return (
-    <GoogleOAuthProvider clientId='320782744863-s0kfop97qlse0lt2dlr539r9tmkq2rth.apps.googleusercontent.com'>
+    <>
       <div className='box2'>
         <div className='group'>
           <div className='LOGIN'>
@@ -172,13 +165,13 @@ export const Login = () => {
                     <div className='frame'></div>
                   </a>
 
-                  <div className='googleLogin' onClick={googleLoginClick}>
+                  {/* <div className='googleLogin' onClick={googleLoginClick}>
                     <GoogleLogin
                       onSuccess={handleSuccess}
                       onFailure={handleFailure}
                       width={'360px'}
                     />
-                  </div>
+                  </div> */}
 
                   <div className='input'>
                     <div className='text-wrapper'>
@@ -229,6 +222,6 @@ export const Login = () => {
           </div>
         </div>
       </div>
-    </GoogleOAuthProvider>
+    </>
   );
 };

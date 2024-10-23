@@ -117,10 +117,7 @@ const Main2 = () => {
                 혼자서도 즐길 수 있는
                 <Link to='/SearchPlace'>
                   맛집 보러가기
-                  <ArrowForwardIos
-                    className='search'
-                    fontSize='samll'
-                  />
+                  <ArrowForwardIos className='search' fontSize='samll' />
                 </Link>
               </p>
             </div>
@@ -147,10 +144,7 @@ const Main2 = () => {
                 <br />
                 <Link to='/recipe'>
                   자세히보기
-                  <ArrowForwardIos
-                    className='recipe'
-                    fontSize='samll'
-                  />
+                  <ArrowForwardIos className='recipe' fontSize='samll' />
                 </Link>
               </p>
             </div>

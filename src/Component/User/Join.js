@@ -369,11 +369,8 @@ export const Join = () => {
               <form>
                 <div className='input'>
                   <div className='text-wrapper'>
-                    <Link to='/Login'>
-                      <button
-                        type='button'
-                        className='cancleButton'
-                      >
+                    <Link to='/login'>
+                      <button type='button' className='cancleButton'>
                         CANCLE
                       </button>
                     </Link>
@@ -391,10 +388,7 @@ export const Join = () => {
                   </div>
                 </div>
 
-                <Grid
-                  item
-                  xs={12}
-                >
+                <Grid item xs={12}>
                   <div
                     className='thumbnail-box'
                     onClick={() => $fileTag.current.click()}
@@ -408,9 +402,7 @@ export const Join = () => {
                     <label
                       className='signup-img-label'
                       htmlFor='profile-img'
-                    >
-                      THUMBNAIL&nbsp;&nbsp;IMAGE&nbsp;&nbsp;CLICK
-                    </label>
+                    ></label>
                   </div>
 
                   <input

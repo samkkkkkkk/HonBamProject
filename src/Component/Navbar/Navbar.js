@@ -28,22 +28,24 @@ export const Navbar = () => {
   };
 
   const onClickPayment = () => {
-    const { IMP } = window;
-    IMP.init('imp10345536');
+    // const { IMP } = window;
+    // IMP.init('imp10345536');
 
-    const data = {
-      pg: 'html5_inicis', // PG사
-      pay_method: 'card', // 결제수단
-      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: 1000, // 결제금액
-      name: '혼밤 프리미엄(1년)', // 주문명
-      buyer_name: '기태', // 구매자 이름
-      buyer_tel: '010-1234-5678', // 구매자 전화번호
-      buyer_email: 'honbam@naver.com', // 구매자 이메일
-      buyer_addr: '서울', // 구매자 주소
-      buyer_postcode: '01234', // 구매자 우편번호
-    };
-    IMP.request_pay(data, callback);
+    // const data = {
+    //   pg: 'html5_inicis', // PG사
+    //   pay_method: 'card', // 결제수단
+    //   merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+    //   amount: 1000, // 결제금액
+    //   name: '혼밤 프리미엄(1년)', // 주문명
+    //   buyer_name: '기태', // 구매자 이름
+    //   buyer_tel: '010-1234-5678', // 구매자 전화번호
+    //   buyer_email: 'honbam@naver.com', // 구매자 이메일
+    //   buyer_addr: '서울', // 구매자 주소
+    //   buyer_postcode: '01234', // 구매자 우편번호
+    // };
+    // IMP.request_pay(data, callback);
+
+    <Link to='/pay'></Link>;
   };
   const callback = (response) => {
     const { success, error_msg } = response;
@@ -133,20 +135,14 @@ export const Navbar = () => {
     console.log('Navbar -> PAY: ' + userPay);
     if (userPay === 'NORMAL') {
       return (
-        <button
-          className='btn userpaynormal'
-          onClick={onClickPayment}
-        >
-          <span>일반 회원</span>
-        </button>
+        <Link to='/pay'>
+          <button className='btn userpaynormal'>
+            <span>일반 회원</span>
+          </button>
+        </Link>
       );
     } else if (userPay === 'PREMIUM') {
-      return (
-        <div
-          className='userpaypremium'
-          onClick={timecheck}
-        ></div>
-      );
+      return <div className='userpaypremium' onClick={timecheck}></div>;
     }
   };
 
@@ -287,10 +283,7 @@ export const Navbar = () => {
           </li>
           <li>
             {isLoggedIn ? (
-              <a
-                className='delete'
-                onClick={deleteUser}
-              >
+              <a className='delete' onClick={deleteUser}>
                 회원탈퇴
               </a>
             ) : (
@@ -322,16 +315,13 @@ export const Navbar = () => {
             </div>
           </div>
           <div className='loginHello'>
-            {isLoggedIn ? userName + '님 안녕하세요 ~' : ''}
+            {isLoggedIn ? userName + '님 안녕하세요' : ''}
           </div>
           <li>
             <a href='#login'>
               {' '}
               {isLoggedIn ? (
-                <a
-                  className='logout-btn'
-                  onClick={logoutHandler}
-                >
+                <a className='logout-btn' onClick={logoutHandler}>
                   로그아웃
                 </a>
               ) : (
@@ -357,10 +347,7 @@ export const Navbar = () => {
             className='app__navbar-toogleBtn'
             onClick={handleToggleClick}
           >
-            <FontAwesomeIcon
-              icon={faBars}
-              style={{ color: '#ffffff' }}
-            />
+            <FontAwesomeIcon icon={faBars} style={{ color: '#ffffff' }} />
           </a>
         </li>
       </nav>

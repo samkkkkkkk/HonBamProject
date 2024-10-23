@@ -220,10 +220,7 @@ const InquiryDetail = () => {
             {comments &&
               comments.length > 0 &&
               comments.map((commentItem, index) => (
-                <li
-                  key={index}
-                  className='inquiry_detail_reply_li'
-                >
+                <li key={index} className='inquiry_detail_reply_li'>
                   {editingCommentIndex === index ? (
                     <>
                       <textarea
@@ -295,10 +292,7 @@ const InquiryDetail = () => {
             ''
           )}
           <Link to='/freeboard'>
-            <Button
-              className='inquiry_detail_list_button'
-              children='목록'
-            />
+            <Button className='inquiry_detail_list_button' children='목록' />
           </Link>
         </div>
       </div>

@@ -48,6 +48,8 @@ import SubscriptionCheckout from './Component/Payment/SubscriptionCheckout';
 import { CheckoutPage } from './Component/Toss/Checkout';
 import { SuccessPage } from './Component/Toss/Success';
 import { FailPage } from './Component/Toss/Fail';
+import LoginTest from './Component/LoginTest';
+import JoinTest from './Component/JoinTest';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -107,8 +109,8 @@ function App() {
 
           <Route path='/Modify' element={<Modify />} />
 
-          <Route path='/Login' element={<Login />} />
-          <Route path='/Join' element={<Join />} />
+          <Route path='/login' element={<LoginTest />} />
+          <Route path='/Join' element={<JoinTest />} />
           <Route path='/board' element={<SnsBoard />} />
           <Route path='/addboard' element={<AddBoard />} />
           <Route path='/UserDetail' element={<UserDetail />} />
