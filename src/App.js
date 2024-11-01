@@ -22,6 +22,7 @@ import {
   Route,
   Routes,
   Navigate,
+  Link,
 } from 'react-router-dom';
 import ProfileEdit from './Component/Board/ProfileEdit';
 import Comment from './Component/Board/Comment';
@@ -66,6 +67,8 @@ function ProtectedRoute({ element }) {
       window.alert('프리미엄 회원만 이용 가능합니다!');
     }
   }, [isLoggedIn, userName]);
+
+  if (!isLoggedIn) return <Navigate to='/login' />;
 
   // 유저가 로그인하고 프리미엄 구독 상태인지 확인
   if (
