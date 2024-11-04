@@ -181,14 +181,15 @@ body {
 
 .userpaypremium {
   background-image: url(../../assets/premium.png);
-  background-position: 50% 50%;
-  background-size: cover;
+  /* background-position: 50% 50%; */
+  background-repeat: no-repeat;
+  background-size: contain;
   border-radius: 5px;
   height: 75px;
   left: 1050px;
   position: absolute;
   top: 25px;
-  width: 350px;
+  width: 200px;
 }
 
 @media screen and (max-width: 1180px) {
@@ -198,14 +199,14 @@ body {
     padding: 8px 24px;
   }
 
-  . {
+  /* . {
     display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
     padding-left: 0;
     padding-top: 20px;
-  }
+  } */
 
   .app__navbar-links.active {
     display: flex;

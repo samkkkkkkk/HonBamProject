@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
+import { KAKAO_MAP_API } from '../../util/kakao-config';
 
 const { kakao } = window;
-<script
-  type='text/javascript'
-  src='//dapi.kakao.com/v2/maps/sdk.js?appkey=9744bd2d6deea0a62f8265bace50c30f&libraries=services'
-></script>;
+<script type='text/javascript' src={KAKAO_MAP_API}></script>;
 export const MapContainer = ({ searchPlace }) => {
   let isOpen = false;
 

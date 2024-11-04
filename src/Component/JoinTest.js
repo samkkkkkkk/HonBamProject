@@ -4,12 +4,16 @@ import { initailState, initialState, joinReducer } from './User/joinReducer';
 import { debounce } from '@mui/material';
 import axios from 'axios';
 import { API_BASE_URL, USER } from '../util/host-config';
-import { json } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 
 const JoinTest = () => {
   // 기본 요청 url
   const REQUEST_URI = API_BASE_URL + USER;
 
+  // 리다이렉트 사용하기
+  const redirection = useNavigate();
+
+  // file태그 추출하기
   const $fileTag = useRef();
 
   // 입력받은 휴대폰 번호 상태 관리
@@ -257,6 +261,18 @@ const JoinTest = () => {
     }
   };
 
+  // 회원가입 버튼 클릭 이벤트
+  const joinButtonClickHandler = (e) => {
+    e.preventDefault();
+
+    if (isValid()) {
+      fetchSignupPost();
+      redirection('/login');
+    } else {
+      alert('회원 정보를 정확히 입력해주세요.');
+    }
+  };
+
   // 이미지를 추가하면 썸네일을 보여주는 핸들러
   const showThumbnailHandler = (e) => {
     // 첨부파일 정보
@@ -291,7 +307,7 @@ const JoinTest = () => {
     <div className='signup-container'>
       <div className='signup-box'>
         <h1 className='signup-title'>회원가입</h1>
-        <form className='signup-form'>
+        <form className='signup-form' noValidate>
           <div className='input-group'>
             <label htmlFor='email' className='input-label'>
               이메일
@@ -427,7 +443,11 @@ const JoinTest = () => {
               </div>
             </div>
           </div>
-          <button type='submit' className='signup-button'>
+          <button
+            type='submit'
+            className='signup-button'
+            onClick={joinButtonClickHandler}
+          >
             가입하기
           </button>
         </form>

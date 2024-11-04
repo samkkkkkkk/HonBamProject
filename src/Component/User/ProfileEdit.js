@@ -1,0 +1,29 @@
+import React from 'react';
+import './ProfileEdit.scss';
+
+const ProfileEdit = () => {
+  return (
+    <div className='profile-edit-container'>
+      <h2>회원 정보 수정</h2>
+      <form>
+        <div className='form-group'>
+          <label>닉네임</label>
+          <input type='text' placeholder='새 닉네임을 입력하세요' />
+        </div>
+        <div className='form-group'>
+          <label>비밀번호</label>
+          <input type='password' placeholder='새 비밀번호를 입력하세요' />
+        </div>
+        <div className='form-group'>
+          <label>비밀번호 확인</label>
+          <input type='password' placeholder='비밀번호를 다시 입력하세요' />
+        </div>
+        <button type='submit' className='save-button'>
+          저장하기
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default ProfileEdit;

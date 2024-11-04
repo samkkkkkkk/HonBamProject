@@ -24,7 +24,6 @@ import {
   Navigate,
   Link,
 } from 'react-router-dom';
-import ProfileEdit from './Component/Board/ProfileEdit';
 import Comment from './Component/Board/Comment';
 import KakaoLoginHandler from './Component/User/KakaoLoginHandler';
 import NaverLoginHandler from './Component/User/NaverLoginHandler';
@@ -51,6 +50,7 @@ import { SuccessPage } from './Component/Toss/Success';
 import { FailPage } from './Component/Toss/Fail';
 import LoginTest from './Component/LoginTest';
 import JoinTest from './Component/JoinTest';
+import ProfileEdit from './Component/User/ProfileEdit';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -110,7 +110,7 @@ function App() {
             element={<ProtectedRoute element={<Modify />} />}
           /> */}
 
-          <Route path='/Modify' element={<Modify />} />
+          <Route path='/modify' element={<ProfileEdit />} />
 
           <Route path='/login' element={<LoginTest />} />
           <Route path='/Join' element={<JoinTest />} />

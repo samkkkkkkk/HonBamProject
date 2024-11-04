@@ -11,4 +11,7 @@ React 환경에서 .env 내의 데이터를 읽어올 때는 반드시 REACT_APP
 const CLIENT_ID = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
 
+const KAKAO_APP_KEY = process.env.REACT_APP_KAKAO_KEY;
+
+export const KAKAO_MAP_API = `'//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_APP_KEY}=services'`;
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
