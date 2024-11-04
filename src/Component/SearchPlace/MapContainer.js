@@ -74,7 +74,8 @@ export const MapContainer = ({ searchPlace }) => {
     <div
       id='myMap'
       style={{
-        width: '1990px',
+        // width: '1990px',
+        width: '',
         height: '816px',
       }}
     ></div>

@@ -115,7 +115,7 @@ const Main2 = () => {
             <div className='main-hotplace'>
               <p className='main-hot-intro'>
                 혼자서도 즐길 수 있는
-                <Link to='/SearchPlace'>
+                <Link to='/searchPlace'>
                   맛집 보러가기
                   <ArrowForwardIos className='search' fontSize='samll' />
                 </Link>

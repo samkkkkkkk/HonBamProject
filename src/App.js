@@ -51,6 +51,7 @@ import { FailPage } from './Component/Toss/Fail';
 import LoginTest from './Component/LoginTest';
 import JoinTest from './Component/JoinTest';
 import ProfileEdit from './Component/User/ProfileEdit';
+import MapTest from './Component/SearchPlace/MapTest';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -118,7 +119,7 @@ function App() {
           <Route path='/addboard' element={<AddBoard />} />
           <Route path='/UserDetail' element={<UserDetail />} />
           <Route path='/MapContainer' element={<MapContainer />} />
-          <Route path='/SearchPlace' element={<SearchPlace />} />
+          <Route path='/searchPlace' element={<MapTest />} />
           <Route path='/Setting' element={<Setting />} />
           <Route path='/comment/:posId' element={<Comment />} />
           <Route path='/ProfileEdit' element={<ProfileEdit />} />

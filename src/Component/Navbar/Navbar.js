@@ -259,7 +259,7 @@ export const Navbar = () => {
         {/* <div className='HonBamGIF'></div> */}
         <ul className={`app__navbar-links ${showLinks ? 'active' : ''}`}>
           <li>
-            <Link to='/SearchPlace'>맛집검색</Link>
+            <Link to='/searchPlace'>맛집검색</Link>
           </li>
           <li>
             <Link to='/recipe'>레시피</Link>
