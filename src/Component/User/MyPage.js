@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { Spinner } from 'reactstrap';
 import './MyPage.css';
-import { API_BASE_URL as BASE, TODO, USER } from '../../util/host-config';
+import { API_BASE_URL as BASE, TODO, USER } from '../../config/host-config';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLoginUserInfo } from '../../util/login-util';
 import AuthContext from '../../util/AuthContext';

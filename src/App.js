@@ -69,7 +69,10 @@ function ProtectedRoute({ element }) {
     }
   }, [isLoggedIn, userName]);
 
-  if (!isLoggedIn) return <Navigate to='/login' />;
+  if (!isLoggedIn) {
+    alert('로그인이 필요한 서비스입니다!');
+    return <Navigate to='/login' />;
+  }
 
   // 유저가 로그인하고 프리미엄 구독 상태인지 확인
   if (

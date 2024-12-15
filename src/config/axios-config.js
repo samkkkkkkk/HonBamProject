@@ -4,10 +4,9 @@
 // export const POST = '/api/posts';
 
 import axios from 'axios';
-import { API_BASE_URL, HONBAM, USER } from './host-config';
+import { API_BASE_URL, USER } from './host-config';
 import { config } from '@fortawesome/fontawesome-svg-core';
 
-const HONBAM_URL = API_BASE_URL + HONBAM;
 const USER_URL = API_BASE_URL + USER;
 
 const axiosInstance = axios.create({
@@ -16,16 +15,16 @@ const axiosInstance = axios.create({
   },
 });
 
+// Request Interceptor 설정
 axiosInstance.interceptors.request.use(
   // 요청 보내기 전에 일괄 처리해야 할 내용을 함수로 선언.
   (config) => {
     const token = localStorage.getItem('ACCESS_TOKEN');
     if (token) {
-      return (config.headers.Authorization = `Bearer + ${token}`);
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
   (error) => Promise.reject(error)
 );
-
 export default axiosInstance;

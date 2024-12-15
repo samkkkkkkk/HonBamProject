@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Comment.css';
 import { Link, useParams } from 'react-router-dom';
-import { API_BASE_URL } from '../../util/host-config';
+import { API_BASE_URL } from '../../config/host-config';
 import { POST } from '../../config/host-config';
 import { getLoginUserInfo } from '../../util/login-util';
 
@@ -90,10 +90,7 @@ const Comment = () => {
                 <ul className='ulStyle'>
                   {/* 현재 페이지의 댓글만 매핑하여 표시 */}
                   {getCurrentComments().map((comment, index) => (
-                    <li
-                      className='liStyle'
-                      key={index}
-                    >
+                    <li className='liStyle' key={index}>
                       <div className='avatar'></div>
                       <span className='litext'>{comment}</span>
                     </li>
@@ -143,10 +140,7 @@ const Comment = () => {
           </div>
           <div className='back'>
             <Link to='/board'>
-              <button
-                type='button'
-                className='backBtn1'
-              ></button>
+              <button type='button' className='backBtn1'></button>
             </Link>
           </div>
         </div>

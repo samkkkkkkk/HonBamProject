@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 import Pagination from 'react-js-pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
-import { API_BASE_URL, FREEBOARD } from '../../../util/host-config';
+import { API_BASE_URL, FREEBOARD } from '../../../config/host-config';
 import { getLoginUserInfo } from '../../../util/login-util';
 import AuthContext from '../../../util/AuthContext';
 
@@ -68,31 +68,16 @@ const Inquiry = () => {
       <div className='inquiry_backImg'>
         <h2 className='inquiry_logo'>
           문의글
-          <FontAwesomeIcon
-            className='inquiry_logo_icon'
-            icon={faPenToSquare}
-          />
+          <FontAwesomeIcon className='inquiry_logo_icon' icon={faPenToSquare} />
         </h2>
         <div className='inquiry'>
           <h4 className='inquiry-title'>총 게시물 - {postList.length}개</h4>
           <table className='inquiry-table'>
             <colgroup>
-              <col
-                className='col-no'
-                width='15%'
-              />
-              <col
-                className='col-title'
-                width='50%'
-              />
-              <col
-                className='col-writer'
-                width='15%'
-              ></col>
-              <col
-                className='col-date'
-                width='20%'
-              />
+              <col className='col-no' width='15%' />
+              <col className='col-title' width='50%' />
+              <col className='col-writer' width='15%'></col>
+              <col className='col-date' width='20%' />
             </colgroup>
             <thead>
               <tr>
@@ -107,10 +92,7 @@ const Inquiry = () => {
                 <tr key={post.id}>
                   <td className='col-no'>{post.id}</td>
                   <td className='col-title'>
-                    <Link
-                      to={`/freeboard/${post.id}`}
-                      className='inquiry-link'
-                    >
+                    <Link to={`/freeboard/${post.id}`} className='inquiry-link'>
                       {post.title}
                     </Link>
                   </td>
@@ -121,10 +103,7 @@ const Inquiry = () => {
             </tbody>
           </table>
           <div className='grid-2'>
-            <Link
-              to='/freeboard/create'
-              className='inquiry-create-link'
-            >
+            <Link to='/freeboard/create' className='inquiry-create-link'>
               {isLoggedIn ? (
                 <Button className='inquiry-create-button'>글쓰기</Button>
               ) : (

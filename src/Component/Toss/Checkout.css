@@ -576,3 +576,21 @@ textarea {
   flex: 0 0 41.66667%;
   max-width: 41.66667%;
 }
+
+.home-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.back-home {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 20%;
+}

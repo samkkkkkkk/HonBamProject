@@ -3,7 +3,7 @@ import './InquiryModify.css';
 import { Button } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { useNavigate, useParams } from 'react-router-dom';
-import { API_BASE_URL, FREEBOARD } from '../../../util/host-config';
+import { API_BASE_URL, FREEBOARD } from '../../../config/host-config';
 import { getLoginUserInfo } from '../../../util/login-util';
 
 const InquiryModify = () => {
@@ -155,10 +155,7 @@ const InquiryModify = () => {
       <div className='inquiry_modify'>
         <form>
           <div>
-            <label
-              className='inquiry_modify_title'
-              htmlFor='title'
-            >
+            <label className='inquiry_modify_title' htmlFor='title'>
               Title
             </label>
             <input
@@ -173,10 +170,7 @@ const InquiryModify = () => {
             />
           </div>
           <div>
-            <label
-              className='inquiry_modify_content'
-              htmlFor='content'
-            >
+            <label className='inquiry_modify_content' htmlFor='content'>
               Content
             </label>
             <textarea

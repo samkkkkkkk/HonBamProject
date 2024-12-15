@@ -6,7 +6,7 @@ import {
   faMartiniGlassCitrus,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import { API_BASE_URL, RECIPE } from '../../util/host-config';
+import { API_BASE_URL, RECIPE } from '../../config/host-config';
 
 const Recipe = () => {
   const [recipes, setRecipes] = useState([]);
@@ -54,6 +54,17 @@ const Recipe = () => {
       closeModal();
     }
   };
+
+  // ESC키를 누르면 모달을 닫는 함수
+  const closeModalESC = (e) => {
+    console.log('키: ', e.keyCode);
+
+    if (e.keyCode === 27) {
+      closeModal();
+    }
+  };
+
+  window.addEventListener('keydown', closeModalESC);
 
   // 검색어 초기화 함수
   const clearSearch = () => {
@@ -180,10 +191,7 @@ const Recipe = () => {
       {/* 레시피 카드 영역 */}
       <div className='kategoria'>
         {filterRecipes().map((recipe, index) => (
-          <div
-            key={recipe.dataId}
-            className='recipe_card'
-          >
+          <div key={recipe.dataId} className='recipe_card'>
             {filter === 'top10' && <h2 className='rank'>{index + 1}위 </h2>}
             {/* 레시피 이미지 */}
             <img
@@ -195,10 +203,7 @@ const Recipe = () => {
             {/* 레시피 세부 정보 */}
             <div className='recipe_details'>
               {/* 레시피 이름 */}
-              <h2
-                className='name'
-                onClick={() => openModal(recipe)}
-              >
+              <h2 className='name' onClick={() => openModal(recipe)}>
                 {recipe.cocktailName}
               </h2>
             </div>
@@ -208,19 +213,10 @@ const Recipe = () => {
 
       {/* 레시피 모달 */}
       {modalOpen && selectedRecipe && (
-        <div
-          className='modal'
-          onClick={closeModalOutside}
-        >
-          <div
-            className='modal_content'
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className='modal' onClick={closeModalOutside}>
+          <div className='modal_content' onClick={(e) => e.stopPropagation()}>
             {/* 모달 닫기 버튼 */}
-            <span
-              className='close'
-              onClick={closeModal}
-            >
+            <span className='close' onClick={closeModal}>
               &times;
             </span>
             {/* 레시피 이미지 */}
@@ -235,10 +231,7 @@ const Recipe = () => {
               <br />
               {selectedRecipe.recipe && (
                 <>
-                  <p
-                    className='recipe__'
-                    style={{ whiteSpace: 'pre-wrap' }}
-                  >
+                  <p className='recipe__' style={{ whiteSpace: 'pre-wrap' }}>
                     {`${selectedRecipe.recipe.replace(/\//g, '\n\n')}`}
                   </p>
                 </>

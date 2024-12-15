@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { API_BASE_URL as BASE, USER } from '../../util/host-config';
+import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 import AuthContext from '../../util/AuthContext';
 import { KAKAO_AUTH_URL } from '../../util/kakao-config';
 import { NAVER_AUTH_URL } from '../../util/naver-config';

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import './InquiryDetail.css';
-import { API_BASE_URL, FREEBOARD } from '../../../util/host-config';
+import { API_BASE_URL, FREEBOARD } from '../../../config/host-config';
 import { getLoginUserInfo } from '../../../util/login-util';
 
 const InquiryDetail = () => {

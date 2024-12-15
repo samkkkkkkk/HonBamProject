@@ -1,39 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { API_BASE_URL, TOSS_PAYMENTS, USER } from '../../config/host-config';
+import './Success.scss';
+import { getLoginUserInfo } from '../../util/login-util';
+import LoadingPage from '../../util/Loading';
+import axios from 'axios';
+import axiosInstance from '../../config/axios-config';
+import AuthContext from '../../util/AuthContext';
 
 export function SuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [responseData, setResponseData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { renewToken } = useContext(AuthContext);
+
+  const BASE = API_BASE_URL + TOSS_PAYMENTS;
+  const USER_URL = API_BASE_URL + USER;
+  const redirection = useNavigate();
 
   useEffect(() => {
     async function confirm() {
-      const requestData = {
+      const confirmRequestData = {
         orderId: searchParams.get('orderId'),
         amount: searchParams.get('amount'),
         paymentKey: searchParams.get('paymentKey'),
       };
 
-      const response = await fetch(
-        'http://localhost:8181/api/tosspay/confirm',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestData),
-        }
-      );
+      const res = await fetch(BASE + '/confirm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + getLoginUserInfo().token,
+        },
+        body: JSON.stringify(confirmRequestData),
+      });
 
-      const json = await response.json();
+      const data = await res.json();
+      setLoading(false);
 
-      console.log(json);
+      // console.log(json);
 
-      if (!response.ok) {
-        throw { message: json.message, code: json.code };
+      if (!res.ok) {
+        throw { message: data.message, code: data.code };
       }
+      promte();
 
-      return json;
+      return data;
     }
 
     confirm()
@@ -45,65 +58,101 @@ export function SuccessPage() {
       });
   }, [searchParams]);
 
+  const { amount, discount, orderId, orderName, paidAt, method } =
+    responseData || {};
+
+  const promte = async () => {
+    try {
+      const res = await axiosInstance.put(USER_URL + '/paypromote');
+      const json = res.data;
+      console.log(json.userPay);
+
+      localStorage.setItem('ACCESS_TOKEN', json.token);
+      localStorage.setItem('USER_PAY', json.userPay);
+      renewToken(json.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cancel = async () => {
+    const requestData = {
+      orderId: searchParams.get('orderId'),
+      amount: searchParams.get('amount'),
+      paymentKey: searchParams.get('paymentKey'),
+      method: searchParams.get('method'),
+    };
+    const response = await fetch(BASE + '/cancel', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  };
+
   return (
     <>
-      <div className='box_section' style={{ width: '600px' }}>
-        <img
-          width='100px'
-          src='https://static.toss.im/illusts/check-blue-spot-ending-frame.png'
-        />
-        <h2>결제를 완료했어요</h2>
-        <div className='p-grid typography--p' style={{ marginTop: '50px' }}>
-          <div className='p-grid-col text--left'>
-            <b>결제금액</b>
+      {loading ? (
+        LoadingPage
+      ) : (
+        <div className='payment-container'>
+          <h1 className='payment-title'>결제가 완료되었습니다!</h1>
+          <p className='payment-subtitle'>
+            감사합니다. 구독이 활성화되었습니다.
+          </p>
+
+          <div className='payment-info'>
+            <div className='payment-row'>
+              <span className='payment-label'>구독권</span>
+              <span className='payment-value'>{orderName}</span>
+            </div>
+            <div className='payment-row'>
+              <span className='payment-label'>결제 날짜</span>
+              <span className='payment-value'>{formatDate(paidAt)}</span>
+            </div>
+            <div className='payment-row'>
+              <span className='payment-label'>주문 번호</span>
+              <span className='payment-value'>{orderId}</span>
+            </div>
+            <div className='payment-row'>
+              <span className='payment-label'>결제 방법</span>
+              <span className='payment-value'>{method}</span>
+            </div>
+            <div className='payment-row'>
+              <span className='payment-label'>상품 요금</span>
+              <span className='payment-value'>{amount}원</span>
+            </div>
+            <div className='payment-row'>
+              <span className='payment-label'>할인 금액</span>
+              <span className='payment-value'>-{discount}원</span>
+            </div>
+            <div className='payment-row'>
+              <span className='payment-label'>총 결제 금액</span>
+              <span className='payment-value-highlight'>
+                {amount - discount}원
+              </span>
+            </div>
           </div>
-          <div className='p-grid-col text--right' id='amount'>
-            {`${Number(searchParams.get('amount')).toLocaleString()}원`}
-          </div>
+
+          <button className='payment-button' onClick={() => redirection('/')}>
+            홈으로
+          </button>
         </div>
-        <div className='p-grid typography--p' style={{ marginTop: '10px' }}>
-          <div className='p-grid-col text--left'>
-            <b>주문번호</b>
-          </div>
-          <div className='p-grid-col text--right' id='orderId'>
-            {`${searchParams.get('orderId')}`}
-          </div>
-        </div>
-        <div className='p-grid typography--p' style={{ marginTop: '10px' }}>
-          <div className='p-grid-col text--left'>
-            <b>paymentKey</b>
-          </div>
-          <div
-            className='p-grid-col text--right'
-            id='paymentKey'
-            style={{ whiteSpace: 'initial', width: '250px' }}
-          >
-            {`${searchParams.get('paymentKey')}`}
-          </div>
-        </div>
-        <div className='p-grid-col'>
-          <Link to='https://docs.tosspayments.com/guides/v2/payment-widget/integration'>
-            <button className='button p-grid-col5'>연동 문서</button>
-          </Link>
-          <Link to='https://discord.gg/A4fRFXQhRu'>
-            <button
-              className='button p-grid-col5'
-              style={{ backgroundColor: '#e8f3ff', color: '#1b64da' }}
-            >
-              실시간 문의
-            </button>
-          </Link>
-        </div>
-      </div>
-      {/* <div
-        className='box_section'
-        style={{ width: '600px', textAlign: 'left' }}
-      >
-        <b>Response Data :</b>
-        <div id='response' style={{ whiteSpace: 'initial' }}>
-          {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
-        </div>
-      </div> */}
+      )}
+      );
     </>
   );
 }

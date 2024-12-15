@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { API_BASE_URL, USER } from '../../util/host-config';
+import { API_BASE_URL, USER } from '../../config/host-config';
 import AuthContext from '../../util/AuthContext';
 import { isLogin, getLoginUserInfo } from '../../util/login-util';
 import { Link, Route, Routes, redirect, useNavigate } from 'react-router-dom';

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './Pay.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { API_BASE_URL, USER } from '../../util/host-config';
+import { API_BASE_URL, USER } from '../../config/host-config';
 import AuthContext from '../../util/AuthContext';
 import { PaymentCheckoutPage } from './TossPay';
 

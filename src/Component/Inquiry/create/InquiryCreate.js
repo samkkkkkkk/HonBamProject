@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './InquiryCreate.css';
 import { Button } from 'reactstrap';
 import Swal from 'sweetalert2';
-import { API_BASE_URL, FREEBOARD } from '../../../util/host-config';
+import { API_BASE_URL, FREEBOARD } from '../../../config/host-config';
 import { getLoginUserInfo } from '../../../util/login-util';
 
 const InquiryCreate = () => {
@@ -87,10 +87,7 @@ const InquiryCreate = () => {
       <div className='inquiry_create'>
         <form>
           <div>
-            <label
-              className='inquiry_create_title'
-              htmlFor='title'
-            >
+            <label className='inquiry_create_title' htmlFor='title'>
               Title
             </label>
             <input
@@ -104,10 +101,7 @@ const InquiryCreate = () => {
             />
           </div>
           <div>
-            <label
-              className='inquiry_create_content'
-              htmlFor='content'
-            >
+            <label className='inquiry_create_content' htmlFor='content'>
               Content
             </label>
             <textarea

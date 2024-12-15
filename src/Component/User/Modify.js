@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { API_BASE_URL as BASE, USER } from '../../util/host-config';
+import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 import './Modify.css';
 import { Grid } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';

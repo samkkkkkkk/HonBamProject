@@ -30,8 +30,13 @@ export function FailPage() {
           'code'
         )}`}</div>
       </div>
+      <Link to={'/'}>
+        <div className='home-box' style={{ marginTop: '10px' }}>
+          <button className='back-home'>홈으로</button>
+        </div>
+      </Link>
 
-      <div className='p-grid-col'>
+      {/* <div className='p-grid-col'>
         <Link to='https://docs.tosspayments.com/guides/v2/payment-widget/integration'>
           <button className='button p-grid-col5'>연동 문서</button>
         </Link>
@@ -43,7 +48,7 @@ export function FailPage() {
             실시간 문의
           </button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

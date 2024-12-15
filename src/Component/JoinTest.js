@@ -3,7 +3,7 @@ import './JoinTest.scss'; // 스타일은 따로 정의해야 합니다.
 import { initailState, initialState, joinReducer } from './User/joinReducer';
 import { debounce } from '@mui/material';
 import axios from 'axios';
-import { API_BASE_URL, USER } from '../util/host-config';
+import { API_BASE_URL, USER } from '../config/host-config';
 import { json, useNavigate } from 'react-router-dom';
 
 const JoinTest = () => {
@@ -256,6 +256,7 @@ const JoinTest = () => {
     try {
       const res = await axios.post(REQUEST_URI, userFormData);
       console.log(res.data);
+      alert(`${res.data.userName}님 회원가입에 성공 하셨습니다.`);
     } catch (error) {
       alert(error.response.data);
     }

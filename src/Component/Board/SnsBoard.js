@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './SnsBoard.css';
 import { Link, Route, Routes } from 'react-router-dom';
-import { API_BASE_URL } from '../../util/host-config';
-import { POST } from '../../config/host-config';
+import { API_BASE_URL, POST } from '../../config/host-config';
 import { getLoginUserInfo } from '../../util/login-util';
 import Comment from './Comment';
 
@@ -65,10 +64,7 @@ const SnsBoard = () => {
             <div className='board-wrap'>
               <div className='boardbottom'>
                 <div className='id-text'>
-                  <div
-                    key={content.postId}
-                    className='text-wrapper-4'
-                  >
+                  <div key={content.postId} className='text-wrapper-4'>
                     {content.content}
                   </div>
                 </div>
@@ -76,25 +72,16 @@ const SnsBoard = () => {
                   <div className='profile'></div>
                   <div className='text-wrapper-12'>
                     <Routes>
-                      <Route
-                        path='/comment/:postId'
-                        element={<Comment />}
-                      />
+                      <Route path='/comment/:postId' element={<Comment />} />
                     </Routes>
                     <Link to={`/comment/${content.postId}`}>
-                      <button
-                        type='button'
-                        className='commentBtn'
-                      >
+                      <button type='button' className='commentBtn'>
                         댓글 추가...
                       </button>
                     </Link>
                   </div>
                   <div className='date'>
-                    <div
-                      key={content.postId}
-                      className='text-wrapper'
-                    >
+                    <div key={content.postId} className='text-wrapper'>
                       {content.updateDate}
                     </div>
                   </div>
@@ -102,10 +89,7 @@ const SnsBoard = () => {
                 <div className='like-text'></div>
                 <div className='comment1'>
                   <Link to='/comment'>
-                    <button
-                      type='button'
-                      className='comment'
-                    ></button>
+                    <button type='button' className='comment'></button>
                   </Link>
                 </div>
                 <div className='like'>
@@ -128,10 +112,7 @@ const SnsBoard = () => {
                 </div>
                 <div className='more'>
                   <Link to='/Setting'>
-                    <button
-                      type='button'
-                      className='moreBtn'
-                    >
+                    <button type='button' className='moreBtn'>
                       :
                     </button>
                   </Link>
@@ -139,10 +120,7 @@ const SnsBoard = () => {
                 <div className='name'>
                   <div className='text-wrapper-6'>
                     <Link to='/UserDetail'>
-                      <button
-                        type='button'
-                        className='nickbutton'
-                      >
+                      <button type='button' className='nickbutton'>
                         SARA
                       </button>
                     </Link>
@@ -154,10 +132,7 @@ const SnsBoard = () => {
                 <div className='text-wrapper-7'>BOARD</div>
                 <div className='detail'>
                   <Link to='/MyDetail'>
-                    <button
-                      type='button'
-                      className='myDetail'
-                    ></button>
+                    <button type='button' className='myDetail'></button>
                   </Link>
                 </div>
               </div>

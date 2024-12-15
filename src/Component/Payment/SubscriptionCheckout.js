@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './SubscriptionCheckout.scss';
 import { PaymentCheckoutPage } from '../User/TossPay';
 import { CheckoutPage } from '../Toss/Checkout';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const SubscriptionCheckout = () => {
   const [payMethod, setPayMethod] = useState();
@@ -16,7 +17,7 @@ const SubscriptionCheckout = () => {
   const location = useLocation();
   const sub = location.state;
 
-  const userId = 'ddd';
+  const { username } = getLoginUserInfo();
 
   console.log(sub);
 
@@ -29,7 +30,7 @@ const SubscriptionCheckout = () => {
       <h1>결제 화면</h1>
       <div className='checkout-details'>
         <p>
-          <strong>회원 아이디:</strong> {userId}
+          <strong>회원 이름:</strong> {username}
         </p>
         <p>
           <strong>구독권:</strong> {sub.title}

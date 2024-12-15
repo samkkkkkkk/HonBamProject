@@ -78,9 +78,9 @@ const MapTest = () => {
       // 마커와 검색결과 항목에 mouseover 했을때
       // 해당 장소에 인포윈도우에 장소명을 표시합니다
       // mouseout 했을 때는 인포윈도우를 닫습니다
-      (function (marker, title) {
+      (function (marker, title, address) {
         kakao.maps.event.addListener(marker, 'mouseover', function () {
-          displayInfowindow(marker, title);
+          displayInfowindow(marker, title, address);
         });
 
         kakao.maps.event.addListener(marker, 'mouseout', function () {
@@ -88,13 +88,13 @@ const MapTest = () => {
         });
 
         itemEl.onmouseover = function () {
-          displayInfowindow(marker, title);
+          displayInfowindow(marker, title, address);
         };
 
         itemEl.onmouseout = function () {
           infowindowRef.current.close();
         };
-      })(marker, places[i].place_name);
+      })(marker, places[i].place_name, places[i].address_name);
 
       fragment.appendChild(itemEl);
     }
@@ -202,8 +202,8 @@ const MapTest = () => {
 
   // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
   // 인포윈도우에 장소명을 표시합니다
-  function displayInfowindow(marker, title) {
-    const content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+  function displayInfowindow(marker, title, address) {
+    const content = `<div style="padding:5px;z-index:1;">${title}<br>${address}</div>`;
 
     infowindowRef.current.setContent(content);
     infowindowRef.current.open(mapRef.current, marker);
@@ -217,8 +217,39 @@ const MapTest = () => {
   }
 
   useEffect(() => {
+    let lat, lon, locPosition, message;
+
+    // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+    if (navigator.geolocation) {
+      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+      navigator.geolocation.getCurrentPosition(function (position) {
+        lat = position.coords.latitude; // 위도
+        lon = position.coords.longitude; // 경도
+
+        console.log('위도: ', lat);
+        console.log('경도: ', lon);
+
+        locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+        mapRef.current.setCenter(new kakao.maps.LatLng(lat, lon));
+        mapRef.current.setLevel(3);
+        message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+
+        // 마커와 인포윈도우를 표시합니다
+        // displayMarker(locPosition, message);
+      });
+    } else {
+      // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+      locPosition = new kakao.maps.LatLng(37.5760222, 126.9769);
+      mapRef.current.setCenter(new kakao.maps.LatLng(lat, lon));
+      mapRef.current.setLevel(3);
+      message = 'geolocation을 사용할수 없어요..';
+
+      // displayMarker(locPosition, message);
+    }
+
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      center: new kakao.maps.LatLng(37.5760222, 126.9769),
       level: 3,
     };
 
@@ -228,15 +259,6 @@ const MapTest = () => {
   }, []);
 
   return (
-    // <div
-    //   id='map'
-    //   style={{
-    //     // width: '1990px',
-    //     width: '100%',
-    //     height: '816px',
-    //   }}
-    //   ref={container}
-    // ></div>
     <>
       <div className='map_wrap'>
         <div
