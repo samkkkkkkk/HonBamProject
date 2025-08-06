@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_BASE_URL } from "./host-config";
 
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api',
+  baseURL: API_BASE_URL || 'http://localhost:8080/api',
   timeout: 10000,
   withCredentials: true, // httpOnly 쿠키 포함을 위한 설정
   headers: {

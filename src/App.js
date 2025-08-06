@@ -52,6 +52,7 @@ import LoginTest from './Component/LoginTest';
 import JoinTest from './Component/JoinTest';
 import ProfileEdit from './Component/User/ProfileEdit';
 import MapTest from './Component/SearchPlace/MapTest';
+import { UserContextProvider } from './util/UserContext';
 
 // import ProfileEdit from './Component/ProfileEdit';
 // import Comment from './Component/Comment';
@@ -90,6 +91,7 @@ function App() {
   return (
     <>
       <AuthContextProvider>
+        <UserContextProvider>
         <div>
           <Navbar />
         </div>
@@ -167,6 +169,7 @@ function App() {
             element={<ProtectedRoute element={<Recipe />} />}
           />
         </Routes>
+        </UserContextProvider>
       </AuthContextProvider>
     </>
   );

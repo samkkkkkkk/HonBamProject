@@ -7,49 +7,72 @@ import axiosInstance from '../config/axios-config';
 import AuthContext from '../util/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Password } from '@mui/icons-material';
+import UserContext from '../util/UserContext';
 
 const LoginTest = () => {
   const redirection = useNavigate();
   const { onLogin } = useContext(AuthContext);
+  const { fetchUserInfo } = useContext(UserContext)
 
   const REQUEST_URL = API_BASE_URL + USER + '/signin';
 
+  // const fetchLogin = async () => {
+  //   const $email = document.getElementById('email');
+  //   const $password = document.getElementById('password');
+
+  //   try {
+  //     const res = await axios.post(REQUEST_URL, {
+  //       email: $email.value,
+  //       password: $password.value,
+  //     });
+
+  //     const {
+  //       token,
+  //       userName,
+  //       role,
+  //       userPay,
+  //       address,
+  //       phoneNumber,
+  //       userId,
+  //       email,
+  //     } = res.data;
+  //     onLogin(
+  //       token,
+  //       userName,
+  //       role,
+  //       userPay,
+  //       address,
+  //       phoneNumber,
+  //       userId,
+  //       email
+  //     );
+  //     // 홈으로 리다이렉트
+  //     redirection('/');
+  //   } catch (error) {
+  //     alert(error.response.data);
+  //   }
+  // };
+
+  // 1. 요소에서 사용자가 입력한 email, password 가져오기
+  // 2. AuthContext의 onLogin(email, paswword)
+  // 3. UserContext의 userInfo 호출해서 유저 정보 상태관리하기
   const fetchLogin = async () => {
-    const $email = document.getElementById('email');
-    const $password = document.getElementById('password');
+    const $email = document.getElementById("email");
+    const $password = document.getElementById("password");
 
-    try {
-      const res = await axios.post(REQUEST_URL, {
-        email: $email.value,
-        password: $password.value,
-      });
+    result = onLogin($email.value, $password.value);
 
-      const {
-        token,
-        userName,
-        role,
-        userPay,
-        address,
-        phoneNumber,
-        userId,
-        email,
-      } = res.data;
-      onLogin(
-        token,
-        userName,
-        role,
-        userPay,
-        address,
-        phoneNumber,
-        userId,
-        email
-      );
-      // 홈으로 리다이렉트
-      redirection('/');
-    } catch (error) {
-      alert(error.response.data);
+    if (result.success) {
+      fetchUserInfo();
+      redirection("/");
+    } else {
+      alert(result.message);
     }
+
   };
+  
+
+
 
   const loginHandler = (e) => {
     e.preventDefault();
