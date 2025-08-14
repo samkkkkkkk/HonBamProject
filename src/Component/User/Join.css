@@ -169,7 +169,9 @@
   height: 53px;
   right: 170px;
   bottom: 13px;
-  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+  transition:
+    background 0.5s ease-in-out,
+    color 0.5s ease-in-out;
 }
 
 .joinsubmit:hover {
@@ -185,7 +187,9 @@
   height: 53px;
   right: 156px;
   bottom: 13px;
-  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+  transition:
+    background 0.5s ease-in-out,
+    color 0.5s ease-in-out;
   outline: red;
 }
 

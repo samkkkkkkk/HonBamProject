@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { API_BASE_URL, TOSS_PAYMENTS, USER } from '../../config/host-config';
-import './Success.scss';
-import { getLoginUserInfo } from '../../util/login-util';
-import LoadingPage from '../../util/Loading';
+import { API_BASE_URL, TOSS_PAYMENTS, USER } from '@/config/host-config';
+import '@/Component/Toss/Success.scss';
+import { getLoginUserInfo } from '@/util/login-util';
+import LoadingPage from '@/util/Loading';
 import axios from 'axios';
-import axiosInstance from '../../config/axios-config';
-import AuthContext from '../../util/AuthContext';
+import axiosInstance from '@/config/axios-config';
+import AuthContext from '@/util/AuthContext';
 
 export function SuccessPage() {
   const navigate = useNavigate();
@@ -108,46 +108,46 @@ export function SuccessPage() {
       {loading ? (
         LoadingPage
       ) : (
-        <div className='payment-container'>
-          <h1 className='payment-title'>결제가 완료되었습니다!</h1>
-          <p className='payment-subtitle'>
+        <div className="payment-container">
+          <h1 className="payment-title">결제가 완료되었습니다!</h1>
+          <p className="payment-subtitle">
             감사합니다. 구독이 활성화되었습니다.
           </p>
 
-          <div className='payment-info'>
-            <div className='payment-row'>
-              <span className='payment-label'>구독권</span>
-              <span className='payment-value'>{orderName}</span>
+          <div className="payment-info">
+            <div className="payment-row">
+              <span className="payment-label">구독권</span>
+              <span className="payment-value">{orderName}</span>
             </div>
-            <div className='payment-row'>
-              <span className='payment-label'>결제 날짜</span>
-              <span className='payment-value'>{formatDate(paidAt)}</span>
+            <div className="payment-row">
+              <span className="payment-label">결제 날짜</span>
+              <span className="payment-value">{formatDate(paidAt)}</span>
             </div>
-            <div className='payment-row'>
-              <span className='payment-label'>주문 번호</span>
-              <span className='payment-value'>{orderId}</span>
+            <div className="payment-row">
+              <span className="payment-label">주문 번호</span>
+              <span className="payment-value">{orderId}</span>
             </div>
-            <div className='payment-row'>
-              <span className='payment-label'>결제 방법</span>
-              <span className='payment-value'>{method}</span>
+            <div className="payment-row">
+              <span className="payment-label">결제 방법</span>
+              <span className="payment-value">{method}</span>
             </div>
-            <div className='payment-row'>
-              <span className='payment-label'>상품 요금</span>
-              <span className='payment-value'>{amount}원</span>
+            <div className="payment-row">
+              <span className="payment-label">상품 요금</span>
+              <span className="payment-value">{amount}원</span>
             </div>
-            <div className='payment-row'>
-              <span className='payment-label'>할인 금액</span>
-              <span className='payment-value'>-{discount}원</span>
+            <div className="payment-row">
+              <span className="payment-label">할인 금액</span>
+              <span className="payment-value">-{discount}원</span>
             </div>
-            <div className='payment-row'>
-              <span className='payment-label'>총 결제 금액</span>
-              <span className='payment-value-highlight'>
+            <div className="payment-row">
+              <span className="payment-label">총 결제 금액</span>
+              <span className="payment-value-highlight">
                 {amount - discount}원
               </span>
             </div>
           </div>
 
-          <button className='payment-button' onClick={() => redirection('/')}>
+          <button className="payment-button" onClick={() => redirection('/')}>
             홈으로
           </button>
         </div>

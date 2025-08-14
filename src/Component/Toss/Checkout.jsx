@@ -1,6 +1,6 @@
-import { loadTossPayments, ANONYMOUS } from '@tosspayments/tosspayments-sdk';
+import { loadTossPayments } from '@tosspayments/tosspayments-sdk';
 import { useEffect, useState } from 'react';
-import './Checkout.css';
+import '@/Component/Toss/Checkout.css';
 import { useLocation } from 'react-router-dom';
 
 // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
@@ -87,24 +87,24 @@ export function CheckoutPage() {
   };
 
   return (
-    <div className='wrapper'>
-      <div className='box_section'>
+    <div className="wrapper">
+      <div className="box_section">
         {/* 결제 UI */}
-        <div id='payment-method' />
+        <div id="payment-method" />
         {/* 이용약관 UI */}
-        <div id='agreement' />
+        <div id="agreement" />
         {/* 쿠폰 체크박스 */}
         <div style={{ paddingLeft: '24px' }}>
-          <div className='checkable typography--p'>
+          <div className="checkable typography--p">
             <label
-              htmlFor='coupon-box'
-              className='checkable__label typography--regular'
+              htmlFor="coupon-box"
+              className="checkable__label typography--regular"
             >
               <input
-                id='coupon-box'
-                className='checkable__input'
-                type='checkbox'
-                aria-checked='true'
+                id="coupon-box"
+                className="checkable__input"
+                type="checkbox"
+                aria-checked="true"
                 disabled={!ready}
                 // ------  주문서의 결제 금액이 변경되었을 경우 결제 금액 업데이트 ------
                 // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
@@ -117,14 +117,14 @@ export function CheckoutPage() {
                   });
                 }}
               />
-              <span className='checkable__label-text'>5,000원 쿠폰 적용</span>
+              <span className="checkable__label-text">5,000원 쿠폰 적용</span>
             </label>
           </div>
         </div>
 
         {/* 결제하기 버튼 */}
         <button
-          className='button'
+          className="button"
           style={{ marginTop: '30px' }}
           disabled={!ready}
           // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------

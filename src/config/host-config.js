@@ -1,20 +1,22 @@
-// 브라우저에서 현재 클라이언트의 호스트 이름 얻어오기
-const clientHostName = window.location.hostname;
+// src/config/host-config.js
+const required = (key) => {
+  const v = import.meta.env[key];
+  if (!v) {
+    throw new Error(`[ENV] ${key}가 비어있습니다. .env를 확인하세요.`);
+  }
+  return v;
+};
 
-let backEndHostName; // 백엔드 서버 호스트 이름
+export const API_BASE_URL = required('VITE_API_BASE_URL');
 
-if (clientHostName === 'localhost') {
-  // 개발 중
-  backEndHostName = 'http://localhost:8181';
-} else if (clientHostName === 'spring.com') {
-  // 배포해서 서비스 중
-  backEndHostName = 'https://api.spring.com';
-}
+export const TODO = import.meta.env.VITE_TODO || '/api/todos';
+export const USER = import.meta.env.VITE_USER || '/api/auth';
+export const RECIPE = import.meta.env.VITE_RECIPE || '/api/recipe';
+export const POST = import.meta.env.VITE_POST || '/api/posts';
+export const FREEBOARD = import.meta.env.VITE_FREEBOARD || '/api/freeboard';
+export const TOSS_PAYMENTS =
+  import.meta.env.VITE_TOSS_PAYMENTS || '/api/tosspay';
 
-export const API_BASE_URL = backEndHostName;
-export const TODO = '/api/todos';
-export const USER = '/api/auth';
-export const RECIPE = '/api/recipe';
-export const POST = '/api/posts';
-export const FREEBOARD = '/api/freeboard';
-export const TOSS_PAYMENTS = '/api/tosspay';
+// 편의: 풀 URL 조합
+export const url = (path) =>
+  `${API_BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from './AuthContext';
+import AuthContext from '@/util/AuthContext';
 
 // 모든 fetch 요청을 하나의 함수를 사용하여 처리할 수 있게 하는 로직.
 const HttpService = async (url, options) => {

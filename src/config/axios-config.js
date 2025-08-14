@@ -4,7 +4,7 @@
 // export const POST = '/api/posts';
 
 import axios from 'axios';
-import { API_BASE_URL, USER } from './host-config';
+import { API_BASE_URL, USER } from '@/config/host-config';
 import { config } from '@fortawesome/fontawesome-svg-core';
 
 const USER_URL = API_BASE_URL + USER;

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Input } from '@mui/base/Input';
 import { Button } from '@mui/base/Button';
-import './InputField.css';
-import EmojiPicker from '../Emoji/EmojiPicker';
+import '@/Component/Chat/vsChat/src/components/InputField/InputField.css';
+import EmojiPicker from '@/Component/Chat/vsChat/src/components/Emoji/EmojiPicker';
 
 const InputField = ({ message, setMessage, sendMessage }) => {
   const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
@@ -18,13 +18,10 @@ const InputField = ({ message, setMessage, sendMessage }) => {
   };
 
   return (
-    <div className='input-area'>
-      <form
-        onSubmit={sendMessage}
-        className='input-container'
-      >
+    <div className="input-area">
+      <form onSubmit={sendMessage} className="input-container">
         <button
-          type='button'
+          type="button"
           onClick={toggleEmojiPicker}
           onKeyDown={(event) => event.preventDefault()}
         >
@@ -34,18 +31,14 @@ const InputField = ({ message, setMessage, sendMessage }) => {
           <EmojiPicker onEmojiClick={handleEmojiClick} />
         )}
         <Input
-          className='chat-input-field'
-          placeholder='메시지를 입력하세요..'
+          className="chat-input-field"
+          placeholder="메시지를 입력하세요.."
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           multiline={false}
           rows={1}
         />
-        <Button
-          disabled={message === ''}
-          type='submit'
-          className='send-button'
-        >
+        <Button disabled={message === ''} type="submit" className="send-button">
           전송
         </Button>
       </form>

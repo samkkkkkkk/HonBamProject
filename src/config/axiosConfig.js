@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_BASE_URL } from "./host-config";
+import axios from 'axios';
+import { API_BASE_URL } from '@/config/host-config';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL || 'http://localhost:8080/api',
@@ -17,7 +17,7 @@ apiClient.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(`[API Request Error]`, error);
+    console.log('[API Request Error]', error);
     return Promise.reject(error);
   }
 );
@@ -31,7 +31,9 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    console.error(`[API Response Error] ${error.response?.status} ${originalRequest.url}`);
+    console.error(
+      `[API Response Error] ${error.response?.status} ${originalRequest.url}`
+    );
 
     // 401 에러이고 재시도하지 않은 요청인 경우
     if (error.response?.statut === 401 && !originalRequest._retry) {
@@ -53,7 +55,7 @@ apiClient.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
-    
+
     return Promise.reject(error);
   }
 );
