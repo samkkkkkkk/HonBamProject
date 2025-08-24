@@ -1,11 +1,13 @@
 import { Password, Update, Verified } from '@mui/icons-material';
 import apiClient from '@/config/axiosConfig';
-import { USER } from '@/config/host-config';
+import { API_BASE_URL, USER } from '@/config/host-config';
+
+const USER_BASE = API_BASE_URL + USER;
 
 export const authApi = {
   login: async (email, password) => {
     try {
-      const response = await apiClient.post(`${USER}/login`, {
+      const response = await apiClient.post(`${USER_BASE}/login`, {
         email,
         password,
       });
@@ -20,7 +22,7 @@ export const authApi = {
 
   logout: async () => {
     try {
-      await apiClient.post(`${USER}/logout`);
+      await apiClient.post(`${USER_BASE}/logout`);
       return { success: true };
     } catch (error) {
       console.error('Logout error:', error);
@@ -30,7 +32,7 @@ export const authApi = {
 
   verifyAuth: async () => {
     try {
-      const response = await apiClient.get(`${USER}/verify`);
+      const response = await apiClient.get(`${USER_BASE}/verify`);
       return { success: true, data: response.data };
     } catch (error) {
       return { success: false };
@@ -39,7 +41,7 @@ export const authApi = {
 
   refreshToken: async () => {
     try {
-      const response = await apiClient.post(`${USER}/refresh`);
+      const response = await apiClient.post(`${USER_BASE}/refresh`);
       return { success: true, data: response.data };
     } catch (error) {
       return { success: false };
@@ -51,7 +53,7 @@ export const authApi = {
 export const userAPI = {
   getUserInfo: async () => {
     try {
-      const response = await apiClient.get(`${USER}/userinfo`);
+      const response = await apiClient.get(`${USER_BASE}/userinfo`);
       return { success: true, data: response.data };
     } catch (error) {
       return {
@@ -66,7 +68,7 @@ export const userAPI = {
 
   UpdateUserInfo: async (userData) => {
     try {
-      const response = await apiClient.put(`${USER}/userinfo`, userData);
+      const response = await apiClient.put(`${USER_BASE}/userinfo`, userData);
       return { success: true, data: response.data };
     } catch (error) {
       return {
@@ -81,7 +83,7 @@ export const userAPI = {
   getUserProfileImage: async () => {
     try {
       // 서버에서 직접 이미지를 내려줄 때(Blob)
-      const response = await apiClient.get(`${USER}/profile-image`, {
+      const response = await apiClient.get(`${USER_BASE}/profile-image`, {
         responseType: 'blob', // blob으로 받기
       });
       return {

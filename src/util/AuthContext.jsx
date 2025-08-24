@@ -20,15 +20,17 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const result = await authApi.verifyAuth();
       if (result.success) {
-        setIsLoading(true);
+        setIsLoggedIn(true);
+        // 필요 시 사용자 정보도 이어서 로드
+        // const me = await userAPI.getUserInfo(); setUser(me.data);
       } else {
-        setIsLoading(false);
+        setIsLoggedIn(false);
       }
     } catch (error) {
       console.error('Auth status check failed:', error);
       setIsLoggedIn(false);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // ← 성공이든 실패든 여기서 false
     }
   };
 

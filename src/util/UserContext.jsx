@@ -1,6 +1,5 @@
 import { createContext, useState } from 'react';
 import { userAPI } from '@/util/apiService';
-import { faSlack } from '@fortawesome/free-brands-svg-icons';
 
 // 사용자 정보 Context
 const UserContext = createContext({
@@ -45,12 +44,12 @@ export const UserContextProvider = ({ children }) => {
       if (result.success) {
         const d = result.data || {};
         setUserInfo({
-          userName: d.data.userName || '',
-          address: d.data.address || '',
-          phoneNumber: d.data.phoneNumber || '',
-          nickname: d.data.nickname || '',
-          userPay: d.data.userPay || '',
-          email: d.data.email || '',
+          userName: d.userName || '',
+          address: d.address || '',
+          phoneNumber: d.phoneNumber || '',
+          nickname: d.nickname || '',
+          userPay: d.userPay || '',
+          email: d.email || '',
         });
       } else {
         setError(result.message || '사용자 정보 요청 실패');

@@ -107,7 +107,7 @@ export const Navbar = () => {
       fetchUserInfo();
       fetchProfileImage();
     }
-  }, [isLoggedIn, fetchUserInfo, fetchProfileImage]);
+  }, [isLoggedIn]);
 
   // profileUrl 변경 시 이전 blob url 해제
   useEffect(() => {
