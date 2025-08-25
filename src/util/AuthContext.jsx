@@ -1,5 +1,5 @@
 import React, { Children, createContext, useEffect, useState } from 'react';
-import { authApi } from '@/util/apiService';
+import { authApi } from '@/api/auth';
 import apiClient from '@/config/axiosConfig';
 
 // 인증 Context 인증 상태만 관리

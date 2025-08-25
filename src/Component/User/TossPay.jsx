@@ -1,21 +1,21 @@
-import { loadTossPayments, ANONYMOUS } from '@tosspayments/tosspayments-sdk';
-import { useEffect, useState } from 'react';
+import { loadTossPayments } from '@tosspayments/tosspayments-sdk';
+import { useContext, useEffect, useRef, useState } from 'react';
 import '@/Component/User/TossPay.scss';
-import { getLoginUserInfo } from '@/util/login-util';
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
 import { API_BASE_URL, TOSS_PAYMENTS } from '@/config/host-config';
+import AuthContext from '@/util/AuthContext';
+import UserContext from '@/util/UserContext';
+import { payAPI } from '@/api/pay';
 
 // ------  SDK 초기화 ------
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
-const clientKey = 'test_ck_yZqmkKeP8gBg1P1nEOqdrbQRxB9l';
-const customerKey = uuidv4();
-let orderId;
+const TOSS_CLIENT_KEY = 'test_ck_yZqmkKeP8gBg1P1nEOqdrbQRxB9l';
 
 const successUrl = API_BASE_URL + TOSS_PAYMENTS;
 
 export function PaymentCheckoutPage({ sub, payMethod }) {
-  const { username } = getLoginUserInfo();
+  const { isLoggedIn } = useContext(AuthContext);
+  const { userName, email, id, fetchUserInfo } = useContext(UserContext);
 
   const [payment, setPayment] = useState(null);
   const [amount] = useState({
@@ -24,143 +24,119 @@ export function PaymentCheckoutPage({ sub, payMethod }) {
   });
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
-  const token = getLoginUserInfo().token;
-
   function selectPaymentMethod(method) {
     setSelectedPaymentMethod(method);
   }
+  // 최초 1회 생성 유지
+  const orderIdRef = useRef(uuidv4());
+  const customerKeyRef = useRef(uuidv4());
 
+  // TossPayments 초기화
   useEffect(() => {
-    async function fetchPayment() {
-      try {
-        orderId = uuidv4();
-        const tossPayments = await loadTossPayments(clientKey);
+    let mounted = true;
 
-        // 회원 결제
-        // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentspayment
-        const payment = tossPayments.payment({
-          customerKey,
-        });
-        // 비회원 결제
-        // const payment = tossPayments.payment({ customerKey: ANONYMOUS });
-
-        setPayment(payment);
-      } catch (error) {
-        console.error('Error fetching payment:', error);
+    (async () => {
+      // 로그인 상태고, 사용자 정보가 비어있다면 한 번 로드(선택)
+      if (isLoggedIn && !userName) {
+        await fetchUserInfo?.();
       }
-    }
 
-    fetchPayment();
-  }, [clientKey, customerKey]);
+      const tossPayments = await loadTossPayments(TOSS_CLIENT_KEY);
 
-  async function paymentInfo() {
+      // 회원결제: customerKey 사용 / 비회원은 ANONYMOUS
+      const p = tossPayments.payment({
+        customerKey: customerKeyRef.current /* or ANONYMOUS */,
+      });
+      if (mounted) {
+        setPayment(p);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [isLoggedIn, userName, fetchUserInfo]);
+
+  // 결제 사전 정보 서버 저장(위변조 방지용)
+  async function sendPaymentInfo() {
     const requestData = {
-      orderId: orderId,
-      amount: +sub.price.replace(',', ''),
-      userId: getLoginUserInfo().userId,
+      orderId: orderIdRef.current,
+      amount: amount.value,
+      userId: id,
       method: payMethod,
     };
 
-    const res = await fetch(API_BASE_URL + '/api/tosspay/info', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
-      },
-      body: JSON.stringify(requestData),
-    });
-
-    if (res.status === 200) {
-      alert('데이터 전송 완료');
-    } else {
-      alert('오류 발생');
-    }
+    const res = await payAPI.getPayInfo(requestData);
+    return res;
   }
-
-  // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-  // @docs https://docs.tosspayments.com/sdk/v2/js#paymentrequestpayment
   async function requestPayment() {
-    console.log('결제창 띄우기');
-    paymentInfo();
-    // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
-    // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
+    if (!isLoggedIn) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+    if (!payment) {
+      alert('결제 모듈 초기화 중입니다. 잠시 후 다시 시도해 주세요.');
+      return;
+    }
+
+    // 1) 서버에 사전 정보 저장/검증
+    const pre = await sendPaymentInfo();
+    if (!pre.success) {
+      alert(pre.message || '결제 정보 전송 중 문제가 발생했습니다.');
+      return;
+    }
+
+    // 2) 결제창 요청
+    const base = window.location.origin;
+    const common = {
+      method: payMethod,
+      amount,
+      orderId: orderIdRef.current,
+      orderName: sub?.title || '주문',
+      successUrl: `${base}/success`,
+      failUrl: `${base}/fail`,
+      customerEmail: email || '',
+      customerName: userName || '',
+    };
+
     if (payMethod === 'CARD') {
       await payment.requestPayment({
-        method: payMethod, // 카드 및 간편결제
-        amount: amount,
-        orderId: orderId, // 고유 주분번호
-        orderName: sub.title,
-        successUrl: window.location.origin + '/success', // 결제 요청이 성공하면 리다이렉트되는 URL
-        failUrl: window.location.origin + '/fail', // 결제 요청이 실패하면 리다이렉트되는 URL
-        customerEmail: '',
-        customerName: username,
-        // customerMobilePhone: '',
-        // 카드 결제에 필요한 정보
+        ...common,
         card: {
           useEscrow: false,
-          flowMode: 'DEFAULT', // 통합결제창 여는 옵션
+          flowMode: 'DEFAULT',
           useCardPoint: false,
           useAppCardOnly: false,
         },
       });
     } else if (payMethod === 'VIRTUAL_ACCOUNT') {
       await payment.requestPayment({
-        method: payMethod, // 카드 및 간편결제
-        amount: amount,
-        orderId: orderId, // 고유 주분번호
-        orderName: sub.title,
-        successUrl: window.location.origin + '/success', // 결제 요청이 성공하면 리다이렉트되는 URL
-        failUrl: window.location.origin + '/fail', // 결제 요청이 실패하면 리다이렉트되는 URL
-        customerEmail: '',
-        customerName: username,
-        // customerMobilePhone: '',
-
-        // 가상계좌에 필요한 정보
+        ...common,
         virtualAccount: {
-          cashReceipt: {
-            type: '소득공제',
-          },
+          cashReceipt: { type: '소득공제' },
           useEscrow: false,
           validHours: 24,
         },
       });
     } else if (payMethod === 'TRANSFER') {
       await payment.requestPayment({
-        method: payMethod, // 카드 및 간편결제
-        amount: amount,
-        orderId: orderId, // 고유 주분번호
-        orderName: sub.title,
-        successUrl: window.location.origin + '/success', // 결제 요청이 성공하면 리다이렉트되는 URL
-        failUrl: window.location.origin + '/fail', // 결제 요청이 실패하면 리다이렉트되는 URL
-        customerEmail: '',
-        customerName: username,
-        // customerMobilePhone: '',
-
+        ...common,
         transfer: {
-          cashReceipt: {
-            type: '소득공제',
-          },
+          cashReceipt: { type: '소득공제' },
           useEscrow: false,
         },
       });
     } else if (payMethod === 'MOBILE_PHONE') {
       await payment.requestPayment({
-        method: payMethod, // 카드 및 간편결제
-        amount: amount,
-        orderId: orderId, // 고유 주분번호
-        orderName: sub.title,
-        successUrl: window.location.origin + '/success', // 결제 요청이 성공하면 리다이렉트되는 URL
-        failUrl: window.location.origin + '/fail', // 결제 요청이 실패하면 리다이렉트되는 URL
-        customerEmail: '',
-        customerName: username,
-        // customerMobilePhone: '',
+        ...common,
       });
+    } else {
+      alert('지원하지 않는 결제 수단입니다.');
     }
   }
 
   return (
-    // 결제하기 버튼
-    <button className="button Welcome" onClick={() => requestPayment()}>
+    <button className="button Welcome" onClick={requestPayment}>
       결제하기
     </button>
   );

@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { userAPI } from '@/util/apiService';
+import { userAPI } from '@/api/user';
 
 // 사용자 정보 Context
 const UserContext = createContext({

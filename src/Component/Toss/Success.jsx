@@ -1,94 +1,84 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { API_BASE_URL, TOSS_PAYMENTS, USER } from '@/config/host-config';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import '@/Component/Toss/Success.scss';
-import { getLoginUserInfo } from '@/util/login-util';
 import LoadingPage from '@/util/Loading';
-import axios from 'axios';
-import axiosInstance from '@/config/axios-config';
 import AuthContext from '@/util/AuthContext';
+import UserContext from '@/util/UserContext';
+import { payAPI } from '@/api/pay';
 
 export function SuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [responseData, setResponseData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { renewToken } = useContext(AuthContext);
 
-  const BASE = API_BASE_URL + TOSS_PAYMENTS;
-  const USER_URL = API_BASE_URL + USER;
-  const redirection = useNavigate();
+  // 선택: 필요 시 재검증/상태동기화를 위해 사용
+  const { isLoggedIn } = useContext(AuthContext);
+  const { fetchUserInfo } = useContext(UserContext);
+
+  const calledRef = useRef(false);
 
   useEffect(() => {
-    async function confirm() {
-      const confirmRequestData = {
-        orderId: searchParams.get('orderId'),
-        amount: searchParams.get('amount'),
-        paymentKey: searchParams.get('paymentKey'),
-      };
+    if (calledRef.current) {
+      return;
+    } // ✅ 중복 방지
+    calledRef.current = true;
+    const confirmRequestData = {
+      orderId: searchParams.get('orderId'),
+      amount: +searchParams.get('amount'),
+      paymentKey: searchParams.get('paymentKey'),
+    };
 
-      const res = await fetch(BASE + '/confirm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + getLoginUserInfo().token,
-        },
-        body: JSON.stringify(confirmRequestData),
-      });
-
-      const data = await res.json();
-      setLoading(false);
-
-      // console.log(json);
-
-      if (!res.ok) {
-        throw { message: data.message, code: data.code };
+    (async () => {
+      // 1) 백엔드에 confirm 요청 (httpOnly 쿠키 자동 포함)
+      const confirmed = await payAPI.confirm(confirmRequestData);
+      if (!confirmed.success) {
+        navigate(
+          `/fail?code=${confirmed.code || ''}&message=${encodeURIComponent(confirmed.message || '결제 승인 실패')}`
+        );
+        return;
       }
-      promte();
 
-      return data;
-    }
+      // 2) 결제 등급 승격(서버 유저 상태 갱신)
+      const promoted = await payAPI.promoteUserPay();
+      if (!promoted.success) {
+        // 등급 승격 실패 시에도 결제는 완료된 상태 — UX에 맞게 처리
+        console.warn('paypromote 실패:', promoted.message);
+      }
 
-    confirm()
-      .then((data) => {
-        setResponseData(data);
-      })
-      .catch((error) => {
-        navigate(`/fail?code=${error.code}&message=${error.message}`);
-      });
-  }, [searchParams]);
+      // 3) 프론트 상태 동기화 (로컬스토리지/토큰 갱신 불필요)
+      if (isLoggedIn) {
+        await fetchUserInfo?.();
+      }
 
-  const { amount, discount, orderId, orderName, paidAt, method } =
-    responseData || {};
+      setResponseData(confirmed.data);
+      setLoading(false);
+    })();
+  }, []);
 
-  const promte = async () => {
-    try {
-      const res = await axiosInstance.put(USER_URL + '/paypromote');
-      const json = res.data;
-      console.log(json.userPay);
-
-      localStorage.setItem('ACCESS_TOKEN', json.token);
-      localStorage.setItem('USER_PAY', json.userPay);
-      renewToken(json.token);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    amount,
+    discount = 0,
+    orderId,
+    orderName,
+    paidAt,
+    method,
+  } = responseData || {};
 
   const cancel = async () => {
-    const requestData = {
+    const payload = {
       orderId: searchParams.get('orderId'),
       amount: searchParams.get('amount'),
       paymentKey: searchParams.get('paymentKey'),
       method: searchParams.get('method'),
     };
-    const response = await fetch(BASE + '/cancel', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestData),
-    });
+    const res = await payAPI.cancel(payload);
+    if (!res.success) {
+      alert(res.message || '결제 취소에 실패했습니다.');
+    } else {
+      alert('결제가 취소되었습니다.');
+      navigate('/');
+    }
   };
 
   const formatDate = (dateString) => {
@@ -102,6 +92,10 @@ export function SuccessPage() {
       second: '2-digit',
     });
   };
+
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   return (
     <>
@@ -147,7 +141,7 @@ export function SuccessPage() {
             </div>
           </div>
 
-          <button className="payment-button" onClick={() => redirection('/')}>
+          <button className="payment-button" onClick={() => navigate('/')}>
             홈으로
           </button>
         </div>

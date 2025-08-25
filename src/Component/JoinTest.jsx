@@ -62,7 +62,7 @@ const JoinTest = () => {
 
   const fetchDuplicateCheck = async (target, value) => {
     let targetName = '';
-    if (target === 'userId') {
+    if (target === 'nickname') {
       targetName = '닉네임';
     } else if (target === 'email') {
       targetName = '이메일';
@@ -101,7 +101,7 @@ const JoinTest = () => {
       fetchDuplicateCheck(target, inputValue);
       return;
     }
-    debounceUpdateState('userId', inputValue, msg, flag);
+    debounceUpdateState('nickname', inputValue, msg, flag);
   };
 
   // 이메일 입력창 검증
@@ -329,20 +329,20 @@ const JoinTest = () => {
             </span>
           </div>
           <div className="input-group">
-            <label htmlFor="userId" className="input-label">
+            <label htmlFor="nickname" className="input-label">
               닉네임
             </label>
             <input
               type="text"
-              id="userId"
+              id="nickname"
               className="input-field"
               placeholder="아이디를 입력하세요"
               onChange={idCheckHandler}
             />
             <span
-              style={correct.userId ? { color: 'green' } : { color: 'red' }}
+              style={correct.nickname ? { color: 'green' } : { color: 'red' }}
             >
-              {message.userId}
+              {message.nickname}
             </span>
           </div>
           <div className="input-group">

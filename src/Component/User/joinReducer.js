@@ -3,7 +3,7 @@ export const initialState = {
     userName: '',
     password: '',
     email: '',
-    userId: '',
+    nickname: '',
     phoneNumber: '',
   },
 
@@ -12,7 +12,7 @@ export const initialState = {
     password: '',
     passwordCheck: '',
     email: '',
-    userId: '',
+    nickname: '',
     phoneNumber: '',
   },
 
@@ -21,7 +21,7 @@ export const initialState = {
     password: false,
     passwordCheck: false,
     email: false,
-    userId: false,
+    nickname: false,
     phoneNumber: false,
   },
 };
