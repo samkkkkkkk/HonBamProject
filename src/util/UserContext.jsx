@@ -8,7 +8,7 @@ const UserContext = createContext({
   address: '',
   phoneNumber: '',
   nickname: '',
-  userPay: '',
+  userRole: '',
   email: '',
   profileUrl: null,
   loading: false,
@@ -26,7 +26,7 @@ export const UserContextProvider = ({ children }) => {
     address: '',
     phoneNumber: '',
     nickname: '',
-    userPay: '',
+    userRole: '',
     email: '',
   });
   const [profileUrl, setProfileUrl] = useState(null);
@@ -48,7 +48,7 @@ export const UserContextProvider = ({ children }) => {
           address: d.address || '',
           phoneNumber: d.phoneNumber || '',
           nickname: d.nickname || '',
-          userPay: d.userPay || '',
+          userRole: d.userRole || '',
           email: d.email || '',
         });
       } else {
@@ -125,7 +125,7 @@ export const UserContextProvider = ({ children }) => {
       address: '',
       phoneNumber: '',
       nickname: '',
-      userPay: '',
+      userRole: '',
       email: '',
     });
     setProfileUrl(null);

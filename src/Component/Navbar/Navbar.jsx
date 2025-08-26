@@ -33,7 +33,7 @@ export const Navbar = () => {
   const { isLoggedIn, onLogout } = useContext(AuthContext);
   const {
     userName,
-    userPay,
+    userRole,
     profileUrl,
     fetchUserInfo,
     clearUserInfo,
@@ -51,7 +51,7 @@ export const Navbar = () => {
 
   // 등급(프리미엄/일반) 버튼 뷰
   const gradeView = () => {
-    if (userPay === 'NORMAL') {
+    if (userRole === 'COMMON') {
       return (
         <Link to="/pay">
           <button className="btn userpaynormal">
@@ -59,7 +59,7 @@ export const Navbar = () => {
           </button>
         </Link>
       );
-    } else if (userPay === 'PREMIUM') {
+    } else if (userRole === 'PREMIUM') {
       return <div className="userpaypremium" onClick={timecheck}></div>;
     }
     return null;
@@ -67,13 +67,13 @@ export const Navbar = () => {
 
   // 프리미엄 로고
   const PremiumView = () => {
-    if (!isLoggedIn || userPay === 'NORMAL') {
+    if (!isLoggedIn || userRole === 'COMMON') {
       return (
         <div className="app__navbar-logo">
           <Link to="/">HONBAM</Link>
         </div>
       );
-    } else if (userPay === 'PREMIUM') {
+    } else if (userRole === 'PREMIUM') {
       return (
         <Link to="/">
           <div className="HonBamGIF"></div>

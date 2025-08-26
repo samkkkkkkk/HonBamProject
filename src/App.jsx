@@ -35,20 +35,17 @@ import LoginTest from '@/Component/LoginTest';
 import JoinTest from '@/Component/JoinTest';
 import ProfileEdit from '@/Component/User/ProfileEdit';
 import MapTest from '@/Component/SearchPlace/MapTest';
-import { UserContextProvider } from '@/util/UserContext';
+import UserContext, { UserContextProvider } from '@/util/UserContext';
 
 // import ProfileEdit from '@/Component/ProfileEdit';
 // import Comment from '@/Component/Comment';
 function ProtectedRoute({ element }) {
-  const { isLoggedIn, userName } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
+  const { userRole, userName } = useContext(UserContext);
 
   useEffect(() => {
     // 유저가 로그인하고 프리미엄 구독 상태인지 확인
-    if (
-      isLoggedIn &&
-      userName &&
-      localStorage.getItem('USER_PAY') !== 'PREMIUM'
-    ) {
+    if (isLoggedIn && userName && userRole !== 'PREMIUM') {
       window.alert('프리미엄 회원만 이용 가능합니다!');
     }
   }, [isLoggedIn, userName]);
@@ -58,11 +55,7 @@ function ProtectedRoute({ element }) {
   }
 
   // 유저가 로그인하고 프리미엄 구독 상태인지 확인
-  if (
-    isLoggedIn &&
-    userName &&
-    localStorage.getItem('USER_PAY') === 'PREMIUM'
-  ) {
+  if (isLoggedIn && userName && userRole === 'PREMIUM') {
     return element;
   } else {
     // 프리미엄 구독이 없거나 로그인하지 않은 경우 로그인 페이지로 리다이렉트
