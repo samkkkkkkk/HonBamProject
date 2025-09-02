@@ -44,6 +44,7 @@ export const UserContextProvider = ({ children }) => {
       if (result.success) {
         const d = result.data || {};
         setUserInfo({
+          id: d.id || '',
           userName: d.userName || '',
           address: d.address || '',
           phoneNumber: d.phoneNumber || '',

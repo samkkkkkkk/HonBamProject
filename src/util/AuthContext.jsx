@@ -36,7 +36,9 @@ export const AuthContextProvider = ({ children }) => {
 
   // 컴포넌트 마운트 시 인증 상태 확인
   useEffect(() => {
-    checkAuthState();
+    (async () => {
+      checkAuthState();
+    })();
 
     // 토큰 갱신 실패 시 자동 로그아웃을 위한 이벤트 리스너
     const handleAuthLogout = () => {

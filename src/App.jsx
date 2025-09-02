@@ -7,14 +7,14 @@ import MyDetail from '@/Component/Board/MyDetail';
 import UserDetail from '@/Component/Board/UserDetail';
 import Setting from '@/Component/Board/Setting';
 
-import { Chat } from '@/Component/Chat/Chat';
-import { ChatMain } from '@/Component/Chat/ChatMain';
-import { AiChat } from '@/Component/Chat/AiChat';
-import { ChatApp } from '@/Component/Chat/vsChat/src/ChatApp';
+// import { Chat } from '@/Component/Chat/Chat';
+// import { ChatMain } from '@/Component/Chat/ChatMain';
+// import { AiChat } from '@/Component/Chat/AiChat';
+// import { ChatApp } from '@/Component/Chat/vsChat/src/ChatApp';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Comment from '@/Component/Board/Comment';
 import KakaoLoginHandler from '@/Component/User/KakaoLoginHandler';
-import NaverLoginHandler from '@/Component/User/NaverLoginHandler';
+// import NaverLoginHandler from '@/Component/User/NaverLoginHandler';
 import SearchPage from '@/Component/SearchPage/SearchPage';
 import Main from '@/Component/mainpage/Main';
 import { Navbar } from '@/Component/Navbar/Navbar';
@@ -36,6 +36,8 @@ import JoinTest from '@/Component/JoinTest';
 import ProfileEdit from '@/Component/User/ProfileEdit';
 import MapTest from '@/Component/SearchPlace/MapTest';
 import UserContext, { UserContextProvider } from '@/util/UserContext';
+import OAuth2Success from './pages/OAuth2Success';
+import OAuth2Failure from './pages/OAuth2Fail';
 
 // import ProfileEdit from '@/Component/ProfileEdit';
 // import Comment from '@/Component/Comment';
@@ -109,21 +111,19 @@ function App() {
               path="/oauth/redirected/HonBam"
               element={<KakaoLoginHandler />}
             />
-            <Route
-              path="/oauth/redirected/Naver"
-              element={<NaverLoginHandler />}
-            />
+            <Route path="/oauth2/success" element={<OAuth2Success />} />
+            <Route path="/oauth2/failure" element={<OAuth2Failure />} />
             {/* <Route
             path='/Chat'
             element={<Chat />}
           ></Route> */}
-            <Route
+            {/* <Route
               path="/Chat"
               element={<ProtectedRoute element={<Chat />} />}
             />
             <Route path="/ChatMain" element={<ChatMain />}></Route>
             <Route path="/AiChat" element={<AiChat />}></Route>
-            <Route path="/ChatApp" element={<ChatApp />}></Route>
+            <Route path="/ChatApp" element={<ChatApp />}></Route> */}
             {/* <Route
             path='/naverSearch'
             element={<NaverSearch />}

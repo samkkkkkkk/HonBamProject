@@ -3,6 +3,10 @@ import '@/Component/LoginTest.scss'; // 스타일은 따로 정의해주셔야 �
 import AuthContext from '@/util/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '@/util/UserContext';
+import naverLogo from '@/assets/naverLoginLogo.png';
+import apiClient from '@/config/axiosConfig';
+import axios from 'axios';
+import { API_BASE_URL, USER } from '@/config/host-config';
 
 const LoginTest = () => {
   const redirection = useNavigate();
@@ -36,6 +40,13 @@ const LoginTest = () => {
       setLoading(false);
     }
   };
+
+  const naverLoginOnclick = async (e) => {
+    e.preventDefault();
+    // Spring Security OAuth2 Client의 기본 엔드포인트로 이동
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/naver`;
+  };
+
   return (
     <div className="login-container">
       <div className="login-box">
@@ -83,6 +94,15 @@ const LoginTest = () => {
           <Link className="sign-up" to={'/Join'}>
             회원가입
           </Link>
+        </div>
+        <div className="naver-login">
+          <button
+            onClick={() => {
+              window.location.href = `${API_BASE_URL}/oauth2/authorization/naver`;
+            }}
+          >
+            <img src={naverLogo} alt="네이버로그인" />
+          </button>
         </div>
       </div>
     </div>

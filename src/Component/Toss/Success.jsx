@@ -14,7 +14,7 @@ export function SuccessPage() {
 
   // 선택: 필요 시 재검증/상태동기화를 위해 사용
   const { isLoggedIn } = useContext(AuthContext);
-  const { fetchUserInfo } = useContext(UserContext);
+  const { fetchUserInfo, userRole, userName } = useContext(UserContext);
 
   const calledRef = useRef(false);
 
@@ -46,10 +46,9 @@ export function SuccessPage() {
         console.warn('paypromote 실패:', promoted.message);
       }
 
-      // 3) 프론트 상태 동기화 (로컬스토리지/토큰 갱신 불필요)
-      if (isLoggedIn) {
-        await fetchUserInfo?.();
-      }
+      await fetchUserInfo();
+
+      console.log('userRole 변화: ', userName);
 
       setResponseData(confirmed.data);
       setLoading(false);

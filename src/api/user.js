@@ -18,7 +18,7 @@ export const userAPI = {
     }
   },
 
-  UpdateUserInfo: async (userData) => {
+  updateUserInfo: async (userData) => {
     try {
       const response = await apiClient.put(`${USER}/userinfo`, userData);
       return { success: true, data: response.data };
