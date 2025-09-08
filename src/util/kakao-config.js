@@ -13,5 +13,6 @@ const REDIRECT_URI = import.meta.env.VITE_APP_REDIRECT_URL;
 
 const KAKAO_APP_KEY = import.meta.env.VITE_APP_KAKAO_KEY;
 
-export const KAKAO_MAP_API = `'//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_APP_KEY}=services'`;
+// kakao-config.js
+export const KAKAO_MAP_API = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_APP_KEY}&autoload=true&libraries=services,clusterer,geometry`;
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;

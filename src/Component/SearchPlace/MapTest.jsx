@@ -3,8 +3,6 @@ import { KAKAO_MAP_API } from '@/util/kakao-config';
 import '@/Component/SearchPlace/MapTest.scss';
 const { kakao } = window;
 
-<script type="text/javascript" src={KAKAO_MAP_API}></script>;
-
 const MapTest = () => {
   const container = useRef();
   const ps = new kakao.maps.services.Places();

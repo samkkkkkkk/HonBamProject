@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { KAKAO_MAP_API } from '@/util/kakao-config';
 
 const { kakao } = window;
-<script type="text/javascript" src={KAKAO_MAP_API}></script>;
+
 export const MapContainer = ({ searchPlace }) => {
   useEffect(() => {
     const container = document.getElementById('myMap');

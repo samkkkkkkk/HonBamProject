@@ -38,6 +38,7 @@ import MapTest from '@/Component/SearchPlace/MapTest';
 import UserContext, { UserContextProvider } from '@/util/UserContext';
 import OAuth2Success from './pages/OAuth2Success';
 import OAuth2Failure from './pages/OAuth2Fail';
+import DaumSearch from './Component/Map/DaumSearch';
 
 // import ProfileEdit from '@/Component/ProfileEdit';
 // import Comment from '@/Component/Comment';
@@ -75,7 +76,7 @@ function App() {
           <Routes>
             <Route
               path="/naverSearchHotPlace"
-              element={<ProtectedRoute element={<NaverSearch />} />}
+              element={<ProtectedRoute element={<DaumSearch />} />}
             />
 
             <Route path="/mypage" element={<MyPage />} />
