@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '@/util/AuthContext';
 import UserContext from '@/util/UserContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
+import { userAPI } from '@/api/user';
 
 export const Navbar = () => {
   // 날짜 계산
@@ -88,17 +89,29 @@ export const Navbar = () => {
     if (!window.confirm('정말로 삭제하시겠습니까?')) {
       return;
     }
+
     try {
-      // 서버 탈퇴 API 호출(실제 API 경로/메서드 확인 필요)
-      await fetch('/api/user/delete', {
-        method: 'DELETE',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      logoutHandler();
+      const result = await userAPI.deleteUser();
+      if (result?.success) {
+        await onLogout();
+      } else {
+        alert(result?.message || '회원탈퇴에 실패했습니다.');
+      }
     } catch (error) {
-      console.error(error.message);
+      alert(error?.message || '회원탈퇴 도중 오류가 발생했습니다.');
     }
+
+    // try {
+    //   // 서버 탈퇴 API 호출(실제 API 경로/메서드 확인 필요)
+    //   await fetch('/api/user/delete', {
+    //     method: 'DELETE',
+    //     credentials: 'include',
+    //     headers: { 'Content-Type': 'application/json' },
+    //   });
+    //   logoutHandler();
+    // } catch (error) {
+    //   console.error(error.message);
+    // }
   };
 
   // 로그인 상태 변화 시 정보 fetch
@@ -175,7 +188,13 @@ export const Navbar = () => {
         </div>
         <li>
           {isLoggedIn ? (
-            <a className="logout-btn" onClick={logoutHandler}>
+            <a
+              className="logout-btn"
+              onClick={async () => {
+                await onLogout();
+                redirect('/');
+              }}
+            >
               로그아웃
             </a>
           ) : (

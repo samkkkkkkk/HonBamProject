@@ -139,9 +139,9 @@ export const UserContextProvider = ({ children }) => {
     loading,
     error,
     fetchUserInfo,
-    updateUserInfo, // ✅ 이름 통일
+    updateUserInfo,
     clearUserInfo,
-    fetchProfileImage, // ✅ 노출
+    fetchProfileImage,
   };
 
   return (

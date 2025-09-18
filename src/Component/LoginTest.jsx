@@ -4,9 +4,8 @@ import AuthContext from '@/util/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '@/util/UserContext';
 import naverLogo from '@/assets/naverLoginLogo.png';
-import apiClient from '@/config/axiosConfig';
-import axios from 'axios';
-import { API_BASE_URL, USER } from '@/config/host-config';
+import kakao_login from '@/assets/kakao_login.png';
+import { API_BASE_URL } from '@/config/host-config';
 
 const LoginTest = () => {
   const redirection = useNavigate();
@@ -102,6 +101,15 @@ const LoginTest = () => {
             }}
           >
             <img src={naverLogo} alt="네이버로그인" />
+          </button>
+        </div>
+        <div className="kakao-login">
+          <button
+            onClick={() => {
+              window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
+            }}
+          >
+            <img src={kakao_login} alt="카카오로그인" />
           </button>
         </div>
       </div>

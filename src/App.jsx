@@ -39,6 +39,9 @@ import UserContext, { UserContextProvider } from '@/util/UserContext';
 import OAuth2Success from './pages/OAuth2Success';
 import OAuth2Failure from './pages/OAuth2Fail';
 import DaumSearch from './Component/Map/DaumSearch';
+import ChatTest from './ChatTest';
+import ChatRoom from './Component/Chat/ChatRoom';
+import ChatRoomManager from './Component/Chat/ChatRoomManager';
 
 // import ProfileEdit from '@/Component/ProfileEdit';
 // import Comment from '@/Component/Comment';
@@ -78,6 +81,9 @@ function App() {
               path="/naverSearchHotPlace"
               element={<ProtectedRoute element={<DaumSearch />} />}
             />
+            <Route path="/test" element={<ChatTest />}></Route>
+            <Route path="/test2" element={<ChatRoom />}></Route>
+            <Route path="/test3" element={<ChatRoomManager />}></Route>
 
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/Pay" element={<SubscriptionItems />} />

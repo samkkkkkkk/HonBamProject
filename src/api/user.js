@@ -32,6 +32,21 @@ export const userAPI = {
     }
   },
 
+  deleteUser: async () => {
+    try {
+      const response = await apiClient.delete(`${USER}/delete`);
+      return {
+        success: true,
+        data: response.data,
+      };
+    } catch (error) {
+      return {
+        seuccess: false,
+        message: error.response?.data?.message || '회원탈퇴에 실패했습니다.',
+      };
+    }
+  },
+
   getUserProfileImage: async () => {
     try {
       // 서버에서 직접 이미지를 내려줄 때(Blob)
