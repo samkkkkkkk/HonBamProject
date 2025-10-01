@@ -14,6 +14,7 @@ export const USER = import.meta.env.VITE_USER || '/api/auth';
 export const RECIPE = import.meta.env.VITE_RECIPE || '/api/recipe';
 export const POST = import.meta.env.VITE_POST || '/api/posts';
 export const FREEBOARD = import.meta.env.VITE_FREEBOARD || '/api/freeboard';
+export const CHAT = import.meta.env.VITE_CHAT || '/api/chat';
 export const TOSS_PAYMENTS =
   import.meta.env.VITE_TOSS_PAYMENTS || '/api/tosspay';
 

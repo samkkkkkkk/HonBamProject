@@ -1,0 +1,36 @@
+.openchat-list {
+  width: 280px;
+  border-right: 1px solid #ddd;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-title {
+  padding: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  background: #f5f5f5;
+}
+
+.openchat-item {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.openchat-item:hover {
+  background: #f9f9f9;
+}
+
+.room-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #3d3737;
+}
+
+.room-info {
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}

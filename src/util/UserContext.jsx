@@ -70,7 +70,7 @@ export const UserContextProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await userAPI.getUserProfileImage(); // axios { data: Blob, headers: {...} } 형태 기대
+      const res = await userAPI.getUserProfileImage();
 
       // 에러 플래그가 있으면 즉시 예외
       if (res.error) {

@@ -119,6 +119,29 @@
   transition: transform 0.2s ease;
 }
 
-.naver-login img:hover {
+.kakao-login img:hover {
   transform: scale(1.05);
+}
+
+/* 네이버 로그인 컨테이너 (박스 안에 포함) */
+.kakao-login {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  margin-top: 20px;
+  width: 100%; /* 로그인 박스 안에서 꽉 차게 */
+}
+
+/* 네이버 로그인 버튼 */
+.kakao-login button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.kakao-login img {
+  width: 250px;   /* 고정 크기 */
+  height: 43px;   /* 비율 맞춤 */
+  display: block;
+  // transition: transform 0.2s ease;
 }

@@ -6,15 +6,9 @@ import SnsBoard from '@/Component/Board/SnsBoard';
 import MyDetail from '@/Component/Board/MyDetail';
 import UserDetail from '@/Component/Board/UserDetail';
 import Setting from '@/Component/Board/Setting';
-
-// import { Chat } from '@/Component/Chat/Chat';
-// import { ChatMain } from '@/Component/Chat/ChatMain';
-// import { AiChat } from '@/Component/Chat/AiChat';
-// import { ChatApp } from '@/Component/Chat/vsChat/src/ChatApp';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Comment from '@/Component/Board/Comment';
 import KakaoLoginHandler from '@/Component/User/KakaoLoginHandler';
-// import NaverLoginHandler from '@/Component/User/NaverLoginHandler';
 import SearchPage from '@/Component/SearchPage/SearchPage';
 import Main from '@/Component/mainpage/Main';
 import { Navbar } from '@/Component/Navbar/Navbar';
@@ -25,7 +19,6 @@ import InquiryDetail from '@/Component/Inquiry/detail/InquiryDetail';
 import Inquiry from '@/Component/Inquiry/list/Inquiry';
 import InquiryModify from '@/Component/Inquiry/modify/InquiryModify';
 import { MapContainer } from '@/Component/SearchPlace/MapContainer';
-import NaverSearch from '@/Component/Map/NaverSearch';
 import SubscriptionItems from '@/Component/Payment/SubscriptionItem';
 import SubscriptionCheckout from '@/Component/Payment/SubscriptionCheckout';
 import { CheckoutPage } from '@/Component/Toss/Checkout';
@@ -39,12 +32,8 @@ import UserContext, { UserContextProvider } from '@/util/UserContext';
 import OAuth2Success from './pages/OAuth2Success';
 import OAuth2Failure from './pages/OAuth2Fail';
 import DaumSearch from './Component/Map/DaumSearch';
-import ChatTest from './ChatTest';
-import ChatRoom from './Component/Chat/ChatRoom';
-import ChatRoomManager from './Component/Chat/ChatRoomManager';
-
-// import ProfileEdit from '@/Component/ProfileEdit';
-// import Comment from '@/Component/Comment';
+import ChatApp from './Component/Chat/ChatApp';
+import ChatContext, { ChatProvider } from './util/ChatContext';
 function ProtectedRoute({ element }) {
   const { isLoggedIn } = useContext(AuthContext);
   const { userRole, userName } = useContext(UserContext);
@@ -73,87 +62,80 @@ function App() {
     <>
       <AuthContextProvider>
         <UserContextProvider>
-          <div>
-            <Navbar />
-          </div>
-          <Routes>
-            <Route
-              path="/naverSearchHotPlace"
-              element={<ProtectedRoute element={<DaumSearch />} />}
-            />
-            <Route path="/test" element={<ChatTest />}></Route>
-            <Route path="/test2" element={<ChatRoom />}></Route>
-            <Route path="/test3" element={<ChatRoomManager />}></Route>
+          <ChatProvider>
+            <div>
+              <Navbar />
+            </div>
+            <Routes>
+              <Route
+                path="/naverSearchHotPlace"
+                element={<ProtectedRoute element={<DaumSearch />} />}
+              />
 
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/Pay" element={<SubscriptionItems />} />
-            <Route
-              path="/subscriptionCheckout"
-              element={<SubscriptionCheckout />}
-            />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/success" element={<SuccessPage />} />
-            <Route path="/fail" element={<FailPage />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/Pay" element={<SubscriptionItems />} />
+              <Route
+                path="/subscriptionCheckout"
+                element={<SubscriptionCheckout />}
+              />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/success" element={<SuccessPage />} />
+              <Route path="/fail" element={<FailPage />} />
 
-            {/* <Route
+              {/* <Route
             path='/Modify'
             element={<ProtectedRoute element={<Modify />} />}
           /> */}
 
-            <Route path="/modify" element={<ProfileEdit />} />
+              <Route path="/modify" element={<ProfileEdit />} />
 
-            <Route path="/login" element={<LoginTest />} />
-            <Route path="/Join" element={<JoinTest />} />
-            <Route path="/board" element={<SnsBoard />} />
-            <Route path="/addboard" element={<AddBoard />} />
-            <Route path="/UserDetail" element={<UserDetail />} />
-            <Route path="/MapContainer" element={<MapContainer />} />
-            <Route path="/searchPlace" element={<MapTest />} />
-            <Route path="/Setting" element={<Setting />} />
-            <Route path="/comment/:posId" element={<Comment />} />
-            <Route path="/ProfileEdit" element={<ProfileEdit />} />
-            <Route path="/mydetail" element={<MyDetail />} />
-            <Route path="/addboard" element={<AddBoard />} />
-            <Route
-              path="/oauth/redirected/HonBam"
-              element={<KakaoLoginHandler />}
-            />
-            <Route path="/oauth2/success" element={<OAuth2Success />} />
-            <Route path="/oauth2/failure" element={<OAuth2Failure />} />
-            {/* <Route
-            path='/Chat'
-            element={<Chat />}
-          ></Route> */}
-            {/* <Route
-              path="/Chat"
-              element={<ProtectedRoute element={<Chat />} />}
-            />
-            <Route path="/ChatMain" element={<ChatMain />}></Route>
-            <Route path="/AiChat" element={<AiChat />}></Route>
-            <Route path="/ChatApp" element={<ChatApp />}></Route> */}
-            {/* <Route
-            path='/naverSearch'
-            element={<NaverSearch />}
-          /> */}
-            <Route path="/freeboard" element={<Inquiry />}></Route>
-            <Route path="/freeboard/:id" element={<InquiryDetail />}></Route>
-            <Route path="/freeboard/create" element={<InquiryCreate />}></Route>
-            <Route
-              path="/freeboard/modify/:id"
-              element={<InquiryModify />}
-            ></Route>
-            <Route path="/" element={<Main />}></Route>
-            <Route path="/search" element={<SearchPage />}></Route>
-            {/* <Route
-            path='/recipe'
-            element={<Recipe />}
-          ></Route> */}
+              <Route path="/login" element={<LoginTest />} />
+              <Route path="/Join" element={<JoinTest />} />
+              <Route path="/board" element={<SnsBoard />} />
+              <Route path="/addboard" element={<AddBoard />} />
+              <Route path="/UserDetail" element={<UserDetail />} />
+              <Route path="/MapContainer" element={<MapContainer />} />
+              <Route path="/searchPlace" element={<MapTest />} />
+              <Route path="/Setting" element={<Setting />} />
+              <Route path="/comment/:posId" element={<Comment />} />
+              <Route path="/ProfileEdit" element={<ProfileEdit />} />
+              <Route path="/mydetail" element={<MyDetail />} />
+              <Route path="/addboard" element={<AddBoard />} />
+              <Route
+                path="/oauth/redirected/HonBam"
+                element={<KakaoLoginHandler />}
+              />
+              <Route path="/oauth2/success" element={<OAuth2Success />} />
+              <Route path="/oauth2/failure" element={<OAuth2Failure />} />
 
-            <Route
-              path="/recipe"
-              element={<ProtectedRoute element={<Recipe />} />}
-            />
-          </Routes>
+              <Route path="/freeboard" element={<Inquiry />}></Route>
+              <Route path="/freeboard/:id" element={<InquiryDetail />}></Route>
+              <Route
+                path="/freeboard/create"
+                element={<InquiryCreate />}
+              ></Route>
+              <Route
+                path="/freeboard/modify/:id"
+                element={<InquiryModify />}
+              ></Route>
+              <Route path="/" element={<Main />}></Route>
+              <Route path="/search" element={<SearchPage />}></Route>
+
+              <Route
+                path="/recipe"
+                element={<ProtectedRoute element={<Recipe />} />}
+              />
+
+              {/* 채팅 라우트 */}
+              {/* <Route
+              path="/chat/*"
+              element={<ProtectedRoute element={<ChatApp />} />}
+            /> */}
+
+              {/* 테스트 용도라면 보호 안 해도 됨 */}
+              <Route path="/chat/*" element={<ChatApp />} />
+            </Routes>
+          </ChatProvider>
         </UserContextProvider>
       </AuthContextProvider>
     </>

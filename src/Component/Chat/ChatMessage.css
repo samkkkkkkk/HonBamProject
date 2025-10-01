@@ -1,0 +1,36 @@
+.chat-message {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: flex-end;
+}
+
+.chat-message.other {
+  justify-content: flex-start;
+}
+
+.chat-message.mine {
+  justify-content: flex-end;
+}
+
+.chat-message .bubble {
+  max-width: 60%;
+  padding: 8px 12px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.chat-message.other .bubble {
+  background: #ffffff;
+  border: 1px solid #ddd;
+}
+
+.chat-message.mine .bubble {
+  background: #ffeb3b; /* 카카오톡 느낌 */
+}
+
+.chat-message .time {
+  font-size: 10px;
+  color: #888;
+  margin: 0 5px;
+}

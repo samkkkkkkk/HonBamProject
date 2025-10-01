@@ -21,7 +21,7 @@ export function SuccessPage() {
   useEffect(() => {
     if (calledRef.current) {
       return;
-    } // ✅ 중복 방지
+    }
     calledRef.current = true;
     const confirmRequestData = {
       orderId: searchParams.get('orderId'),
