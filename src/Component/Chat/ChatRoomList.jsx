@@ -14,7 +14,7 @@ const ChatRoomList = ({ rooms, onSelectRoom, fetchRooms }) => {
     <div className="chatroom-list">
       {rooms.map((room) => (
         <div
-          key={room.roomId}
+          key={room.roomUuid}
           className="chatroom-item"
           onClick={() => onSelectRoom(room)}
         >

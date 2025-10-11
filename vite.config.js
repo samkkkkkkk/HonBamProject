@@ -24,6 +24,11 @@ export default defineConfig({
         target: 'http://localhost:8181',
         changeOrigin: true,
       },
+      '/ws-chat': {
+        target: 'http://localhost:8181',
+        ws: true,
+        changeOrigin: true,
+      },
     },
   },
   build: { outDir: 'dist' },

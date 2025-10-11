@@ -77,4 +77,21 @@ export const chatApi = {
       };
     }
   },
+
+  // 커서 기반 메시지 조회
+  getMessagesCursor: async (roomUuid, cursor = null, size = 30) => {
+    try {
+      const params = { roomUuid, size };
+      if (cursor) {
+        params.cursor = cursor;
+      }
+      const res = await apiClient.get(`${CHAT}/messages/cursor`, { params });
+      return { success: true, data: res.data };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data.message || '메시지 조회 실패',
+      };
+    }
+  },
 };
