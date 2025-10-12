@@ -36,7 +36,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   const stompRef = useRef(null);
-  const { fetchUserInfo } = useContext(UserContext);
+  const { fetchUserInfo, userInfo } = useContext(UserContext);
   const { isLoggedIn } = useContext(AuthContext);
 
   // 내 채팅방 목록 불러오기
@@ -136,7 +136,12 @@ export const ChatProvider = ({ children }) => {
     // 로컬 반영
     setMessages((prev) => [
       ...prev,
-      { content, timestamp: new Date().toISOString() },
+      {
+        id: Date.now(),
+        content,
+        senderId: userInfo?.id,
+        timestamp: new Date().toISOString(),
+      },
     ]);
   };
 

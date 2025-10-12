@@ -2,13 +2,54 @@ import { chatApi } from '@/api/chat';
 import { useChat } from '@/util/ChatContext';
 import React, { useEffect, useRef, useState } from 'react';
 import ChatMessage from './ChatMessage';
+import apiClient from '@/config/axiosConfig';
 
-const ChatMessageList = ({ room }) => {
-  const { messages, setMessages } = useChat();
+const ChatMessageList = ({ room, currentUserId }) => {
+  const { messages, setMessages, fetchrooms } = useChat();
   const [cursor, setCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef();
   const containerRef = useRef();
+
+  // 읽음 처리 함수
+  const markMessagesAsRead = async () => {
+    if (!messages.length) {
+      return;
+    }
+    const lastMessage = messages[messages.length - 1];
+    try {
+      await apiClient.post('/api/chat/read', null, {
+        params: {
+          roomUuid: room.roomUuid,
+          messageId: lastMessage.id,
+        },
+      });
+
+      // 방 목록에서 읽은 수 갱신
+      fetchrooms?.();
+    } catch (err) {
+      console.error('[ChatMessageList] 읽음 처리 실패: ', err);
+    }
+  };
+
+  // 스크롤이 가장 아래로 내려갔을 때 읽음 처리
+  const handleScroll = (e) => {
+    const target = e.target;
+    const isBottom =
+      Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) <
+      3;
+    if (isBottom) {
+      markMessagesAsRead();
+    }
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, [messages]);
 
   // 첫 로드: 최신 메시지 30개
   useEffect(() => {
@@ -88,7 +129,7 @@ const ChatMessageList = ({ room }) => {
     >
       <div ref={loaderRef} style={{ height: '1px' }}></div>
       {messages.map((msg, i) => (
-        <ChatMessage key={i} message={msg} />
+        <ChatMessage key={i} message={msg} currentUserId={currentUserId} />
       ))}
     </div>
   );
