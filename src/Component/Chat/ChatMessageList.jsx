@@ -3,9 +3,10 @@ import { useChat } from '@/util/ChatContext';
 import React, { useEffect, useRef, useState } from 'react';
 import ChatMessage from './ChatMessage';
 import apiClient from '@/config/axiosConfig';
+import { stringify } from 'uuid';
 
 const ChatMessageList = ({ room, currentUserId }) => {
-  const { messages, setMessages, fetchrooms } = useChat();
+  const { messages, setMessages, fetchRooms } = useChat();
   const [cursor, setCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef();
@@ -16,19 +17,30 @@ const ChatMessageList = ({ room, currentUserId }) => {
     if (!messages.length) {
       return;
     }
-    const lastMessage = messages[messages.length - 1];
+
+    // 가장 최근 '상대방 메시지' 찾기
+    const targetMessage = [...messages]
+      .reverse()
+      .find(
+        (m) =>
+          !String(m.id).startsWith('local-') &&
+          String(m.senderId) !== String(currentUserId)
+      );
+
+    if (!targetMessage) {
+      return;
+    }
+
     try {
-      await apiClient.post('/api/chat/read', null, {
+      await apiClient.post('/api/chat/rooms/read', null, {
         params: {
           roomUuid: room.roomUuid,
-          messageId: lastMessage.id,
+          messageId: targetMessage.id,
         },
       });
-
-      // 방 목록에서 읽은 수 갱신
-      fetchrooms?.();
+      fetchRooms?.();
     } catch (err) {
-      console.error('[ChatMessageList] 읽음 처리 실패: ', err);
+      console.error('[ChatMessageList] 읽음 처리 실패:', err);
     }
   };
 
@@ -116,13 +128,20 @@ const ChatMessageList = ({ room, currentUserId }) => {
     return () => observer.disconnect();
   }, [cursor, hasMore, messages.length]);
 
+  // 새 메시지 추가 시 자동 스크롤
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div
       ref={containerRef}
       className="chat-messages"
       style={{
         overflow: 'auto',
-        height: '400px',
+        flex: 1,
         display: 'flex',
         flexDirection: 'column',
       }}

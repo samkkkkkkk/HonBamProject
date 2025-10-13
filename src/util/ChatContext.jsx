@@ -36,10 +36,15 @@ export const ChatProvider = ({ children }) => {
   };
 
   const stompRef = useRef(null);
-  const { fetchUserInfo, userInfo } = useContext(UserContext);
+  const {
+    fetchUserInfo,
+    id: userId,
+    nickname,
+    userName,
+  } = useContext(UserContext);
   const { isLoggedIn } = useContext(AuthContext);
 
-  // 내 채팅방 목록 불러오기
+  // 참여중인 채팅방 목록 불러오기
   const fetchRooms = async () => {
     if (!isLoggedIn) {
       return;
@@ -60,11 +65,11 @@ export const ChatProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
-      fetchUserInfo();
+    if (isLoggedIn && userId) {
       fetchRooms();
     }
-  }, [isLoggedIn]);
+    console.log('유저아이디: ', userId);
+  }, [isLoggedIn, userId]);
 
   // 오픈 채팅방 검색/필터
   const fetchOpenRooms = async (keyword) => {
@@ -114,10 +119,31 @@ export const ChatProvider = ({ children }) => {
 
     // 새 연결
     try {
-      stompRef.current = await connectWebSocket(room.roomUuid, (msg) => {
-        console.log('메시지 수신:', msg);
+      stompRef.current = await connectWebSocket(room.roomUuid, (event) => {
+        if (event.type === 'MESSAGE') {
+          const msg = event.body;
 
-        setMessages((prev) => [...prev, msg]);
+          setMessages((prev) => {
+            const localIndex = prev.findIndex(
+              (m) =>
+                m.id?.toString().startsWith('local-') &&
+                m.content === msg.content
+            );
+            if (localIndex !== -1) {
+              const updated = [...prev];
+              updated[localIndex] = msg;
+              return updated;
+            }
+            return [...prev, msg];
+          });
+        } else if (event.type === 'READ_UPDATE') {
+          const { messageId, unReadUserCount } = event.body;
+          setMessages((prev) =>
+            prev.map((m) =>
+              String(m.id) === String(messageId) ? { ...m, unReadUserCount } : m
+            )
+          );
+        }
       });
     } catch (err) {
       console.error('[ChatContext] webSocket 연결 실패:'.err);
@@ -137,10 +163,13 @@ export const ChatProvider = ({ children }) => {
     setMessages((prev) => [
       ...prev,
       {
-        id: Date.now(),
+        id: `local-${Date.now()}`,
+        roomUuid: currentRoom.roomUuid,
+        senderId: userId,
+        senderName: nickname || userName || '나',
         content,
-        senderId: userInfo?.id,
         timestamp: new Date().toISOString(),
+        unReadUserCount: (currentRoom?.participantCount ?? 2) - 1,
       },
     ]);
   };
