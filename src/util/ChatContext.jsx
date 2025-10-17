@@ -13,6 +13,8 @@ import {
 } from '@/config/stompClient';
 import UserContext from './UserContext';
 import AuthContext from './AuthContext';
+import apiClient from '@/config/axiosConfig';
+import { stringify } from 'uuid';
 
 const ChatContext = createContext();
 
@@ -68,7 +70,6 @@ export const ChatProvider = ({ children }) => {
     if (isLoggedIn && userId) {
       fetchRooms();
     }
-    console.log('유저아이디: ', userId);
   }, [isLoggedIn, userId]);
 
   // 오픈 채팅방 검색/필터
@@ -104,6 +105,11 @@ export const ChatProvider = ({ children }) => {
 
   // 방 선택 → WebSocket 연결
   const selectRoom = async (room) => {
+    // 이미 선택된 방이면 아무것도 안함
+    if (currentRoom?.roomUuid === room?.roomUuid) {
+      return;
+    }
+
     if (!room?.roomUuid) {
       return;
     }
@@ -117,6 +123,16 @@ export const ChatProvider = ({ children }) => {
     setCurrentRoom(room);
     setMessages([]); // 메시지 초기화
 
+    // 입장 시 자동 읽음 처리 API 호출
+    try {
+      await apiClient.post('/api/chat/rooms/join', null, {
+        params: { roomUuid: room.roomUuid },
+      });
+      console.log('[입장 이벤트] 자동 읽음 처리 완료');
+    } catch (err) {
+      console.error('[입장 이벤트 호출 실패]', err);
+    }
+
     // 새 연결
     try {
       stompRef.current = await connectWebSocket(room.roomUuid, (event) => {
@@ -127,7 +143,8 @@ export const ChatProvider = ({ children }) => {
             const localIndex = prev.findIndex(
               (m) =>
                 m.id?.toString().startsWith('local-') &&
-                m.content === msg.content
+                m.content === msg.content &&
+                m.senderId === userId
             );
             if (localIndex !== -1) {
               const updated = [...prev];
@@ -142,6 +159,13 @@ export const ChatProvider = ({ children }) => {
             prev.map((m) =>
               String(m.id) === String(messageId) ? { ...m, unReadUserCount } : m
             )
+          );
+        }
+        // 모든 메시지 읽음 (입장 시)
+        else if (event.type === 'ALL_READ') {
+          const { messageId, readerId, unReadUserCount } = event.body;
+          setMessages((prev) =>
+            prev.map((m) => (m.id <= messageId ? { ...m, unReadUserCount } : m))
           );
         }
       });
@@ -169,7 +193,7 @@ export const ChatProvider = ({ children }) => {
         senderName: nickname || userName || '나',
         content,
         timestamp: new Date().toISOString(),
-        unReadUserCount: (currentRoom?.participantCount ?? 2) - 1,
+        unReadUserCount: null,
       },
     ]);
   };
@@ -196,6 +220,7 @@ export const ChatProvider = ({ children }) => {
         messages,
         setMessages,
         addMessages,
+
         fetchRooms,
         fetchOpenRooms,
         createRoom,

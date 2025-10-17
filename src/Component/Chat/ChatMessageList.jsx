@@ -1,20 +1,25 @@
 import { chatApi } from '@/api/chat';
 import { useChat } from '@/util/ChatContext';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ChatMessage from './ChatMessage';
 import apiClient from '@/config/axiosConfig';
 import { stringify } from 'uuid';
 
 const ChatMessageList = ({ room, currentUserId }) => {
-  const { messages, setMessages, fetchRooms } = useChat();
+  const { messages, setMessages } = useChat();
   const [cursor, setCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
+  const [isLoadingOlder, setIsLoadingOlder] = useState(false);
+  const [isReading, setIsReading] = useState(false);
   const loaderRef = useRef();
   const containerRef = useRef();
 
+  // 중복 읽음 처리 방지
+  const lastReadMesageIdRef = useRef(null);
+
   // 읽음 처리 함수
-  const markMessagesAsRead = async () => {
-    if (!messages.length) {
+  const markMessagesAsRead = useCallback(async () => {
+    if (isReading || !messages.length || !room?.roomUuid) {
       return;
     }
 
@@ -31,6 +36,18 @@ const ChatMessageList = ({ room, currentUserId }) => {
       return;
     }
 
+    if (lastReadMesageIdRef.current === targetMessage.id) {
+      return;
+    }
+
+    setIsReading(true);
+    lastReadMesageIdRef.current = targetMessage.id;
+
+    console.log('[읽음처리 요청]', {
+      roomUuid: room.roomUuid,
+      messageId: targetMessage.id,
+    });
+
     try {
       await apiClient.post('/api/chat/rooms/read', null, {
         params: {
@@ -38,22 +55,26 @@ const ChatMessageList = ({ room, currentUserId }) => {
           messageId: targetMessage.id,
         },
       });
-      fetchRooms?.();
     } catch (err) {
       console.error('[ChatMessageList] 읽음 처리 실패:', err);
+    } finally {
+      setTimeout(() => setIsReading(false), 200);
     }
-  };
+  }, [messages, room, currentUserId, isReading]);
 
   // 스크롤이 가장 아래로 내려갔을 때 읽음 처리
-  const handleScroll = (e) => {
-    const target = e.target;
+  const handleScroll = useCallback(() => {
+    const target = containerRef.current;
+    if (!target) {
+      return;
+    }
     const isBottom =
       Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) <
-      3;
+      30;
     if (isBottom) {
       markMessagesAsRead();
     }
-  };
+  }, [markMessagesAsRead]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -61,13 +82,16 @@ const ChatMessageList = ({ room, currentUserId }) => {
       container.addEventListener('scroll', handleScroll);
       return () => container.removeEventListener('scroll', handleScroll);
     }
-  }, [messages]);
+  }, [handleScroll]);
 
   // 첫 로드: 최신 메시지 30개
   useEffect(() => {
     if (!room) {
       return;
     }
+
+    lastReadMesageIdRef.current = null;
+
     (async () => {
       const res = await chatApi.getMessagesCursor(room.roomUuid, null, 30);
       if (res.success) {
@@ -77,63 +101,100 @@ const ChatMessageList = ({ room, currentUserId }) => {
           setCursor(sorted[0].timestamp);
         }
       }
-      if (containerRef.current) {
-        containerRef.current.scrollTop = containerRef.current.scrollHeight;
-      }
+      setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.scrollTop = containerRef.current.scrollHeight;
+          // 하단일 경우 자동 읽음 처리
+          markMessagesAsRead();
+        }
+      }, 50);
     })();
   }, [room]);
 
   // 과거 메시지 추가 로드
   const loadOlderMessages = async () => {
-    if (!hasMore || !cursor) {
+    if (isLoadingOlder || !hasMore || !cursor) {
       return;
     }
+    setIsLoadingOlder(true);
 
-    const container = containerRef.current;
-    if (!container) {
-      return;
-    }
-    const scrollHeightBefore = container.scrollHeight;
+    try {
+      const container = containerRef.current;
+      if (!container) {
+        return;
+      }
+      const scrollHeightBefore = container.scrollHeight;
 
-    const res = await chatApi.getMessagesCursor(room.roomUuid, cursor, 30);
-    if (res.success && res.data.length > 0) {
-      const newMessages = [...res.data].reverse();
-      setMessages((prev) => [...newMessages, ...prev]);
-      setCursor(newMessages[0].timestamp);
+      const res = await chatApi.getMessagesCursor(room.roomUuid, cursor, 30);
+      if (res.success && res.data.length > 0) {
+        const newMessages = [...res.data].reverse();
+        setMessages((prev) => [...newMessages, ...prev]);
+        setCursor(newMessages[0].timestamp);
 
-      await new Promise((r) => setTimeout(r, 0));
-      const scrollHeightAfter = containerRef.scrollHeight;
-      container.scrollTop = scrollHeightAfter - scrollHeightBefore; // 스크롤 복원
-    } else {
-      setHasMore(false);
+        await new Promise((r) => setTimeout(r, 0));
+        const scrollHeightAfter = containerRef.scrollHeight;
+        container.scrollTop = scrollHeightAfter - scrollHeightBefore; // 스크롤 복원
+      } else {
+        setHasMore(false);
+      }
+    } finally {
+      setIsLoadingOlder(false);
     }
   };
 
   // IntersectionObserver: 상단 감지
   useEffect(() => {
-    if (!loaderRef.current || messages.length === 0) {
+    const loader = loaderRef.current;
+    if (!loader || !hasMore) {
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
           loadOlderMessages();
         }
       },
-      { threshold: 1.0 }
+      {
+        root: containerRef.current,
+        rootMargin: '50px',
+        threshold: 0.5,
+      }
     );
 
-    observer.observe(loaderRef.current);
+    observer.observe(loader);
     return () => observer.disconnect();
-  }, [cursor, hasMore, messages.length]);
+  }, [cursor, hasMore]);
 
-  // 새 메시지 추가 시 자동 스크롤
+  // 새 메시지 추가 시 자동 스크롤 + 읽음 처리
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    const container = containerRef.current;
+    if (!container || messages.length === 0) {
+      return;
     }
-  }, [messages]);
+
+    // 마지막 메시지가 내 메시지인지 확인
+    const lastMessage = messages[messages.length - 1];
+    const isLastMessageMine =
+      String(lastMessage.senderId) === String(currentUserId);
+
+    // 사용자가 최하단 근처에 있는지 확인
+    const nearBottom =
+      Math.abs(
+        container.scrollHeight - container.scrollTop - container.clientHeight
+      ) < 100;
+
+    if (nearBottom) {
+      setTimeout(() => {
+        container.scrollTop = container.scrollHeight;
+        // 스크롤을 맨 아래로 내린 후, 마지막 메시지가 상대방 메시지일 경우 읽음 처리
+        if (!isLastMessageMine) {
+          markMessagesAsRead();
+        }
+      }, 50);
+    }
+  }, [messages, currentUserId, markMessagesAsRead]);
 
   return (
     <div

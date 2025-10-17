@@ -3,7 +3,7 @@ import { Client } from '@stomp/stompjs';
 import apiClient from './axiosConfig';
 
 // WebSocket 연결
-export const connectWebSocket = async (roomUuid, onEvenTReceived) => {
+export const connectWebSocket = async (roomUuid, onEventReceived) => {
   // 티켓 발급
   const res = await apiClient.post('/api/ws-ticket');
   const ticket = res.data.ticket;
@@ -27,31 +27,17 @@ export const connectWebSocket = async (roomUuid, onEvenTReceived) => {
 
       // 메시지 수신 구독
       client.subscribe(`/topic/chat.room.${roomUuid}`, (msg) => {
-        const body = JSON.parse(msg.body);
-        console.log('받은 메시지: ', body);
-        onEvenTReceived({ type: 'MESSAGE', body });
+        const event = JSON.parse(msg.body);
+        console.log('받은 메시지: ', event);
+        onEventReceived(event);
       });
 
       // 읽음 이벤트 구독
       client.subscribe(`/topic/chat.room.${roomUuid}.read`, (msg) => {
-        const body = JSON.parse(msg.body);
-        onEvenTReceived({ type: 'READ_UPDATE', body });
+        const event = JSON.parse(msg.body);
+        console.log('받은 읽음 이벤트:', event);
+        onEventReceived(event);
       });
-
-      //   // 자동 스크롤 처리
-      //   const container = document.querySelector('.chat-messages');
-      //   if (container) {
-      //     const isNearBottom =
-      //       container.scrollHeight -
-      //         container.scrollTop -
-      //         container.clientHeight <
-      //       100;
-      //     if (isNearBottom) {
-      //       setTimeout(() => {
-      //         container.scrollTop = container.scrollHeight;
-      //       }, 50);
-      //     }
-      //   }
 
       resolve(client);
     };
