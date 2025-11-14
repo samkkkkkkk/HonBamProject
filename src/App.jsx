@@ -2,18 +2,12 @@ import { useContext, useEffect } from 'react';
 import '@/App.css';
 import AuthContext, { AuthContextProvider } from '@/util/AuthContext';
 import { MyPage } from '@/Component/User/MyPage';
-import SnsBoard from '@/Component/Board/SnsBoard';
-import MyDetail from '@/Component/Board/MyDetail';
-import UserDetail from '@/Component/Board/UserDetail';
-import Setting from '@/Component/Board/Setting';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Comment from '@/Component/Board/Comment';
 import KakaoLoginHandler from '@/Component/User/KakaoLoginHandler';
 import SearchPage from '@/Component/SearchPage/SearchPage';
 import Main from '@/Component/mainpage/Main';
 import { Navbar } from '@/Component/Navbar/Navbar';
 import Recipe from '@/Component/Recipe/Recipe';
-import AddBoard from '@/Component/Board/AddBoard';
 import InquiryCreate from '@/Component/Inquiry/create/InquiryCreate';
 import InquiryDetail from '@/Component/Inquiry/detail/InquiryDetail';
 import Inquiry from '@/Component/Inquiry/list/Inquiry';
@@ -24,8 +18,8 @@ import SubscriptionCheckout from '@/Component/Payment/SubscriptionCheckout';
 import { CheckoutPage } from '@/Component/Toss/Checkout';
 import { SuccessPage } from '@/Component/Toss/Success';
 import { FailPage } from '@/Component/Toss/Fail';
-import LoginTest from '@/Component/LoginTest';
-import JoinTest from '@/Component/JoinTest';
+import Login from '@/Component/User/Login';
+import Join from '@/Component/User/Join';
 import ProfileEdit from '@/Component/User/ProfileEdit';
 import MapTest from '@/Component/SearchPlace/MapTest';
 import UserContext, { UserContextProvider } from '@/util/UserContext';
@@ -34,6 +28,10 @@ import OAuth2Failure from './pages/OAuth2Fail';
 import DaumSearch from './Component/Map/DaumSearch';
 import ChatApp from './Component/Chat/ChatApp';
 import ChatContext, { ChatProvider } from './util/ChatContext';
+import FeedPage from './pages/FeedPage';
+import PostDetailPage from './Component/Feed/PostDetailPage';
+import FeedTabs from './Component/Feed/FeedTabs';
+import SnsProfilePage from './pages/SnsProfilePage';
 function ProtectedRoute({ element }) {
   const { isLoggedIn } = useContext(AuthContext);
   const { userRole, userName } = useContext(UserContext);
@@ -89,18 +87,11 @@ function App() {
 
               <Route path="/modify" element={<ProfileEdit />} />
 
-              <Route path="/login" element={<LoginTest />} />
-              <Route path="/Join" element={<JoinTest />} />
-              <Route path="/board" element={<SnsBoard />} />
-              <Route path="/addboard" element={<AddBoard />} />
-              <Route path="/UserDetail" element={<UserDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/Join" element={<Join />} />
               <Route path="/MapContainer" element={<MapContainer />} />
               <Route path="/searchPlace" element={<MapTest />} />
-              <Route path="/Setting" element={<Setting />} />
-              <Route path="/comment/:posId" element={<Comment />} />
               <Route path="/ProfileEdit" element={<ProfileEdit />} />
-              <Route path="/mydetail" element={<MyDetail />} />
-              <Route path="/addboard" element={<AddBoard />} />
               <Route
                 path="/oauth/redirected/HonBam"
                 element={<KakaoLoginHandler />}
@@ -134,6 +125,13 @@ function App() {
 
               {/* 테스트 용도라면 보호 안 해도 됨 */}
               <Route path="/chat/*" element={<ChatApp />} />
+              <Route path="/feed" element={<FeedTabs />} />
+              <Route path="/sns/posts/:postId" element={<PostDetailPage />} />
+
+              <Route
+                path="/sns/profile/:authorId"
+                element={<SnsProfilePage />}
+              />
             </Routes>
           </ChatProvider>
         </UserContextProvider>

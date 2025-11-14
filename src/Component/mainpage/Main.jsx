@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import main1 from '@/assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg';
 import main2 from '@/assets/michele-blackwell-rAyCBQTH7ws-unsplash.jpg';
-import '@/Component/mainpage/main2.scss';
+import '@/Component/mainpage/Main.scss';
 import { ArrowForwardIos } from '@mui/icons-material';
 import MainDialog from '@/Component/mainpage/MainDialog';
 import MainShot from '@/Component/mainpage/MainShot';
@@ -14,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { SectionsContainer, Section } from 'react-fullpage';
 import { Navbar } from '@/Component/Navbar/Navbar';
 
-const Main2 = () => {
+const Main = () => {
   const redirection = useNavigate();
 
   const [open, setOpen] = useState(true);
@@ -60,7 +60,9 @@ const Main2 = () => {
         </Section>
         {/* </Box> */}
         {/* 메인 첫페이지 끝 */}
-
+        <Section>
+          <MainShot />
+        </Section>
         {/* 맛집 찾기 시작 */}
         <Section>
           <div className="main2-container">
@@ -151,13 +153,10 @@ const Main2 = () => {
           {/* 칵테일 레시피 끝 */}
           {/* <MainShot /> */}
         </Section>
-        <Section>
-          <MainShot />
-        </Section>
         <MainDialog />
       </SectionsContainer>
     </>
   );
 };
 
-export default Main2;
+export default Main;

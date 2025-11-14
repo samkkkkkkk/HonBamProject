@@ -4,63 +4,49 @@ import React, {
   useContext,
   useRef,
   useEffect,
+  useMemo,
 } from 'react';
 import { chatApi } from '@/api/chat';
 import {
-  connectWebSocket,
+  initializeWebSocket,
+  subscribeToRoom,
+  unsubscribeFromRoom,
   sendMessage,
   disconnectWebSocket,
 } from '@/config/stompClient';
 import UserContext from './UserContext';
 import AuthContext from './AuthContext';
-import apiClient from '@/config/axiosConfig';
-import { stringify } from 'uuid';
 
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  // 채팅방 전체 목록
+  // === 기본 상태 ===
   const [rooms, setRooms] = useState([]);
-
-  // 구분된 목록
-  const [directRooms, setDirectRooms] = useState([]); // 1:1 채팅방
-  const [groupRooms, setGroupRooms] = useState([]); // 그룹 채팅방
-  const [joinedOpenRooms, setJoinedOpenRooms] = useState([]); // 내가 속한 오픈 채팅방
-  const [openRooms, setOpenRooms] = useState([]); // 검색용 오픈 채팅방
-
+  const [openRooms, setOpenRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState(null);
-  const [messages, setMessages] = useState([]); // 현재 방 메시지
+  const [messages, setMessages] = useState([]);
 
-  const addMessages = (newMessages, prepend = false) => {
-    setMessages((prev) =>
-      prepend ? [...newMessages, ...prev] : [...prev, ...newMessages]
-    );
-  };
-
-  const stompRef = useRef(null);
-  const {
-    fetchUserInfo,
-    id: userId,
-    nickname,
-    userName,
-  } = useContext(UserContext);
+  const stompInitialized = useRef(false); // 중복 연결 방지
+  const { id: userId, nickname, userName } = useContext(UserContext);
   const { isLoggedIn } = useContext(AuthContext);
+  const isFromReadEvent = useRef(false);
 
-  // 참여중인 채팅방 목록 불러오기
+  // === 필터링된 목록 ===
+  const directRooms = useMemo(() => rooms.filter((r) => r.isDirect), [rooms]);
+  const groupRooms = useMemo(
+    () => rooms.filter((r) => !r.isDirect && !r.isOpen),
+    [rooms]
+  );
+  const joinedOpenRooms = useMemo(() => rooms.filter((r) => r.isOpen), [rooms]);
+
+  // === 방 목록 불러오기 ===
   const fetchRooms = async () => {
     if (!isLoggedIn) {
       return;
     }
     const res = await chatApi.roomList();
-
     if (res.success) {
-      const allRooms = res.data;
-      setRooms(allRooms);
-
-      // 필터링해서 저장
-      setDirectRooms(allRooms.filter((r) => r.isDirect));
-      setGroupRooms(allRooms.filter((r) => !r.isDirect && !r.isOpen));
-      setJoinedOpenRooms(allRooms.filter((r) => r.isOpen));
+      setRooms(res.data);
     } else {
       console.error('[ChatContext] 방 목록 로드 실패:', res.message);
     }
@@ -72,7 +58,35 @@ export const ChatProvider = ({ children }) => {
     }
   }, [isLoggedIn, userId]);
 
-  // 오픈 채팅방 검색/필터
+  // === WebSocket 초기화 ===
+  useEffect(() => {
+    if (!isLoggedIn || !userId || stompInitialized.current) {
+      return;
+    }
+    stompInitialized.current = true;
+
+    // 1회만 WebSocket 연결
+    initializeWebSocket(userId, (summary) => {
+      const { roomUuid, unReadCount } = summary;
+
+      // 같은 값이면 무시 (렌더링 차단)
+      setRooms((prev) =>
+        prev.map((r) => {
+          if (r.roomUuid === roomUuid && r.unReadCount === unReadCount) {
+            return r;
+          }
+          return r.roomUuid === roomUuid ? { ...r, unReadCount } : r;
+        })
+      );
+    });
+
+    return () => {
+      disconnectWebSocket();
+      stompInitialized.current = false;
+    };
+  }, [isLoggedIn, userId]);
+
+  // === 오픈채팅 검색 ===
   const fetchOpenRooms = async (keyword) => {
     const res = await chatApi.openRoomList(keyword);
     if (res.success) {
@@ -80,110 +94,132 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
-  // 채팅방 생성
+  // === 방 생성 ===
   const createRoom = async (payload) => {
     const res = await chatApi.createRoom(payload);
     if (res.success) {
-      await fetchRooms(); // 목록 갱신
+      await fetchRooms();
     }
     return res;
   };
 
-  // 오픈채팅방 참여
+  // === 오픈채팅 참여 ===
   const joinOpenRoom = async (roomUuid) => {
     const res = await chatApi.joinOpenRoom(roomUuid);
     if (res.success) {
-      await fetchRooms(); // 목록 갱신
+      await fetchRooms();
     }
     return res;
   };
 
-  // 유저 초대
+  // === 유저 초대 ===
   const inviteUsers = async (roomUuid, userIds) => {
     return chatApi.invite(roomUuid, userIds);
   };
 
-  // 방 선택 → WebSocket 연결
+  // === 방 선택 ===
   const selectRoom = async (room) => {
-    // 이미 선택된 방이면 아무것도 안함
-    if (currentRoom?.roomUuid === room?.roomUuid) {
-      return;
-    }
-
     if (!room?.roomUuid) {
       return;
     }
+    if (currentRoom?.roomUuid === room.roomUuid) {
+      return;
+    }
 
-    // 기존 연결 해제
-    if (stompRef.current) {
-      disconnectWebSocket(stompRef.current);
-      stompRef.current = null;
+    // 기존 구독 해제
+    if (currentRoom?.roomUuid) {
+      unsubscribeFromRoom(currentRoom.roomUuid);
     }
 
     setCurrentRoom(room);
-    setMessages([]); // 메시지 초기화
+    setMessages([]);
 
-    // 입장 시 자동 읽음 처리 API 호출
-    try {
-      await apiClient.post('/api/chat/rooms/join', null, {
-        params: { roomUuid: room.roomUuid },
-      });
-      console.log('[입장 이벤트] 자동 읽음 처리 완료');
-    } catch (err) {
-      console.error('[입장 이벤트 호출 실패]', err);
-    }
-
-    // 새 연결
-    try {
-      stompRef.current = await connectWebSocket(room.roomUuid, (event) => {
-        if (event.type === 'MESSAGE') {
+    // 새 구독 등록
+    subscribeToRoom(room.roomUuid, (event) => {
+      switch (event.type) {
+        case 'MESSAGE': {
           const msg = event.body;
-
           setMessages((prev) => {
-            const localIndex = prev.findIndex(
+            const idx = prev.findIndex(
               (m) =>
                 m.id?.toString().startsWith('local-') &&
                 m.content === msg.content &&
                 m.senderId === userId
             );
-            if (localIndex !== -1) {
+            if (idx !== -1) {
               const updated = [...prev];
-              updated[localIndex] = msg;
+              updated[idx] = msg;
               return updated;
             }
             return [...prev, msg];
           });
-        } else if (event.type === 'READ_UPDATE') {
-          const { messageId, unReadUserCount } = event.body;
-          setMessages((prev) =>
-            prev.map((m) =>
-              String(m.id) === String(messageId) ? { ...m, unReadUserCount } : m
-            )
-          );
+          break;
         }
-        // 모든 메시지 읽음 (입장 시)
-        else if (event.type === 'ALL_READ') {
+
+        case 'READ_UPDATE': {
           const { messageId, readerId, unReadUserCount } = event.body;
-          setMessages((prev) =>
-            prev.map((m) => (m.id <= messageId ? { ...m, unReadUserCount } : m))
-          );
+          //  본인 읽음은 무시 (루프 차단)
+          if (readerId !== userId) {
+            isFromReadEvent.current = true;
+            setMessages((prev) =>
+              prev.map((m) =>
+                Number(m.id) <= Number(messageId)
+                  ? { ...m, unReadUserCount }
+                  : m
+              )
+            );
+            setTimeout(() => {
+              isFromReadEvent.current = false;
+            }, 300);
+          } else {
+            setCurrentRoom((prev) =>
+              prev && prev.roomUuid === room.roomUuid
+                ? { ...prev, lastReadMessageId: messageId }
+                : prev
+            );
+          }
+          break;
         }
-      });
-    } catch (err) {
-      console.error('[ChatContext] webSocket 연결 실패:'.err);
-    }
+
+        case 'ALL_READ': {
+          const { messageId, readerId, unReadUserCount } = event.body;
+          if (readerId !== userId) {
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id <= messageId ? { ...m, unReadUserCount } : m
+              )
+            );
+          }
+          break;
+        }
+
+        case 'ROOM_SUMMARY_UPDATE': {
+          const { roomUuid, unReadCount } = event.body;
+          // 동일값 무시 (렌더링 루프 방지)
+          setRooms((prev) =>
+            prev.map((r) => {
+              if (r.roomUuid === roomUuid && r.unReadCount === unReadCount) {
+                return r;
+              }
+              return r.roomUuid === roomUuid ? { ...r, unReadCount } : r;
+            })
+          );
+          break;
+        }
+
+        default:
+          console.debug('[ChatContext] Unhandled event:', event);
+      }
+    });
   };
 
-  // 메시지 전송
+  // === 메시지 전송 ===
   const sendChatMessage = (content) => {
-    if (!stompRef.current) {
-      console.warn('[ChatContext] 연결되지 않음');
+    if (!currentRoom?.roomUuid) {
       return;
     }
+    sendMessage(currentRoom.roomUuid, content);
 
-    sendMessage(stompRef.current, currentRoom.roomUuid, content);
-
-    // 로컬 반영
     setMessages((prev) => [
       ...prev,
       {
@@ -198,12 +234,9 @@ export const ChatProvider = ({ children }) => {
     ]);
   };
 
-  // 로그아웃/인증 만료 처리
+  // === 로그아웃 처리 ===
   const handleLogoutCleanup = () => {
-    if (stompRef.current) {
-      disconnectWebSocket(stompRef.current);
-      stompRef.current = null;
-    }
+    disconnectWebSocket();
     setCurrentRoom(null);
     setMessages([]);
   };
@@ -218,15 +251,15 @@ export const ChatProvider = ({ children }) => {
         openRooms,
         currentRoom,
         messages,
+        isFromReadEvent,
         setMessages,
-        addMessages,
-
         fetchRooms,
         fetchOpenRooms,
         createRoom,
         joinOpenRoom,
         inviteUsers,
         selectRoom,
+        setCurrentRoom,
         sendChatMessage,
         handleLogoutCleanup,
       }}

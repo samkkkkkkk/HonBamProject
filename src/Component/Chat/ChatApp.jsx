@@ -37,27 +37,7 @@ const ChatApp = () => {
           <ChatTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
           <div className="sidebar-section">
-            {activeTab === 'direct' && (
-              <ChatRoomList
-                rooms={directRooms}
-                onSelectRoom={selectRoom}
-                // fetchRooms={fetchRooms}
-              />
-            )}
-            {activeTab === 'group' && (
-              <ChatRoomList
-                rooms={groupRooms}
-                onSelectRoom={selectRoom}
-                // fetchRooms={fetchRooms}
-              />
-            )}
-            {activeTab === 'open' && (
-              <ChatRoomList
-                rooms={joinedOpenRooms}
-                onSelectRoom={selectRoom}
-                // fetchRooms={fetchRooms}
-              />
-            )}
+            <ChatRoomList type={activeTab} onSelectRoom={selectRoom} />
           </div>
         </div>
 

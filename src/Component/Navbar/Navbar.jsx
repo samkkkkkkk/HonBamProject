@@ -52,6 +52,10 @@ export const Navbar = () => {
 
   // 등급(프리미엄/일반) 버튼 뷰
   const gradeView = () => {
+    if (!isLoggedIn) {
+      return null;
+    }
+
     if (userRole === 'COMMON') {
       return (
         <Link to="/pay">
@@ -147,6 +151,9 @@ export const Navbar = () => {
           <Link to="/naverSearchHotPlace">추천맛집</Link>
         </li>
         <li>
+          <Link to="/feed">SNS</Link>
+        </li>
+        <li>
           {isLoggedIn ? (
             <Link to="/freeboard">문의</Link>
           ) : (
@@ -188,13 +195,7 @@ export const Navbar = () => {
         </div>
         <li>
           {isLoggedIn ? (
-            <a
-              className="logout-btn"
-              onClick={async () => {
-                await onLogout();
-                redirect('/');
-              }}
-            >
+            <a className="logout-btn" onClick={logoutHandler}>
               로그아웃
             </a>
           ) : (

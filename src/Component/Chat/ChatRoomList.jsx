@@ -2,13 +2,22 @@ import React, { useEffect } from 'react';
 import { useChat } from '@/util/ChatContext';
 import './ChatRoomList.css';
 
-const ChatRoomList = ({ rooms, onSelectRoom, fetchRooms }) => {
+const ChatRoomList = ({ type, onSelectRoom }) => {
+  const { directRooms, groupRooms, joinedOpenRooms, fetchRooms } = useChat();
+
   useEffect(() => {
     if (fetchRooms) {
       fetchRooms();
     }
     console.log(rooms);
   }, []);
+
+  const rooms =
+    type === 'direct'
+      ? directRooms
+      : type === 'group'
+        ? groupRooms
+        : joinedOpenRooms;
 
   return (
     <div className="chatroom-list">

@@ -6,8 +6,8 @@ import recipe from '@/assets/ambitious-studio-rick-barrett-QjUY7auDzUQ-unsplash.
 export const useStyles = makeStyles({
   /** 전체 뷰포트 — 가로·세로 단위를 올바르게 수정 */
   mainContainer: {
-    // ✅ 오타(mainContiner → mainContainer)
-    width: '100vw', // ✅ 100vh → 100vw
+    //  오타(mainContiner → mainContainer)
+    width: '100vw', //  100vh → 100vw
     height: '100vh',
   },
 
@@ -30,7 +30,7 @@ export const useStyles = makeStyles({
 
   /** 레시피 섹션 */
   mainRecipeMui: {
-    // ✅ 카멜케이스 맞춤(mainrecipeMui → mainRecipeMui)
+    //  카멜케이스 맞춤(mainrecipeMui → mainRecipeMui)
     backgroundImage: `url(${recipe})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -41,7 +41,7 @@ export const useStyles = makeStyles({
 
   /** 어두운 오버레이 */
   mainColor: {
-    // ✅ 카멜케이스(maincolor → mainColor)
+    //  카멜케이스(maincolor → mainColor)
     width: '100vw',
     height: '100vh',
     backgroundColor: '#27262b',

@@ -157,22 +157,57 @@
   width: 100%;
   height: 100vh;
   position: relative;
+
+  --swiper-navigation-color: #ffffff;
+
   .main3-title {
     color: #ffffff;
     font-family: 'Inter-Black', Helvetica;
     font-size: 50px;
     position: relative;
     top: 15%;
-    left: 40%;
-    width: 40%;
+    text-align: center;
+    width: 100%;
   }
 }
 
 .main-shot-swip {
   position: relative;
-  top: 40%;
+  top: 25%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
+.shot-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shot-image {
+  width: 100%;
+  height: 500px;
+  object-fit: fill;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shot-image:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.shot-meta {
+  margin-top: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.shot-nickname {
+  font-weight: 600;
+}
 .main-title-intro {
   width: 50%;
 }
@@ -187,4 +222,13 @@
   position: relative;
   top: 2px;
   left: 5px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  --swiper-navigation-color: rgba(245, 247, 229, 0.986);}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px;       // 화살표 아이콘 크기
 }

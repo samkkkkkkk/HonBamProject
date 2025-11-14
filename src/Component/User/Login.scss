@@ -10,11 +10,13 @@
 /* 로그인 박스 스타일 */
 .login-box {
   width: 450px;
-  height: 450px;
+  // height: 450px;  // ← 이 줄 제거
+  min-height: 450px; // 기본 높이는 유지하되 내용에 따라 늘어나게
   padding: 40px;
   background-color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  box-sizing: border-box;
 }
 
 /* 로그인 타이틀 */

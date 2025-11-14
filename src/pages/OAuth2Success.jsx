@@ -11,7 +11,7 @@ export default function OAuth2Success() {
 
   useEffect(() => {
     (async () => {
-      await fetchUserInfo(); // ✅ 쿠키 기반으로 내 정보 로드
+      await fetchUserInfo(); //  쿠키 기반으로 내 정보 로드
       const status = new URLSearchParams(search).get('status');
       if (status === 'ONBOARDING') {
         nav('/onboarding', { replace: true });

@@ -77,8 +77,18 @@ export const UserContextProvider = ({ children }) => {
         throw new Error(res.message || '이미지 요청 실패');
       }
 
+      if (typeof res.data === 'string' && res.data.startsWith('http')) {
+        setProfileUrl(res.data);
+        return;
+      }
+
       const ct = res.headers?.['content-type'] || '';
       if (ct.startsWith('image')) {
+        // 기존 blob url 정리
+        if (profileUrl) {
+          URL.revokeObjectURL(profileUrl);
+        }
+
         const imgUrl = URL.createObjectURL(res.data);
         setProfileUrl(imgUrl);
       } else {

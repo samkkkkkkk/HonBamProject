@@ -1,77 +1,176 @@
-import { useContext, useEffect, useRef, useState } from 'react';
-import { API_BASE_URL as BASE, USER } from '@/config/host-config';
-import '@/Component/User/Join.css';
-import { Grid } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '@/util/AuthContext';
-import beerImage from '@/assets/image-beer.png';
+import { useCallback, useReducer, useRef, useState } from 'react';
+import './/Join.scss';
+import { initialState, joinReducer } from './joinReducer';
+import { debounce } from '@mui/material';
+import axios from 'axios';
+import { API_BASE_URL, USER } from '@/config/host-config';
+import { useNavigate } from 'react-router-dom';
+import addboard1 from '@/assets/addboard1.png';
 
-export const Join = () => {
-  // useRef를 사용해서 태그 참조하기
-  const $fileTag = useRef();
+const Join = () => {
+  // 기본 요청 url
+  const REQUEST_URI = API_BASE_URL + USER;
 
   // 리다이렉트 사용하기
   const redirection = useNavigate();
 
-  const { isLoggedIn } = useContext(AuthContext);
-  const [, setOpen] = useState(false);
+  // file태그 추출하기
+  const $fileTag = useRef();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      // 스낵바 오픈
-      setOpen(true);
-      // 일정 시간 뒤 Todo 화면으로 redirect
-      setTimeout(() => {
-        redirection('/');
-      }, 3000);
-    }
-  }, [isLoggedIn, redirection, setOpen]);
+  // 이미지파일 상태관리
+  const [imgFile, setImgFile] = useState(null);
 
-  const API_BASE_URL = BASE + USER;
+  // 리듀서 함수 등록
+  const [state, dispatch] = useReducer(joinReducer, initialState);
 
-  // 상태변수로 회원가입 입력값 관리
-  const [userValue, setUserValue] = useState({
-    userName: '',
-    password: '',
-    email: '',
-  });
+  const { userValue, message, correct } = state;
 
-  // 검증 메세지에 대한 상태변수 관리
-  const [message, setMessage] = useState({
-    userName: '',
-    password: '',
-    passwordCheck: '',
-    email: '',
-  });
-
-  // 검증 완료 체크에 대한 상태변수 관리
-  const [correct, setCorrect] = useState({
-    userName: false,
-    password: false,
-    passwordCheck: false,
-    email: false,
-  });
-
-  // 검증된 데이터를 각각의 상태변수에 저장해 주는 함수.
-  const saveInputState = ({ key, inputValue, flag, msg }) => {
-    inputValue !== 'pass' &&
-      setUserValue((oldVal) => {
-        return { ...oldVal, [key]: inputValue };
+  const updateState = (key, inputValue, msg, flag) => {
+    key !== 'passwordCheck' &&
+      dispatch({
+        type: 'SET_USER_VALUE',
+        key,
+        value: inputValue,
       });
 
-    setMessage((oldMsg) => {
-      return { ...oldMsg, [key]: msg };
+    dispatch({
+      type: 'SET_MESSAGE',
+      key,
+      value: msg,
     });
 
-    setCorrect((oldCorrect) => {
-      return { ...oldCorrect, [key]: flag };
+    dispatch({
+      type: 'SET_CORRECT',
+      key,
+      value: flag,
     });
   };
 
-  // 이름 입력창 체인지 이벤트 핸들러
-  const nameHandler = (e) => {
-    const nameRegex = /^[가-힣]{2,5}$/;
+  // 각각의 핸들러에 붙어 있는 디바운스 함수를 일괄적 처리
+  // useCallback: 함수의 메모이제이션을 위한 훅. (함수의 선언을 기억했다가 재사용하기 위한 훅)
+  // 상태값 변경에 의해 화면의 재 렌더링이 발생할 때, 컴포넌트의 함수들도 재 선언이 됩니다.
+  // useCallback으로 함수를 감싸 주시면 이전에 생성된 함수를 기억했다가 재 사용하도록 하기 때문에
+  // 불필요한 함수 선언을 방지할 수 있습니다. (성능 최적화에 도움이 됩니다.)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceUpdateState = useCallback(
+    debounce((key, inputValue, msg, flag) => {
+      console.log('debounce called! key: ', key);
+      updateState(key, inputValue, msg, flag);
+    }, 500),
+    []
+  );
+
+  const fetchDuplicateCheck = async (target, value) => {
+    let targetName = '';
+    if (target === 'nickname') {
+      targetName = '닉네임';
+    } else if (target === 'email') {
+      targetName = '이메일';
+    }
+
+    let msg = '';
+    let flag = false;
+
+    const res = await axios.get(
+      `${REQUEST_URI}/check?value=${value}&target=${target}`
+    );
+    if (res.data) {
+      msg = `중복된 ${targetName}입니다.`;
+    } else {
+      msg = `사용 가능한 ${targetName}입니다.`;
+      flag = true;
+    }
+
+    debounceUpdateState(target, value, msg, flag);
+  };
+
+  const idCheckHandler = (e) => {
     const inputValue = e.target.value;
+    const target = e.target.id;
+    const idRegex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#_]{4,9}$/;
+
+    let msg;
+    const flag = false;
+
+    if (!inputValue) {
+      msg = '닉네임 필수입니다.';
+    } else if (!idRegex.test(inputValue)) {
+      msg =
+        '한글 또는 영어로 시작하고 숫자와 특수문자(!@#)을 조합하여 (5~10)글자를 작성해주세요.';
+    } else {
+      fetchDuplicateCheck(target, inputValue);
+      return;
+    }
+    debounceUpdateState('nickname', inputValue, msg, flag);
+  };
+
+  // 이메일 입력창 검증
+  const emailCheckHandler = (e) => {
+    const inputValue = e.target.value;
+    const target = e.target.id;
+
+    let msg;
+    const flag = false;
+
+    const emailRegex = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
+    if (!inputValue) {
+      msg = '이메일은 필수입니다.';
+    } else if (!emailRegex.test(inputValue)) {
+      msg = '올바른 이메일 형식이 아닙니다.';
+    } else {
+      fetchDuplicateCheck(target, inputValue);
+      return;
+    }
+
+    debounceUpdateState('email', inputValue, msg, flag);
+  };
+
+  // 비밀번호 입력란
+  const passwordHandler = (e) => {
+    const inputValue = e.target.value;
+
+    // 비밀번호 입력창이 변하면 비밀번호 확인란을 비워준다.
+    document.getElementById('confirmPassword').value = '';
+    updateState('passwordCheck', '', '', false);
+
+    let msg;
+    let flag = false;
+    const pwRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
+
+    if (!inputValue) {
+      msg = '비밀번호는 필수입니다.';
+    } else if (!pwRegex.test(inputValue)) {
+      msg = '8글자 이상의 영문, 숫자, 특수문자를 포함해 주세요.';
+    } else {
+      msg = '사용 가능한 비밀번호입니다.';
+      flag = true;
+    }
+
+    debounceUpdateState('password', inputValue, msg, flag);
+  };
+
+  const pwCheckHandler = () => {
+    const inputValue = document.getElementById('confirmPassword').value;
+    let msg;
+    let flag = false;
+
+    if (!inputValue) {
+      msg = '비밀번호 확인란은 필수입니다.';
+    } else if (userValue.password !== inputValue) {
+      msg = '비밀번호가 일치하지 않습니다.';
+    } else {
+      msg = '사용 가능한 비밀번호 입니다.';
+      flag = true;
+    }
+
+    debounceUpdateState('passwordCheck', inputValue, msg, flag);
+  };
+
+  const nameHandler = (e) => {
+    console.log('nameHandler 리듀서 함수가 동작함');
+    const inputValue = e.target.value;
+    const nameRegex = /^[가-힣]{2,5}$/;
 
     let msg;
     let flag = false;
@@ -79,175 +178,55 @@ export const Join = () => {
     if (!inputValue) {
       msg = '유저 이름은 필수입니다.';
     } else if (!nameRegex.test(inputValue)) {
-      msg = '2~5글자 사이의 한글로 작성하세요!';
+      msg = '2~5글자 사이의 한글로 작성 해주세요.';
     } else {
       msg = '사용 가능한 이름입니다.';
       flag = true;
     }
 
-    saveInputState({
-      key: 'userName',
-      inputValue,
-      msg,
-      flag,
-    });
+    debounceUpdateState('userName', inputValue, msg, flag);
   };
 
-  // 주소 입력창 핸들러
-  const addressHandler = (e) => {
-    const nameRegex = /^[가-힣]{1,10}$/;
+  const phoneNumHandler = (e) => {
     const inputValue = e.target.value;
-
     let msg;
     let flag = false;
 
-    if (!inputValue) {
-      msg = '주소는 필수입니다.';
-    } else if (!nameRegex.test(inputValue)) {
-      msg = '1~10글자 사이의 한글로 작성하세요!';
-    } else {
-      msg = '사용 가능한 이름입니다.';
-      flag = true;
-    }
+    // 정규 표현식 01로 시작,
+    const phoneRegex = /^01[016789]\d{3,4}\d{4}$/;
 
-    saveInputState({
-      key: 'address',
-      inputValue,
-      msg,
-      flag,
-    });
-  };
-
-  // 핸드폰번호 입력창 핸들러
-  const phoneNumberHandler = (e) => {
-    const nameRegex = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-    const inputValue = e.target.value;
-
-    let msg;
-    let flag = false;
+    // 입력 받은 번호에서 숫자만 남기기
+    const number = inputValue.replace(/\D/g, '');
+    // 포맷함수 호출
+    e.target.value = formatNumber(number);
 
     if (!inputValue) {
-      msg = '번호는 필수입니다(01X-XXXX-XXXX 형식).';
-    } else if (!nameRegex.test(inputValue)) {
-      msg = '하이픈 필수 입력하셔야합니다';
+      msg = '휴대폰 번호를 입력해 주세요.';
+    } else if (!phoneRegex.test(number)) {
+      msg = '휴대폰 번호를 정확히 입력해 주세요.';
     } else {
-      msg = '사용 가능한 번호입니다.';
+      msg = '';
       flag = true;
     }
-
-    saveInputState({
-      key: 'phoneNumber',
-      inputValue,
-      msg,
-      flag,
-    });
+    updateState('phoneNumber', number, msg, flag);
   };
 
-  // 이메일 중복 체크 서버 통신 함수
-  const fetchDuplicateCheck = (email) => {
-    let msg = '',
-      flag = false;
-    fetch(`${API_BASE_URL}/check?email=${email}`)
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-      })
-      .then((json) => {
-        if (json) {
-          msg = '이메일이 중복되었습니다.';
-        } else {
-          msg = '사용 가능한 이메일 입니다.';
-          flag = true;
-        }
-        saveInputState({
-          key: 'email',
-          inputValue: email,
-          msg,
-          flag,
-        });
-      })
-      .catch((_err) => {
-        console.log('서버 통신이 원활하지 않습니다.');
-      });
-  };
-
-  // 이메일 입력창 체인지 이벤트 핸들러
-  const emailHandler = (e) => {
-    const inputValue = e.target.value;
-    const emailRegex = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
-
-    let msg;
-    const flag = false;
-
-    if (!inputValue) {
-      msg = '이메일은 필수값 입니다!';
-    } else if (!emailRegex.test(inputValue)) {
-      msg = '이메일 형식이 올바르지 않습니다.';
+  // 휴대폰 번호 형식 포맷 하기
+  const formatNumber = (number) => {
+    if (number.length <= 3) {
+      return number;
+    } else if (number.length <= 7) {
+      return `${number.slice(0, 3)}-${number.slice(3)}`;
+    } else if (number.length <= 10) {
+      return `${number.slice(0, 3)}-${number.slice(3, 6)}-${number.slice(6)}`;
     } else {
-      fetchDuplicateCheck(inputValue);
+      return `${number.slice(0, 3)}-${number.slice(3, 7)}-${number.slice(7)}`;
     }
-
-    saveInputState({
-      key: 'email',
-      inputValue,
-      msg,
-      flag,
-    });
-  };
-
-  // 패스워드 입력창 체인지 이벤트 핸들러
-  const passwordHandler = (e) => {
-    document.getElementById('password-check').value = '';
-    setMessage({ ...message, passwordCheck: '' });
-    setCorrect({ ...correct, passwordCheck: false });
-
-    const inputValue = e.target.value;
-    const pwRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
-
-    let msg;
-    let flag = false;
-    if (!inputValue) {
-      msg = '비밀번호는 필수입니다.';
-    } else if (!pwRegex.test(inputValue)) {
-      msg = '8글자 이상의 영문, 숫자, 특수문자를 포함해 주세요.';
-    } else {
-      msg = '사용 가능한 비밀번호 입니다.';
-      flag = true;
-    }
-
-    saveInputState({
-      key: 'password',
-      inputValue,
-      msg,
-      flag,
-    });
-  };
-
-  // 비밀번호 확인란 체인지 이벤트 핸들러
-  const pwCheckHandler = (e) => {
-    let msg;
-    let flag = false;
-    if (!e.target.value) {
-      msg = '비밀번호 확인란은 필수입니다.';
-    } else if (userValue.password !== e.target.value) {
-      msg = '패스워드가 일치하지 않습니다.';
-    } else {
-      msg = '패스워드가 일치합니다.';
-      flag = true;
-    }
-
-    saveInputState({
-      key: 'passwordCheck',
-      inputValue: 'pass',
-      msg,
-      flag,
-    });
   };
 
   const isValid = () => {
     for (const key in correct) {
+      console.log('key', key);
       if (!correct[key]) {
         return false;
       }
@@ -255,58 +234,68 @@ export const Join = () => {
     return true;
   };
 
-  // 회원 가입 처리 서버 요청
-  const fetchSignUpPost = async () => {
+  const fetchSignupPost = async () => {
+    /*
+      기존 회원가입은 단순히 텍스트를 객체로 모은 후 JSON으로 변환해서 요청 보내주면 끝.
+      이제는 프로필 이미지가 추가됨. -> 파일 첨부 요청은 multipart/form-data로 전송해야 함.
+      FormData 객체를 활용해서 Content-type을 multipart/form-data로 지정한 후 전송하려 함.
+      그럼 JSON 데이터는? Content-type이 application/json이다. 
+      Content-type이 서로 다른 데이터를 한번에 FormData에 감싸서 보내면 
+      415(unsupported Media Type) 에러가 발생함.
+      그렇다면 -> JSON을 Blob으로 바꿔서 함께 보내자. 
+      Blob은 이미지, 사운드, 비디오 같은 멀티미디어 파일을 바이트 단위로 쪼개어 파일 손상을 방지하게 
+      해 주는 타입. -> multipart/form-data에도 허용됨.
+    */
+
     const userJsonBlob = new Blob([JSON.stringify(userValue)], {
       type: 'application/json',
     });
 
+    // 이미지 파일과 회원정보 JSON을 하나로 묶어서 보낼 예정.
+    // formData 객체를 활용해서.
     const userFormData = new FormData();
     userFormData.append('user', userJsonBlob);
     userFormData.append('profileImage', $fileTag.current.files[0]);
 
-    const res = await fetch(API_BASE_URL, {
-      method: 'POST',
-      body: userFormData,
-    });
-
-    if (res.status === 200) {
-      alert('회원가입에 성공했습니다!');
-      redirection('/login');
-    } else {
-      alert('서버와의 통신이 원활하지 않습니다.');
+    try {
+      const res = await axios.post(REQUEST_URI, userFormData);
+      console.log(res.data);
+      alert(`${res.data.userName}님 회원가입에 성공 하셨습니다.`);
+    } catch (error) {
+      alert(error.response.data);
     }
   };
 
-  // 회원가입 버튼 클릭 이벤트 핸들러
+  // 회원가입 버튼 클릭 이벤트
   const joinButtonClickHandler = (e) => {
     e.preventDefault();
 
     if (isValid()) {
-      fetchSignUpPost();
+      fetchSignupPost();
+      redirection('/login');
     } else {
-      alert('입력란을 다시 확인해 주세요!');
+      alert('회원 정보를 정확히 입력해주세요.');
     }
   };
 
-  const [imgFile, setImgFile] = useState(null);
-
+  // 이미지를 추가하면 썸네일을 보여주는 핸들러
   const showThumbnailHandler = () => {
+    // 첨부파일 정보
     const file = $fileTag.current.files[0];
 
-    if (!file) {
-      return;
-    }
-
+    // 첨부한 파일 이름을 얻은 후 확장자만 추출. (소문자로 일괄 변경)
     const fileExt = file.name.slice(file.name.indexOf('.') + 1).toLowerCase();
 
     if (
       fileExt !== 'jpg' &&
       fileExt !== 'png' &&
-      fileExt !== 'jpeg' &&
+      fileExt !== 'jepg' &&
       fileExt !== 'gif'
     ) {
-      alert('이미지 파일(jpg,png,jpeg,gif)만 등록이 가능합니다!');
+      alert('(이미지 파일(jpg, png, jpeg, gif)만 등록이 가능합니다.');
+
+      // 형식이 맞지 않는 파일을 첨부했다면, input의 상태도 원래대로 돌려놓아야 한다.
+      // 그렇지 않으면 잘못된 파일을 input 태그가 여전히 기어하게 됨 -> 서버요청 시 에러 유발!
       $fileTag.current.value = '';
       return;
     }
@@ -320,205 +309,153 @@ export const Join = () => {
   };
 
   return (
-    <div className="join-page">
-      <div className="div">
-        <div className="overlap-group">
-          <div className="group">
-            <div className="div-sign-container">
-              <form>
-                <div className="input">
-                  <div className="text-wrapper">
-                    <Link to="/login">
-                      <button type="button" className="cancleButton">
-                        CANCLE
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-                <div className="div-wrapper">
-                  <div className="text-wrapper-2">
-                    <button
-                      type="submit"
-                      onClick={joinButtonClickHandler}
-                      className="joinsubmit"
-                    >
-                      JOIN
-                    </button>
-                  </div>
-                </div>
+    <div className="signup-container">
+      <div className="signup-box">
+        <h1 className="signup-title">회원가입</h1>
+        <form className="signup-form" noValidate>
+          <div className="input-group">
+            <label htmlFor="email" className="input-label">
+              이메일
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="input-field"
+              placeholder="이메일을 입력하세요"
+              onChange={emailCheckHandler}
+            />
+            <span style={correct.email ? { color: 'green' } : { color: 'red' }}>
+              {message.email}
+            </span>
+          </div>
+          <div className="input-group">
+            <label htmlFor="nickname" className="input-label">
+              닉네임
+            </label>
+            <input
+              type="text"
+              id="nickname"
+              className="input-field"
+              placeholder="아이디를 입력하세요"
+              onChange={idCheckHandler}
+            />
+            <span
+              style={correct.nickname ? { color: 'green' } : { color: 'red' }}
+            >
+              {message.nickname}
+            </span>
+          </div>
+          <div className="input-group">
+            <label htmlFor="password" className="input-label">
+              비밀번호
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="input-field"
+              placeholder="비밀번호를 입력하세요"
+              onChange={passwordHandler}
+            />
+            <span
+              style={correct.password ? { color: 'green' } : { color: 'red' }}
+            >
+              {message.password}
+            </span>
+          </div>
+          <div className="input-group">
+            <label htmlFor="confirmPassword" className="input-label">
+              비밀번호 확인
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="input-field"
+              placeholder="비밀번호를 다시 입력하세요"
+              onChange={pwCheckHandler}
+            />
+            <span
+              style={
+                correct.passwordCheck ? { color: 'green' } : { color: 'red' }
+              }
+            >
+              {message.passwordCheck}
+            </span>
+          </div>
+          <div className="input-group">
+            <label htmlFor="name" className="input-label">
+              이름
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="input-field"
+              placeholder="이름을 입력하세요"
+              onChange={nameHandler}
+            />
+            <span
+              style={correct.userName ? { color: 'green' } : { color: 'red' }}
+            >
+              {message.userName}
+            </span>
+          </div>
 
-                <Grid item xs={12}>
-                  <div
-                    className="thumbnail-box"
-                    onClick={() => $fileTag.current.click()}
-                  >
-                    <img
-                      src={imgFile || beerImage}
-                      alt="profile"
-                      width={400}
-                      height={190}
-                    />
-                    <label
-                      className="signup-img-label"
-                      htmlFor="profile-img"
-                    ></label>
-                  </div>
-
-                  <input
-                    id="profile-img"
-                    type="file"
-                    style={{ display: 'none' }}
-                    accept="image/*"
-                    ref={$fileTag}
-                    onChange={showThumbnailHandler}
-                  />
-                </Grid>
-
-                <div className="div-placeholder-wrapper">
-                  <div className="div-placeholder">
-                    <div className="text-wrapper-3">
-                      <input
-                        className="inputText"
-                        type="text"
-                        placeholder="ENTER YOUR ADDRESS"
-                        onChange={addressHandler}
-                      ></input>
-                      <div className="addressCheckMessage">
-                        <span
-                          style={
-                            correct.address
-                              ? { color: 'green' }
-                              : { color: 'red' }
-                          }
-                        >
-                          {message.address}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="input-2">
-                  <div className="div-placeholder">
-                    <div className="text-wrapper-3">
-                      <input
-                        className="inputText"
-                        type="text"
-                        placeholder="ENTER YOUR NICKNAME"
-                        onChange={nameHandler}
-                      ></input>
-                      <div className="nameCheckMessage">
-                        <span
-                          style={
-                            correct.userName
-                              ? { color: 'green' }
-                              : { color: 'red' }
-                          }
-                        >
-                          {message.userName}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="input-4">
-                  <div className="div-placeholder">
-                    <div className="text-wrapper-4">
-                      <input
-                        className="inputText"
-                        type="password"
-                        placeholder="ENTER YOUR PASSWORD"
-                        onChange={passwordHandler}
-                      ></input>
-                      <div className="passwordMessage">
-                        <span
-                          style={
-                            correct.password
-                              ? { color: 'green' }
-                              : { color: 'red' }
-                          }
-                        >
-                          {message.password}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="input-3">
-                  <div className="div-placeholder">
-                    <div className="text-wrapper-4">
-                      <input
-                        className="inputText"
-                        type="password"
-                        placeholder="ENTER YOUR PASSWORD(CHECK)"
-                        id="password-check"
-                        onChange={pwCheckHandler}
-                      ></input>
-                      <div className="passwordCheckMessage">
-                        <span
-                          id="check-span"
-                          style={
-                            correct.passwordCheck
-                              ? { color: 'green' }
-                              : { color: 'red' }
-                          }
-                        >
-                          {message.passwordCheck}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="input-5">
-                  <div className="div-placeholder">
-                    <div className="text-wrapper-4">
-                      <input
-                        className="inputText"
-                        type="text"
-                        placeholder="ENTER YOUR PHONE NUMBER"
-                        onChange={phoneNumberHandler}
-                      ></input>
-                      <div className="phoneNumberMessage">
-                        <span
-                          style={
-                            correct.phoneNumber
-                              ? { color: 'green' }
-                              : { color: 'red' }
-                          }
-                        >
-                          {message.phoneNumber}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="input-7">
-                  <div className="text-wrapper-6">
-                    <input
-                      className="inputTextEmail"
-                      type="text"
-                      placeholder="ENTER YOUR EMAIL"
-                      onChange={emailHandler}
-                    ></input>
-                    <div className="emailOverlap">
-                      <span
-                        style={
-                          correct.email ? { color: 'green' } : { color: 'red' }
-                        }
-                      >
-                        {message.email}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="join-header">JOIN</div>
-                <div className="heading"></div>
-              </form>
+          <div className="input-group">
+            <label htmlFor="phone" className="input-label">
+              휴대폰 번호
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              className="input-field"
+              placeholder="-을 제외한 숫자만 입력하세요"
+              maxLength={13}
+              onChange={phoneNumHandler}
+            />
+            <span
+              style={
+                correct.phoneNumber ? { color: 'green' } : { color: 'red' }
+              }
+            >
+              {message.phoneNumber}
+            </span>
+          </div>
+          <div className="input-group">
+            <div className="profile-container">
+              <div
+                className="profile-preview"
+                onClick={() => $fileTag.current.click()}
+              >
+                <img src={imgFile || addboard1} alt="프로필 이미지" />
+              </div>
+              <label
+                htmlFor="profileImage"
+                className="input-label profile-label"
+              >
+                프로필 사진 추가
+              </label>
+              <div className="profile-upload">
+                <input
+                  type="file"
+                  id="profileImage"
+                  className="input-file"
+                  accept="image/*"
+                  ref={$fileTag}
+                  onChange={showThumbnailHandler}
+                />
+              </div>
             </div>
           </div>
-        </div>
+          <button
+            type="submit"
+            className="signup-button"
+            onClick={joinButtonClickHandler}
+          >
+            가입하기
+          </button>
+        </form>
       </div>
     </div>
   );
 };
+
+export default Join;
