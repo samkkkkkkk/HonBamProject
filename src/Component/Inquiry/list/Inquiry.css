@@ -1,0 +1,125 @@
+.inquiry_backImg {
+  background-image: url(../../../assets/inquiry_page.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+}
+
+.inquiry_logo {
+  padding-top: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.inquiry_logo_icon {
+  color: #ffffff;
+  padding-left: 10px;
+}
+
+.inquiry {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.inquiry-title {
+  margin-bottom: 15px;
+  color: #000000;
+}
+
+.inquiry-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+}
+
+.inquiry-table th,
+.inquiry-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  color: #000000;
+  background-color: #f5f5f5;
+}
+
+.inquiry-table th {
+  background-color: #f2f2f2;
+}
+
+.inquiry-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.inquiry-create-link {
+  display: inline-block;
+  margin-top: 20px;
+  text-align: right;
+}
+
+.inquiry-create-button {
+  background-color: #cac7ff;
+  color: #000000;
+  border: none;
+  padding: 10px 15px; /* 버튼의 패딩 추가 */
+  text-decoration: none; /* 링크의 밑줄 제거 */
+  display: inline-block;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.inquiry-create-button:hover {
+  background-color: #a29efa;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 50px auto;
+
+  li {
+    word-wrap: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #cac7ff;
+    transition: all 0.3s;
+    width: 30px;
+    list-style: none;
+
+    &:hover,
+    &:active {
+      background-color: #a29efa;
+    }
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-last-child(1),
+    &:nth-last-child(2) {
+      a {
+        align-items: baseline;
+        font-size: 20px;
+      }
+    }
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-size: 12px;
+      color: #000000;
+    }
+  }
+}

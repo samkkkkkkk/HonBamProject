@@ -1,0 +1,169 @@
+/* 전체 프로필 페이지 컨테이너 (인스타그램 기준 너비 느낌) */
+.profilePage {
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 32px 16px 40px;
+  box-sizing: border-box;
+}
+
+/* 로딩 텍스트 */
+.loadingText {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 80px;
+  color: #c0b3b3;
+}
+
+/* 상단 프로필 영역 */
+.profileHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+/* 아바타 영역: 인스타그램처럼 중앙 정렬 */
+.avatarWrapper {
+  flex: 0 0 170px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 프로필 이미지 (동그란 아바타) */
+.profileAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #dbdbdb;
+}
+
+/* 프로필 이미지가 없을 때 플레이스홀더 */
+.profileAvatarPlaceholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid #dbdbdb;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileAvatarInitial {
+  font-size: 40px;
+  font-weight: 600;
+  color: #999;
+}
+
+/* 닉네임/통계/소개 영역 */
+.profileMeta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 첫 줄: 닉네임 + 버튼들 (지금은 닉네임만) */
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+/* 닉네임 (아이디 느낌) */
+.nickname {
+  font-size: 24px;
+  font-weight: 500;
+  color: #e6d8d8;
+}
+
+/* 통계 (게시물 / 팔로워 / 팔로잉) 라인 */
+.stats {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.statItem {
+  font-size: 14px;
+  color: #f3e0e0;
+}
+
+.statNumber {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.statLabel {
+  font-weight: 400;
+}
+
+/* 자기소개 영역 */
+.bio {
+  font-size: 14px;
+  color: #f3e0e0;
+  white-space: pre-wrap;
+}
+
+/* 게시글 영역 위 구분선 */
+.divider {
+  border: none;
+  border-top: 1px solid #dbdbdb;
+  margin: 32px 0 24px;
+}
+
+.followButton {
+  padding: 6px 16px;
+  border-radius: 4px;
+  border: 1px solid #3897f0;
+  background-color: #3897f0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.followButton:hover {
+  opacity: 0.9;
+}
+
+.followButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.followButtonFollowing {
+  background-color: transparent;
+  color: #e6d8d8;
+  border-color: #dbdbdb;
+}
+
+/* 반응형 (모바일에서 레이아웃 세로 정렬) */
+@media (max-width: 600px) {
+  .profileHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .avatarWrapper {
+    flex: none;
+    margin-bottom: 16px;
+  }
+
+  .profileMeta {
+    width: 100%;
+  }
+
+  .stats {
+    gap: 16px;
+  }
+
+  .nickname {
+    font-size: 20px;
+  }
+
+}

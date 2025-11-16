@@ -1,0 +1,149 @@
+/* 전체 컨테이너 스타일 */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  // background-color: #f5f5f5;
+}
+
+/* 로그인 박스 스타일 */
+.login-box {
+  width: 450px;
+  // height: 450px;  // ← 이 줄 제거
+  min-height: 450px; // 기본 높이는 유지하되 내용에 따라 늘어나게
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* 로그인 타이틀 */
+.login-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 입력 그룹 스타일 */
+.input-group {
+  margin-bottom: 20px;
+}
+
+/* 입력 필드 라벨 */
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* 입력 필드 */
+.input-field {
+  width: 100%;
+  padding: 12px 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 로그인 버튼 */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #032029;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #02141a;
+}
+
+/* 로그인 옵션 링크들 */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+// .login-options .naver-login {
+//   flex-basis: auto;   /* 한 줄 차지 */
+//   margin-top: 15px;
+//   text-align: center; /* 가운데 배치 */
+// }
+
+.login-options a {
+  font-size: 12px;
+  color: #666;
+  text-decoration: none;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
+  color: #03c75a;
+}
+
+
+/* 네이버 로그인 컨테이너 (박스 안에 포함) */
+.naver-login {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  margin-top: 20px;
+  width: 100%; /* 로그인 박스 안에서 꽉 차게 */
+}
+
+/* 네이버 로그인 버튼 */
+.naver-login button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* 네이버 로그인 로고 이미지 */
+.naver-login img {
+  width: 250px;   /* 고정 크기 */
+  height: 43px;   /* 비율 맞춤 */
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.kakao-login img:hover {
+  transform: scale(1.05);
+}
+
+/* 네이버 로그인 컨테이너 (박스 안에 포함) */
+.kakao-login {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  margin-top: 20px;
+  width: 100%; /* 로그인 박스 안에서 꽉 차게 */
+}
+
+/* 네이버 로그인 버튼 */
+.kakao-login button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.kakao-login img {
+  width: 250px;   /* 고정 크기 */
+  height: 43px;   /* 비율 맞춤 */
+  display: block;
+  // transition: transform 0.2s ease;
+}

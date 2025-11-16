@@ -1,0 +1,14 @@
+* {
+  zoom: 0.7;
+}
+
+.image-beer {
+  background-image: url('../assets/image-beer.png');
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 100px;
+  left: 0;
+  position: absolute;
+  top: 205px;
+  width: 100px;
+}

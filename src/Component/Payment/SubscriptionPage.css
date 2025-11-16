@@ -1,0 +1,40 @@
+.subscription-card {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  width: 200px;
+  height: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.subscription-card:hover {
+  transform: translateY(-10px);
+}
+
+.subscription-card h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.subscription-card p {
+  margin: 5px 0;
+}
+
+.subscription-card button {
+  position: absolute;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  bottom: 2%;
+  right: 30%;
+}
+
+.subscription-card button:hover {
+  background-color: #0056b3;
+}
