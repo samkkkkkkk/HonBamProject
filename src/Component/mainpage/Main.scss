@@ -177,6 +177,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
+
+  .swiper-wrapper {
+    pointer-events: none;      // 래퍼는 이벤트 안 받게
+  }
+
+  .swiper-slide,
+  .swiper-slide * {
+    pointer-events: auto;      // 슬라이드와 내부 요소는 다시 살리기
+  }
 }
 
 .shot-slide {
