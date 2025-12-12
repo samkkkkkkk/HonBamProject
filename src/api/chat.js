@@ -16,6 +16,22 @@ export const chatApi = {
     }
   },
 
+  // 채팅방 입장
+  joinRoom: async (roomUuid) => {
+    try {
+      const res = await apiClient.post(`${CHAT}/rooms/join`, null, {
+        params: { roomUuid },
+      });
+      return { success: true, data: res.data };
+    } catch (error) {
+      return {
+        success: false,
+        message:
+          error.response?.data?.message || '채팅방 입장 (join) 요청 실패',
+      };
+    }
+  },
+
   // 채팅방 생성
   createRoom: async (payload) => {
     try {
@@ -42,9 +58,9 @@ export const chatApi = {
   },
 
   // 특정 방에 사용자 초대
-  inviteUsers: async (roomId, targetUserIds) => {
+  inviteUsers: async (roomUuid, targetUserIds) => {
     try {
-      const res = await apiClient.post(`${CHAT}/rooms/${roomId}/invite`, {
+      const res = await apiClient.post(`${CHAT}/rooms/${roomUuid}/invite`, {
         targetUserIds,
       });
       return { success: true, data: res.data };
@@ -54,9 +70,9 @@ export const chatApi = {
   },
 
   // 오픈 채팅방 참가
-  joinOpenRoom: async (roomId) => {
+  joinOpenRoom: async (roomUuid) => {
     try {
-      const res = await apiClient.post(`${CHAT}/rooms/${roomId}/join`);
+      const res = await apiClient.post(`${CHAT}/rooms/${roomUuid}/join`);
       return { success: true, data: res.data };
     } catch (error) {
       return { success: false, message: '오픈방 참여 실패' };
@@ -79,11 +95,11 @@ export const chatApi = {
   },
 
   // 커서 기반 메시지 조회
-  getMessagesCursor: async (roomUuid, cursor = null, size = 30) => {
+  getMessagesCursor: async (roomUuid, cursorId = null, size = 30) => {
     try {
       const params = { roomUuid, size };
-      if (cursor) {
-        params.cursor = cursor;
+      if (cursorId) {
+        params.cursorId = cursorId;
       }
       const res = await apiClient.get(`${CHAT}/messages/cursor`, { params });
       return { success: true, data: res.data };

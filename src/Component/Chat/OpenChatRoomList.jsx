@@ -13,7 +13,7 @@ const OpenChatRoomList = ({ onJoinRoom }) => {
     <div className="openchat-list">
       {openRooms.map((room) => (
         <div
-          key={room.roomId}
+          key={room.roomUuid}
           className="openchat-item"
           onClick={() => onJoinRoom(room)}
         >
