@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL, USER } from '@/config/host-config';
+import { API_BASE_URL, AUTH, USER } from '@/config/host-config';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL || 'http://localhost:8181',
@@ -57,7 +57,7 @@ apiClient.interceptors.response.use(
 
       try {
         // refresh token으로 토큰 갱신 시도
-        await apiClient.post(`${USER}/refresh`);
+        await apiClient.post(`${AUTH}/refresh`);
         console.log('[Token Refresh] 토큰이 갱싱되었습니다.');
 
         // 원래 요청 재시도

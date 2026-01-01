@@ -1,5 +1,6 @@
 import apiClient from '@/config/axiosConfig';
 import { USER } from '@/config/host-config';
+import axios from 'axios';
 
 // 사용자 정보 관련 API
 export const userAPI = {
@@ -48,36 +49,7 @@ export const userAPI = {
   },
 
   getUserProfileImage: async () => {
-    try {
-      // 서버에서 직접 이미지를 내려줄 때(Blob)
-      const response = await apiClient.get(`${USER}/profile-image`, {
-        responseType: 'blob', // blob으로 받기
-      });
-      return {
-        success: true,
-        data: response.data,
-        headers: response.headers,
-        status: response.status,
-      };
-    } catch (error) {
-      // 서버에서 텍스트(URL)로 내려줄 때
-      if (
-        error.response &&
-        error.response.data &&
-        typeof error.response.data === 'string'
-      ) {
-        return {
-          success: true,
-          data: error.response.data,
-          headers: error.response.headers,
-          status: error.response.status,
-        };
-      }
-      return {
-        success: false,
-        message: error.response?.data?.message || '프로필 이미지 요청 실패',
-        status: error.response?.status,
-      };
-    }
+    const res = await apiClient.get(`${USER}/profile-image`);
+    return { success: true, data: res.data.profileUrl };
   },
 };

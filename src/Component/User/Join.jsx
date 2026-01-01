@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API_BASE_URL, USER } from '@/config/host-config';
 import { useNavigate } from 'react-router-dom';
 import addboard1 from '@/assets/addboard1.png';
+import { uploadApi } from '@/api/upload';
 
 const Join = () => {
   // 기본 요청 url
@@ -46,12 +47,6 @@ const Join = () => {
     });
   };
 
-  // 각각의 핸들러에 붙어 있는 디바운스 함수를 일괄적 처리
-  // useCallback: 함수의 메모이제이션을 위한 훅. (함수의 선언을 기억했다가 재사용하기 위한 훅)
-  // 상태값 변경에 의해 화면의 재 렌더링이 발생할 때, 컴포넌트의 함수들도 재 선언이 됩니다.
-  // useCallback으로 함수를 감싸 주시면 이전에 생성된 함수를 기억했다가 재 사용하도록 하기 때문에
-  // 불필요한 함수 선언을 방지할 수 있습니다. (성능 최적화에 도움이 됩니다.)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateState = useCallback(
     debounce((key, inputValue, msg, flag) => {
       console.log('debounce called! key: ', key);
@@ -234,47 +229,63 @@ const Join = () => {
     return true;
   };
 
-  const fetchSignupPost = async () => {
-    /*
-      기존 회원가입은 단순히 텍스트를 객체로 모은 후 JSON으로 변환해서 요청 보내주면 끝.
-      이제는 프로필 이미지가 추가됨. -> 파일 첨부 요청은 multipart/form-data로 전송해야 함.
-      FormData 객체를 활용해서 Content-type을 multipart/form-data로 지정한 후 전송하려 함.
-      그럼 JSON 데이터는? Content-type이 application/json이다. 
-      Content-type이 서로 다른 데이터를 한번에 FormData에 감싸서 보내면 
-      415(unsupported Media Type) 에러가 발생함.
-      그렇다면 -> JSON을 Blob으로 바꿔서 함께 보내자. 
-      Blob은 이미지, 사운드, 비디오 같은 멀티미디어 파일을 바이트 단위로 쪼개어 파일 손상을 방지하게 
-      해 주는 타입. -> multipart/form-data에도 허용됨.
-    */
+  const uploadProfileIfExists = async () => {
+    const file = $fileTag.current?.files?.[0];
+    if (!file) {
+      return null;
+    }
 
-    const userJsonBlob = new Blob([JSON.stringify(userValue)], {
-      type: 'application/json',
+    const { uploadUrl, fileKey } = await uploadApi.getProfilePresigned({
+      fileName: file.name,
+      contentType: file.type,
     });
 
-    // 이미지 파일과 회원정보 JSON을 하나로 묶어서 보낼 예정.
-    // formData 객체를 활용해서.
-    const userFormData = new FormData();
-    userFormData.append('user', userJsonBlob);
-    userFormData.append('profileImage', $fileTag.current.files[0]);
+    await uploadApi.putToS3({ uploadUrl, file });
 
+    return fileKey;
+  };
+
+  const fetchSignupPost = async () => {
     try {
-      const res = await axios.post(REQUEST_URI, userFormData);
-      console.log(res.data);
+      let fileKey = null;
+
+      if ($fileTag.current?.files?.length > 0) {
+        fileKey = await uploadProfileIfExists();
+      }
+
+      const payload = {
+        ...userValue,
+        profileImageKey: fileKey,
+      };
+
+      const res = await axios.post(REQUEST_URI, payload, {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      });
+
+      console.log('회원가입 요청');
+
       alert(`${res.data.userName}님 회원가입에 성공 하셨습니다.`);
     } catch (error) {
-      alert(error.response.data);
+      alert(error?.response?.data || '회원가입 실패');
+      throw error;
     }
   };
 
   // 회원가입 버튼 클릭 이벤트
-  const joinButtonClickHandler = (e) => {
+  const joinButtonClickHandler = async (e) => {
     e.preventDefault();
 
-    if (isValid()) {
-      fetchSignupPost();
-      redirection('/login');
-    } else {
+    if (!isValid()) {
       alert('회원 정보를 정확히 입력해주세요.');
+      return;
+    }
+
+    try {
+      await fetchSignupPost();
+      redirection('/login');
+    } catch {
+      console.log('회원가입 실패');
     }
   };
 
@@ -289,7 +300,7 @@ const Join = () => {
     if (
       fileExt !== 'jpg' &&
       fileExt !== 'png' &&
-      fileExt !== 'jepg' &&
+      fileExt !== 'jpeg' &&
       fileExt !== 'gif'
     ) {
       alert('(이미지 파일(jpg, png, jpeg, gif)만 등록이 가능합니다.');

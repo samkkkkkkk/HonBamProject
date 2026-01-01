@@ -1,10 +1,10 @@
 import apiClient from '@/config/axiosConfig';
-import { USER } from '@/config/host-config';
+import { AUTH } from '@/config/host-config';
 
 export const authApi = {
   login: async (email, password) => {
     try {
-      const response = await apiClient.post(`${USER}/login`, {
+      const response = await apiClient.post(`${AUTH}/login`, {
         email,
         password,
       });
@@ -19,7 +19,7 @@ export const authApi = {
 
   logout: async () => {
     try {
-      await apiClient.post(`${USER}/logout`);
+      await apiClient.post(`${AUTH}/logout`);
       return { success: true };
     } catch (error) {
       console.error('Logout error:', error);
@@ -29,7 +29,7 @@ export const authApi = {
 
   verifyAuth: async () => {
     try {
-      const response = await apiClient.get(`${USER}/verify`);
+      const response = await apiClient.get(`${AUTH}/verify`);
       return { success: true, data: response.data };
     } catch (error) {
       return { success: false };
@@ -38,7 +38,7 @@ export const authApi = {
 
   refreshToken: async () => {
     try {
-      const response = await apiClient.post(`${USER}/refresh`);
+      const response = await apiClient.post(`${AUTH}/refresh`);
       return { success: true, data: response.data };
     } catch (error) {
       return { success: false };
