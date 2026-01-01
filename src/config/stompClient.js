@@ -134,7 +134,7 @@ export const unsubscribeFromRoom = (roomUuid) => {
  * @param {string} roomUuid - 대상 채팅방 UUID
  * @param {string} content - 메시지 내용
  */
-export const sendMessage = (roomUuid, content) => {
+export const sendMessage = (payload) => {
   if (!stompClient || !stompClient.connected) {
     console.warn('[STOMP] 메시지 전송 실패 - 연결 안됨');
     return;
@@ -142,7 +142,7 @@ export const sendMessage = (roomUuid, content) => {
 
   stompClient.publish({
     destination: '/app/chat/send',
-    body: JSON.stringify({ roomUuid, content }),
+    body: JSON.stringify(payload),
   });
 };
 

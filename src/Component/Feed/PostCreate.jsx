@@ -4,12 +4,15 @@ import { postApi } from '@/api/post';
 import apiClient from '@/config/axiosConfig';
 import styles from './PostCreate.module.css';
 import { useNavigate } from 'react-router-dom';
+import { uploadToS3 } from '@/util/s3Uploader';
 
 const PostCreate = ({ onCreated }) => {
   const [content, setContent] = useState('');
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [uploadedFileInfo, setUploadedFileInfo] = useState(null);
 
   const handleFileChange = async (e) => {
     const files = Array.from(e.target.files);
@@ -39,6 +42,24 @@ const PostCreate = ({ onCreated }) => {
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleFileSelect = async (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    const preview = URL.createObjectURL(file);
+    setPreviewUrl(preview);
+
+    // S3 업로드만 수행
+    const { fileKey, fileName, fileSize } = await uploadToS3(file);
+
+    setUploadedFileInfo({ fileKey, fileName, fileSize });
+
+    // 같은 파일 재선택할 수 있도록 초기화
+    e.target.value = '';
   };
 
   const handleSubmit = async (e) => {

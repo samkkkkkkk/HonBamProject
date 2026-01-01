@@ -126,12 +126,24 @@ export const ChatProvider = ({ children }) => {
       return;
     }
 
+    // 서버에 입장 요청
+    const joinRes = await chatApi.joinRoom(room.roomUuid);
+    if (!joinRes.success) {
+      console.error('[ChatContext] 방 입장 실패: ', joinRes.message);
+      return;
+    }
+
+    const { lastReadMessageId } = joinRes.data || {};
+
     // 기존 구독 해제
     if (currentRoom?.roomUuid) {
       unsubscribeFromRoom(currentRoom.roomUuid);
     }
 
-    setCurrentRoom(room);
+    setCurrentRoom((prev) => ({
+      ...room,
+      lastReadMessageId: lastReadMessageId ?? room.lastReadMessageId ?? null,
+    }));
     setMessages([]);
 
     // 새 구독 등록
@@ -214,11 +226,25 @@ export const ChatProvider = ({ children }) => {
   };
 
   // === 메시지 전송 ===
-  const sendChatMessage = (content) => {
+  const sendChatMessage = ({
+    content,
+    fileKey,
+    fileName,
+    fileSize,
+    messageType,
+  }) => {
     if (!currentRoom?.roomUuid) {
       return;
     }
-    sendMessage(currentRoom.roomUuid, content);
+    const payload = {
+      roomUuid: currentRoom.roomUuid,
+      messageType,
+      content: content || null,
+      fileKey: fileKey || null,
+      fileName: fileName || null,
+      fileSize: fileSize || null,
+    };
+    sendMessage(payload);
 
     setMessages((prev) => [
       ...prev,
@@ -227,7 +253,11 @@ export const ChatProvider = ({ children }) => {
         roomUuid: currentRoom.roomUuid,
         senderId: userId,
         senderName: nickname || userName || '나',
+        messageType,
         content,
+        fileUrl: null,
+        fileName,
+        fileSize,
         timestamp: new Date().toISOString(),
         unReadUserCount: null,
       },
