@@ -11,16 +11,16 @@ const PostList = ({ posts = [], setPosts, showDelete = true }) => {
   }
 
   const handleLike = async (postId) => {
-    const post = posts.find((p) => p.id === postId);
+    const post = posts.find((p) => p.postId === postId);
     const res = await likeApi.toggle({
       postId,
-      liked: post.likeByMe,
+      liked: post.liked,
     });
 
     setPosts((prev) =>
       prev.map((p) =>
-        p.id === postId
-          ? { ...p, likeByMe: res.liked, likeCount: res.likeCount }
+        p.postId === postId
+          ? { ...p, liked: res.liked, likeCount: res.likeCount }
           : p
       )
     );

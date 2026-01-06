@@ -9,15 +9,15 @@ import { useNavigate } from 'react-router-dom';
 const PostCard = ({ post, onLike, onDelete, showDelete }) => {
   const navigate = useNavigate();
   const {
-    id,
+    postId,
     authorId,
     authorProfileUrl,
     authorNickname,
     content,
-    imageUrls = [],
+    medias = [],
     likeCount,
     commentCount,
-    likeByMe,
+    liked,
     createdAt,
   } = post;
 
@@ -33,7 +33,10 @@ const PostCard = ({ post, onLike, onDelete, showDelete }) => {
       <div className={styles.header}>
         <div className={styles.user}>
           <div className={styles.avatar}>
-            <img src={`${API_BASE_URL}/${authorProfileUrl}`} />
+            <img
+              src={authorProfileUrl || '/assets/default_profile.png'}
+              alt="profile"
+            />
           </div>
           <div>
             <p
@@ -49,7 +52,7 @@ const PostCard = ({ post, onLike, onDelete, showDelete }) => {
           </div>
         </div>
         {showDelete && (
-          <button className={styles.delete} onClick={() => onDelete(id)}>
+          <button className={styles.delete} onClick={() => onDelete(postId)}>
             삭제
           </button>
         )}
@@ -57,20 +60,20 @@ const PostCard = ({ post, onLike, onDelete, showDelete }) => {
 
       <p className={styles.content}>{content}</p>
 
-      {imageUrls.length > 0 && (
+      {medias.length > 0 && (
         <div className={styles.images}>
-          {imageUrls.map((url, i) => (
-            <img key={i} src={url} alt={`img-${i}`} />
+          {medias.map((media, i) => (
+            <img key={media.mediaId} src={media.url} alt={`img-${i}`} />
           ))}
         </div>
       )}
 
       <div className={styles.footer}>
         <button
-          className={`${styles.likeBtn} ${likeByMe ? styles.liked : ''}`}
-          onClick={() => onLike(id)}
+          className={`${styles.likeBtn} ${liked ? styles.liked : ''}`}
+          onClick={() => onLike(postId)}
         >
-          {likeByMe ? <FaHeart /> : <FaRegHeart />} <span>{likeCount}</span>
+          {liked ? <FaHeart /> : <FaRegHeart />} <span>{likeCount}</span>
         </button>
 
         <div className={styles.comment}>
