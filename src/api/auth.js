@@ -5,6 +5,7 @@ export const authApi = {
   login: async (email, password) => {
     try {
       const response = await apiClient.post(`${AUTH}/login`, {
+        skipAuthRefresh: true,
         email,
         password,
       });
@@ -19,7 +20,7 @@ export const authApi = {
 
   logout: async () => {
     try {
-      await apiClient.post(`${AUTH}/logout`);
+      await apiClient.post(`${AUTH}/logout`, { skipAuthRefresh: true });
       return { success: true };
     } catch (error) {
       console.error('Logout error:', error);
@@ -28,12 +29,10 @@ export const authApi = {
   },
 
   verifyAuth: async () => {
-    try {
-      const response = await apiClient.get(`${AUTH}/verify`);
-      return { success: true, data: response.data };
-    } catch (error) {
-      return { success: false };
-    }
+    const res = await apiClient.get(`${AUTH}/verify`, {
+      skipAuthRefresh: true,
+    });
+    return res.data;
   },
 
   refreshToken: async () => {

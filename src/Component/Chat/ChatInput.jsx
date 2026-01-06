@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ChatInput.css';
 import { uploadToS3 } from '@/util/s3Uploader';
+import apiClient from '@/config/axiosConfig';
 
 function detectMessageType(fileName) {
   const ext = fileName.split('.').pop().toLowerCase();
@@ -32,9 +33,22 @@ const ChatInput = ({ onSend }) => {
     setPreviewUrl(preview);
 
     // S3 업로드만 수행
-    const { fileKey, fileName, fileSize } = await uploadToS3(file);
+    const [uploaded] = await uploadToS3(file, 'CHAT');
 
-    setUploadedFileInfo({ fileKey, fileName, fileSize });
+    // 2) /complete로 Media 확정 → mediaId 받기
+    const completeBody = [{ fileKey: uploaded.fileKey, purpose: 'CHAT' }];
+    const completeRes = await apiClient.post(
+      '/api/upload/complete',
+      completeBody
+    );
+    const [media] = completeRes.data;
+
+    setUploadedFileInfo({
+      mediaIds: [media.mediaId],
+      fileName: uploaded.fileName,
+      fileSize: uploaded.fileSize,
+      contentType: uploaded.contentType,
+    });
 
     // 같은 파일 재선택할 수 있도록 초기화
     e.target.value = '';
@@ -49,9 +63,22 @@ const ChatInput = ({ onSend }) => {
       onSend({
         messageType: type,
         content: content || null,
-        fileKey: uploadedFileInfo.fileKey,
-        fileName: uploadedFileInfo.fileName,
-        fileSize: uploadedFileInfo.fileSize,
+        mediaIds: uploadedFileInfo.mediaIds,
+        files: [
+          {
+            mediaId: uploadedFileInfo.mediaIds[0],
+            fileUrl: previewUrl, // 로컬 미리보기 URL
+            fileName: uploadedFileInfo.fileName,
+            contentType:
+              detectMessageType(uploadedFileInfo.fileName) === 'IMAGE'
+                ? 'image/*'
+                : detectMessageType(uploadedFileInfo.fileName) === 'VIDEO'
+                  ? 'video/*'
+                  : 'application/octet-stream',
+            fileSize: uploadedFileInfo.fileSize,
+            isLocalPreview: true,
+          },
+        ],
       });
 
       // 초기화

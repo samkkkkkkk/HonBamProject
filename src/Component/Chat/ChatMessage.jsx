@@ -17,54 +17,63 @@ const ChatMessage = ({ message, currentUserId }) => {
   };
 
   const time = formatTime(message.timestamp);
+  // B 방식: files 기반
+  const file = message.files?.[0] ?? null;
+
+  const renderFile = () => {
+    if (!file) {
+      return null;
+    }
+
+    const ct = file.contentType || '';
+    const isImage = ct.startsWith('image/');
+    const isVideo = ct.startsWith('video/');
+
+    if (isImage) {
+      return (
+        <div className="bubble media-bubble">
+          <img
+            src={file.fileUrl}
+            alt={file.fileName || 'image'}
+            className="chat-image"
+          />
+          {message.content && <div className="caption">{message.content}</div>}
+        </div>
+      );
+    }
+
+    if (isVideo) {
+      return (
+        <div className="bubble media-bubble">
+          <video src={file.fileUrl} controls className="chat-video" />
+          {message.content && <div className="caption">{message.content}</div>}
+        </div>
+      );
+    }
+
+    return (
+      <div className="bubble file-bubble">
+        <a href={file.fileUrl} download>
+          {file.fileName || '파일'}
+        </a>
+        {message.content && <div className="caption">{message.content}</div>}
+      </div>
+    );
+  };
 
   const renderContent = () => {
-    switch (message.messageType) {
-      case 'TEXT':
-        return <div className="bubble">{message.content}</div>;
-
-      case 'IMAGE':
-        return (
-          <div className="bubble media-bubble">
-            <img
-              src={message.fileUrl}
-              alt={message.fileName}
-              className="chat-image"
-            />
-            {message.content && (
-              <div className="caption">{message.content}</div>
-            )}
-          </div>
-        );
-
-      case 'VIDEO':
-        return (
-          <div className="bubble media-bubble">
-            <video src={message.fileUrl} controls className="chat-video" />
-            {message.content && (
-              <div className="caption">{message.content}</div>
-            )}
-          </div>
-        );
-
-      case 'FILE':
-        return (
-          <div className="bubble file-bubble">
-            <a href={message.fileUrl} download>
-              📄 {message.fileName}
-            </a>
-            {message.content && (
-              <div className="caption">{message.content}</div>
-            )}
-          </div>
-        );
-
-      case 'SYSTEM':
-        return <div className="system-message">{message.content}</div>;
-
-      default:
-        return <div className="bubble">{message.content}</div>;
+    // 시스템 메시지는 그대로
+    if (message.messageType === 'SYSTEM') {
+      return <div className="system-message">{message.content}</div>;
     }
+
+    // 첨부가 있으면 첨부 우선 렌더링(텍스트는 캡션)
+    if (file) {
+      return renderFile();
+    }
+
+    // 첨부 없으면 텍스트 렌더링
+    return <div className="bubble">{message.content}</div>;
   };
 
   return (

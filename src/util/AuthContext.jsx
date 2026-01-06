@@ -18,14 +18,8 @@ export const AuthContextProvider = ({ children }) => {
   const checkAuthState = async () => {
     setIsLoading(true);
     try {
-      const result = await authApi.verifyAuth();
-      if (result.success) {
-        setIsLoggedIn(true);
-        // 필요 시 사용자 정보도 이어서 로드
-        // const me = await userAPI.getUserInfo(); setUser(me.data);
-      } else {
-        setIsLoggedIn(false);
-      }
+      const { authenticated } = await authApi.verifyAuth();
+      setIsLoggedIn(authenticated);
     } catch (error) {
       console.error('Auth status check failed:', error);
       setIsLoggedIn(false);
@@ -76,8 +70,6 @@ export const AuthContextProvider = ({ children }) => {
     } catch (error) {
       console.error('Logout failed:', error);
     } finally {
-      document.cookie = 'access_token=; Max-Age=0; path=/;';
-      document.cookie = 'refresh_token=; Max-Age=0; path=/;';
       setIsLoggedIn(false);
     }
   };

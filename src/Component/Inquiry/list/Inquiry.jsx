@@ -43,11 +43,9 @@ const Inquiry = () => {
             setPostList([]);
           }
         } else {
-          console.error('제발 나오지마: ', response.status);
           setPostList([]);
         }
       } catch (error) {
-        console.error('너는 왜 나와: ', error);
         setPostList([]);
       }
     };

@@ -1,5 +1,5 @@
 // src/components/Feed/PostCreate.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { postApi } from '@/api/post';
 import apiClient from '@/config/axiosConfig';
 import styles from './PostCreate.module.css';
@@ -11,8 +11,16 @@ const PostCreate = ({ onCreated }) => {
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [previews, setPreviews] = useState([]);
+  const [mediaIds, setMediaIds] = useState([]);
   const [uploadedFileInfo, setUploadedFileInfo] = useState(null);
+
+  // 언마운트/삭제 시 로컬 URL 정리
+  useEffect(() => {
+    return () => {
+      previews.forEach((p) => URL.revokeObjectURL(p.url));
+    };
+  }, [previews]);
 
   const handleFileChange = async (e) => {
     const files = Array.from(e.target.files);
@@ -22,44 +30,41 @@ const PostCreate = ({ onCreated }) => {
 
     setUploading(true);
     try {
-      const uploadedUrls = [];
+      // 미리보기 만들기
+      const nextPreviews = files.map((f) => ({
+        url: URL.createObjectURL(f),
+        name: f.name,
+      }));
+      setPreviews((prev) => [...prev, ...nextPreviews]);
 
-      for (const file of files) {
-        const formData = new FormData();
-        formData.append('file', file);
+      // presigned -> S3 PUT
+      const uploaded = await uploadToS3(files, 'POST');
 
-        const res = await apiClient.post('/api/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+      // /complete로 Media 확정 → mediaId 받기
+      const completeBody = uploaded.map((u) => ({
+        fileKey: u.fileKey,
+        purpose: 'POST',
+      }));
 
-        uploadedUrls.push(res.data.url);
-      }
-
-      setImages((prev) => [...prev, ...uploadedUrls]);
+      const completeRes = await apiClient.post(
+        '/api/upload/complete',
+        completeBody
+      );
+      const medias = completeRes.data;
+      setMediaIds((prev) => [...prev, ...medias.map((m) => m.mediaId)]);
     } catch (err) {
       console.error('이미지 업로드 실패:', err);
       alert('이미지 업로드 실패');
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
-  const handleFileSelect = async (e) => {
-    const file = e.target.files[0];
-    if (!file) {
-      return;
-    }
-
-    const preview = URL.createObjectURL(file);
-    setPreviewUrl(preview);
-
-    // S3 업로드만 수행
-    const { fileKey, fileName, fileSize } = await uploadToS3(file);
-
-    setUploadedFileInfo({ fileKey, fileName, fileSize });
-
-    // 같은 파일 재선택할 수 있도록 초기화
-    e.target.value = '';
+  const handleRemoveAll = () => {
+    previews.forEach((p) => URL.revokeObjectURL(p.url));
+    setPreviews([]);
+    setMediaIds([]);
   };
 
   const handleSubmit = async (e) => {
@@ -71,12 +76,11 @@ const PostCreate = ({ onCreated }) => {
     try {
       const res = await postApi.createPost({
         content,
-        imageUrls: images,
+        mediaIds,
       });
 
-      const createdPost = res;
       setContent('');
-      setImages([]);
+      handleRemoveAll();
 
       // 피드 갱신
       onCreated?.();
@@ -96,10 +100,10 @@ const PostCreate = ({ onCreated }) => {
         className={styles.textarea}
       />
 
-      {images.length > 0 && (
+      {previews.length > 0 && (
         <div className={styles.preview}>
-          {images.map((url, idx) => (
-            <img key={idx} src={url} alt={`img-${idx}`} />
+          {previews.map((p, idx) => (
+            <img key={`${p.name}-${idx}`} src={p.url} alt={p.name} />
           ))}
         </div>
       )}
@@ -113,8 +117,19 @@ const PostCreate = ({ onCreated }) => {
             multiple
             style={{ display: 'none' }}
             onChange={handleFileChange}
+            disabled={uploading}
           />
         </label>
+
+        {previews.length > 0 && (
+          <button
+            type="button"
+            onClick={handleRemoveAll}
+            className={styles.submitBtn}
+          >
+            첨부 취소
+          </button>
+        )}
         <button type="submit" disabled={uploading} className={styles.submitBtn}>
           {uploading ? '업로드 중...' : '게시'}
         </button>

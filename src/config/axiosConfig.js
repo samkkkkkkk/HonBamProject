@@ -33,6 +33,10 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    if (originalRequest?.skipAuthRefresh) {
+      return Promise.reject(error);
+    }
+
     console.error(
       `[API Response Error] ${error.response?.status} ${originalRequest.url}`
     );
