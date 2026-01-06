@@ -1,0 +1,243 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.main-container {
+  width: 100%;
+  height: 100vh;
+}
+.main-back {
+  background-image: url(../../assets/komarov-egor-yp20k9i_mZ4-unsplash.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+}
+
+.main-intro {
+  width: 60%;
+  position: relative;
+  left: 15%;
+  top: 25%;
+  width: 60%;
+
+  .main-honbam {
+    color: #ffffff;
+    font-family: 'Inter-Bold', Helvetica;
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .honbam-intro {
+    color: #ffffff;
+    font-family: 'Inter-Bold', Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.main2-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #15161a;
+  position: relative;
+}
+
+.main2-title {
+  color: #ffffff;
+  font-family: 'Inter-Black', Helvetica;
+  font-size: 50px;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 60%;
+}
+
+.main2-intro {
+  color: #ffffff;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 20px;
+}
+
+.main2-box {
+  position: relative;
+  top: 30%;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  margin-bottom: 10%;
+  justify-content: center;
+}
+
+.main-second-img {
+  position: relative;
+  top: 40%;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  margin-bottom: 10%;
+  justify-content: center;
+}
+
+.main-hotplace {
+  color: #ffffff;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 20px;
+  position: relative;
+  top: 25%;
+  justify-content: center;
+  display: flex;
+
+  .main-hot-intro {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+  }
+}
+
+.main-recipe-route a,
+.main-hot-intro a {
+  text-decoration: none;
+  color: #ffffff;
+}
+.main-hot-img {
+  width: 20%;
+  height: 60%;
+}
+
+.main-recipe-main {
+  height: 100vh;
+  width: 100%;
+  background-image: url(../../assets/ambitious-studio-rick-barrett-QjUY7auDzUQ-unsplash.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .main-recipe {
+    position: relative;
+    top: 15%;
+    left: 10%;
+    color: #ffffff;
+    font-family: 'Inter-Black', Helvetica;
+    font-size: 40px;
+    font-weight: 900;
+    width: 60%;
+    .main-recipe-intro {
+      color: #ffffff;
+      font-family: 'Inter-Medium', Helvetica;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+}
+
+.main-recipe-detail {
+  position: relative;
+  left: 70%;
+  top: 42%;
+  width: 30%;
+}
+
+.main-recipe-route {
+  height: 50%;
+  width: 60%;
+  color: #ffffff;
+  font-family: 'Inter-Medium', Helvetica;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.main-shot {
+  background-color: #15161a;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+  --swiper-navigation-color: #ffffff;
+
+  .main3-title {
+    color: #ffffff;
+    font-family: 'Inter-Black', Helvetica;
+    font-size: 50px;
+    position: relative;
+    top: 15%;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.main-shot-swip {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .swiper-wrapper {
+    pointer-events: none;      // 래퍼는 이벤트 안 받게
+  }
+
+  .swiper-slide,
+  .swiper-slide * {
+    pointer-events: auto;      // 슬라이드와 내부 요소는 다시 살리기
+  }
+}
+
+.shot-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shot-image {
+  width: 100%;
+  height: 500px;
+  object-fit: fill;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shot-image:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.shot-meta {
+  margin-top: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.shot-nickname {
+  font-weight: 600;
+}
+.main-title-intro {
+  width: 50%;
+}
+
+.search {
+  position: relative;
+  left: 10px;
+  top: 3px;
+}
+
+.recipe {
+  position: relative;
+  top: 2px;
+  left: 5px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  --swiper-navigation-color: rgba(245, 247, 229, 0.986);}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px;       // 화살표 아이콘 크기
+}

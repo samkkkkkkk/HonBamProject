@@ -1,0 +1,147 @@
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+/* 내가 보낸 메시지 → 오른쪽 */
+.chat-message.mine {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* 상대방 메시지 → 왼쪽 */
+.chat-message.other {
+  align-items: flex-start;
+}
+
+/* 닉네임 */
+.sender-name {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 3px;
+  margin-left: 8px;
+}
+
+/* 말풍선 감싸는 컨테이너 */
+.bubble-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 75%;
+}
+
+/* 말풍선 */
+.bubble {
+  padding: 8px 12px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* 상대방 말풍선 */
+.chat-message.other .bubble {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-top-left-radius: 0;
+  color: #000;
+}
+
+/* 내 말풍선 */
+.chat-message.mine .bubble {
+  background: #ffeb3b; /* 카카오톡 노란색 느낌 */
+  border-top-right-radius: 0;
+  color: #000;
+}
+
+/* 시간 & 읽음 표시 */
+.meta {
+  margin-top: 3px;
+  font-size: 11px;
+  color: #888;
+  display: flex;
+  gap: 5px;
+}
+
+/* 내 메시지는 오른쪽 정렬 */
+.chat-message.mine .meta {
+  justify-content: flex-end;
+}
+
+/* 안 읽음 표시 */
+.unread {
+  color: #f66;
+}
+
+/* 이미지 및 비디오 공통 컨테이너 */
+.media-bubble {
+  padding: 5px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+/* 이미지 메시지 */
+.chat-image {
+  max-width: 240px;
+  border-radius: 10px;
+  display: block;
+}
+
+/* 비디오 메시지 */
+.chat-video {
+  max-width: 240px;
+  border-radius: 10px;
+  display: block;
+}
+
+/* 파일 메시지 */
+.file-bubble {
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.file-bubble a {
+  text-decoration: none;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+.caption {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #333;
+}
+
+/* 시스템 메시지 */
+.system-message {
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.preview-container {
+  width: 120px;
+  margin-right: 12px;
+  position: relative;
+}
+
+.preview-image {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.preview-remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
