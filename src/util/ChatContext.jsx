@@ -160,6 +160,11 @@ export const ChatProvider = ({ children }) => {
             );
             if (idx !== -1) {
               const updated = [...prev];
+              const prevMsg = prev[idx];
+              const prevFile = prevMsg?.files?.[0];
+              if (prevFile?.isLocalPreview && prevFile.fileUrl) {
+                URL.revokeObjectURL(prevFile.fileUrl);
+              }
               updated[idx] = msg;
               return updated;
             }
@@ -226,13 +231,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   // === 메시지 전송 ===
-  const sendChatMessage = ({
-    content,
-    fileKey,
-    fileName,
-    fileSize,
-    messageType,
-  }) => {
+  const sendChatMessage = ({ content, messageType, mediaIds, files }) => {
     if (!currentRoom?.roomUuid) {
       return;
     }
@@ -240,9 +239,7 @@ export const ChatProvider = ({ children }) => {
       roomUuid: currentRoom.roomUuid,
       messageType,
       content: content || null,
-      fileKey: fileKey || null,
-      fileName: fileName || null,
-      fileSize: fileSize || null,
+      mediaIds: mediaIds || [],
     };
     sendMessage(payload);
 
@@ -255,9 +252,15 @@ export const ChatProvider = ({ children }) => {
         senderName: nickname || userName || '나',
         messageType,
         content,
-        fileUrl: null,
-        fileName,
-        fileSize,
+        files: files?.length
+          ? files
+          : (mediaIds || []).map((id) => ({
+              mediaId: id,
+              fileUrl: null,
+              fileName: null,
+              contentType: null,
+              fileSize: null,
+            })),
         timestamp: new Date().toISOString(),
         unReadUserCount: null,
       },

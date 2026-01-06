@@ -1,31 +1,53 @@
 import apiClient from '@/config/axiosConfig';
+export async function getPresignedUrls(files, mediaPurpose) {
+  const body = files.map((f) => ({
+    fileName: f.name,
+    contentType: f.type,
+    mediaPurpose,
+  }));
 
-export async function uploadToS3(file) {
-  // 1) 서버에서 presigned url 생성 요청
-  const presignRes = await apiClient.get('/api/upload/presigned', {
-    params: {
-      fileName: file.name,
-      contentType: file.type,
-    },
-  });
+  const presignRes = await apiClient.post('/api/upload/presigned', body);
+  return presignRes.data;
+}
 
-  const { uploadUrl, fileName } = presignRes.data;
+export async function uploadToS3(filesOrFile, mediaPurpose) {
+  const files = Array.isArray(filesOrFile) ? filesOrFile : [filesOrFile];
 
-  // 2) S3에 직접 PUT 업로드
-  const putRes = await fetch(uploadUrl, {
-    method: 'PUT',
-    headers: { 'Content-Type': file.type },
-    body: file,
-  });
-
-  if (!putRes.ok) {
-    throw new Error('S3 업로드 실패');
+  if (!mediaPurpose) {
+    throw new Error('mediaPurpose가 필요합니다.');
   }
 
-  // 3) 성공 후 fileUrl을 반환 → 클라이언트 렌더링 / 메시지 전송에 사용
-  return {
-    fileKey: fileName,
-    fileName: file.name,
-    fileSize: file.size,
-  };
+  const presignedList = await getPresignedUrls(files, mediaPurpose);
+
+  // 요청/응답 개수 불일치 방어
+  if (!Array.isArray(presignedList) || presignedList.length !== files.length) {
+    throw new Error('presigned 응답 개수 불일치');
+  }
+
+  const results = await Promise.all(
+    presignedList.map(async (p, idx) => {
+      const file = files[idx];
+      const contentType = file.type || 'application/octet-stream';
+
+      const putRes = await fetch(p.uploadUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': contentType },
+        body: file,
+      });
+
+      if (!putRes.ok) {
+        throw new Error(`S3 업로드 실패: ${file.name} (${putRes.status})`);
+      }
+
+      return {
+        fileKey: p.fileKey,
+        fileName: file.name,
+        fileSize: file.size,
+        contentType,
+        mediaPurpose,
+      };
+    })
+  );
+
+  return results;
 }
